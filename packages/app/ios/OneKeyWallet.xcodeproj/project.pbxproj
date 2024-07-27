@@ -512,13 +512,13 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = BVJ3FU5H2K;
+						DevelopmentTeam = B8RDJF7YUS;
 						LastSwiftMigration = 1250;
 						ProvisioningStyle = Manual;
 					};
 					A293098B29AC7A8A0014F5EF = {
 						CreatedOnToolsVersion = 14.2;
-						DevelopmentTeam = BVJ3FU5H2K;
+						DevelopmentTeam = B8RDJF7YUS;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -766,8 +766,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: OneKey Dev (YWGM987DN8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2022032401;
-				DEVELOPMENT_TEAM = BVJ3FU5H2K;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BVJ3FU5H2K;
+				DEVELOPMENT_TEAM = B8RDJF7YUS;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = B8RDJF7YUS;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				"EXCLUDED_SOURCE_FILE_NAMES[sdk=iphonesimulator*]" = (
@@ -829,7 +829,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2022032401;
-				DEVELOPMENT_TEAM = BVJ3FU5H2K;
+				DEVELOPMENT_TEAM = B8RDJF7YUS;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -980,7 +980,7 @@
 				CURRENT_PROJECT_VERSION = 2022032401;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BVJ3FU5H2K;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = B8RDJF7YUS;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;
@@ -1016,7 +1016,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2022032401;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = BVJ3FU5H2K;
+				DEVELOPMENT_TEAM = B8RDJF7YUS;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ServiceExtension/Info.plist;

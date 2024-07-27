@@ -1,9 +1,9 @@
 {
   "expo": {
-    "scheme": "onekey-wallet",
-    "name": "OneKey Wallet",
-    "slug": "OneKey-Wallet",
-    "owner": "onekeyhq",
+    "scheme": "novai-npay-wallet",
+    "name": "NPay",
+    "slug": "novai-npay-wallet",
+    "owner": "fansfans",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,8 +18,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "so.onekey.wallet",
-      "associatedDomains": ["applinks:app.onekey.so"]
+      "bundleIdentifier": "novai-npay-wallet"
     },
     "android": {
       "googleServicesFile": "./android/app/google-services.json",
@@ -33,7 +32,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "640c3c38-d160-48c3-b4a3-40d4fc8aeb08"
+        "projectId": "42b9017d-d384-49e1-9f67-31113ad2a250"
       }
     }
   }

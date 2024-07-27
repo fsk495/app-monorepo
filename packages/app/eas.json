@@ -97,11 +97,11 @@
   "submit": {
     "production-store": {
       "ios": {
-        "ascAppId": "1609559473",
-        "appleTeamId": "BVJ3FU5H2K",
-        "ascApiKeyIssuerId": "bbc48cd1-0ffa-4bb7-994d-fab6a5eff73e",
-        "ascApiKeyId": "KAV3B73J8L",
-        "ascApiKeyPath": "./AscApiKey.p8"
+        "ascAppId": "6581480380",
+        "appleTeamId": "B8RDJF7YUS",
+        "ascApiKeyIssuerId": "60dafc36-bfb3-474f-93a6-73173433c7b1",
+        "ascApiKeyId": "2BKW2P3W9M",
+        "ascApiKeyPath": "./AuthKey_2BKW2P3W9M.p8"
       },
       "android": {
         "serviceAccountKeyPath": "./pc-api-8644398719570171123-0-dcae07e2afab.json",

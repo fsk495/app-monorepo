@@ -69,7 +69,7 @@ module.exports = {
     'entitlementsLoginHelper': 'entitlements.mas.loginhelper.plist',
     'provisioningProfile': 'OneKey_Mac_App.provisionprofile',
     'extendInfo': {
-      'ElectronTeamID': 'BVJ3FU5H2K',
+      'ElectronTeamID': 'B8RDJF7YUS',
       'ITSAppUsesNonExemptEncryption': false,
     },
   },

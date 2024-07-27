@@ -6,7 +6,7 @@
     <true/>
     <key>com.apple.security.application-groups</key>
     <array>
-      <string>BVJ3FU5H2K.so.onekey.wallet</string>
+      <string>B8RDJF7YUS.so.onekey.wallet</string>
     </array>
     <key>com.apple.security.network.client</key>
     <true/>
