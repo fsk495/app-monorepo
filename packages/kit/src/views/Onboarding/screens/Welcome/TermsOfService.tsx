@@ -15,6 +15,7 @@ const TermsOfService: FC = () => {
   const privacyPolicyUrl = useHelpLink({ path: 'articles/360002003315' });
 
   const onOpenUserAgreement = useCallback(() => {
+    return;
     openUrl(
       userAgreementUrl,
       intl.formatMessage({
@@ -24,6 +25,7 @@ const TermsOfService: FC = () => {
   }, [intl, userAgreementUrl]);
 
   const onOpenPrivacyPolicy = useCallback(() => {
+    return
     openUrl(
       privacyPolicyUrl,
       intl.formatMessage({

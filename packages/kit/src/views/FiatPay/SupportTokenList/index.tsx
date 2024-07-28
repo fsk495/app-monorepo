@@ -29,7 +29,7 @@ import {
   useNavigation,
   useTokenBalance,
 } from '../../../hooks';
-import { openUrlExternal } from '../../../utils/openUrl';
+import { openUrlExternal,openDapp } from '../../../utils/openUrl';
 import { useFiatPayTokens } from '../../ManageTokens/hooks';
 
 import type { FiatPayModalRoutesParams } from '../../../routes/Root/Modal/FiatPay';
@@ -117,8 +117,11 @@ const TokenListCell: FC<ListCellProps> = ({
       address,
       networkId,
     });
+    console.log('goToWebView  ',signedUrl);
     if (signedUrl.length > 0) {
-      openUrlExternal(signedUrl);
+      // 打开本地浏览器
+      // openUrlExternal(signedUrl);
+      openDapp(signedUrl);
       navigation?.goBack();
     }
   }, [address, networkId, serviceFiatPay, token.address, type, navigation]);

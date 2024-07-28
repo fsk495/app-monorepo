@@ -41,7 +41,8 @@ function MainScreen() {
       <NetworkAccountSelectorEffectsSingleton />
       <WalletSelectorEffectsSingleton />
       {/* TODO Waiting notification component */}
-      <UpdateAlert />
+      {/* 检测是否是最新版 */}
+      {/* <UpdateAlert /> */}
     </Box>
   );
 }

@@ -1,3 +1,10 @@
+
+import { useAddressBook } from '../../AddressBook/Listing';
+
+
+import { useActiveWalletAccount } from '@onekeyhq/kit/src/hooks';
+
+
 import { useNavigation } from '@react-navigation/core';
 import { useIntl } from 'react-intl';
 
@@ -14,7 +21,6 @@ import type { HomeRoutesParams } from '@onekeyhq/kit/src/routes/types';
 import supportedNFC from '@onekeyhq/shared/src/detector/nfc';
 
 import useAppNavigation from '../../../hooks/useAppNavigation';
-import { useAddressBook } from '../../AddressBook/Listing';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
 import { MigrationEnable } from '../../Onboarding/screens/Migration/util';
 
@@ -32,6 +38,14 @@ export const DefaultSection = () => {
   const appNavigation = useAppNavigation();
   const { themeVariant } = useTheme();
 
+  const { wallet, network, accountId, networkId, walletId } =
+    useActiveWalletAccount();
+
+  console.log("DefaultSection   wallet  ",wallet);
+  console.log("DefaultSection   network  ",network);
+  console.log("DefaultSection   accountId  ",accountId);
+  console.log("DefaultSection   networkId  ",networkId);
+  console.log("DefaultSection   walletId  ",walletId);
   const { showAddressBookModal } = useAddressBook();
   return (
     <Box w="full" mb="6">
@@ -41,7 +55,7 @@ export const DefaultSection = () => {
         borderWidth={themeVariant === 'light' ? 1 : undefined}
         borderColor="border-subdued"
       >
-        {MigrationEnable && (
+        {/* {MigrationEnable && (
           <>
             <Pressable
               display="flex"
@@ -72,9 +86,9 @@ export const DefaultSection = () => {
             </Pressable>
             <Divider />
           </>
-        )}
+        )} */}
 
-        {supportedNFC && (
+        {/* {supportedNFC && (
           <>
             <Pressable
               display="flex"
@@ -104,8 +118,8 @@ export const DefaultSection = () => {
             </Pressable>
             <Divider />
           </>
-        )}
-        <Pressable
+        )} */}
+        {/* <Pressable
           display="flex"
           flexDirection="row"
           justifyContent="space-between"
@@ -127,6 +141,41 @@ export const DefaultSection = () => {
           >
             {intl.formatMessage({
               id: 'form__onekey_keytag',
+            })}
+          </Text>
+          <Box>
+            <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
+          </Box>
+        </Pressable> */}
+        <Pressable
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          py={4}
+          px={{ base: 4, md: 6 }}
+          onPress={() => {
+            // navigation.replace(EOnboardingRoutes.ShowRecoveryPhrase, route.params);
+            navigationRoot.navigate(RootRoutes.Onboarding, {
+              screen: EOnboardingRoutes.VerifyPassword,
+              params: { 
+                walletId,
+              }
+            });
+            // navigationRoot.navigate(RootRoutes.Onboarding, {
+            //   screen: EOnboardingRoutes.VerifyPassword,
+            // });
+          }}
+        >
+          <Icon name="KeytagOutline" />
+          <Text
+            typography={{ sm: 'Body1Strong', md: 'Body2Strong' }}
+            flex="1"
+            numberOfLines={1}
+            mx={3}
+          >
+            {intl.formatMessage({
+              id: 'title__recovery_phrase',
             })}
           </Text>
           <Box>
@@ -164,3 +213,4 @@ export const DefaultSection = () => {
     </Box>
   );
 };
+

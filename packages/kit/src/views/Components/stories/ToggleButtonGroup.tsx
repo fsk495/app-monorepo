@@ -6,7 +6,7 @@ import type { ToggleButtonProps } from '@onekeyhq/components/src/ToggleButtonGro
 const buttons: ToggleButtonProps[] = [
   {
     text: 'BTC',
-    leftImage: 'https://onekey-asset.com/assets/btc/btc.png',
+    leftImage: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/btc/btc.png',
   },
   {
     text: '',
@@ -14,7 +14,7 @@ const buttons: ToggleButtonProps[] = [
   },
   {
     text: '',
-    leftImage: 'https://onekey-asset.com/assets/bsc/bsc.png',
+    leftImage: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/bsc/bsc.png',
   },
   {
     text: 'polygon',

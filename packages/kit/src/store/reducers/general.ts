@@ -11,7 +11,7 @@ export type GeneralInitialState = {
 
 const initialState: GeneralInitialState = {
   activeAccountId: null,
-  activeNetworkId: null,
+  activeNetworkId: 'evm--7256',
   activeWalletId: null,
   activeExternalWalletName: null,
 } as const;

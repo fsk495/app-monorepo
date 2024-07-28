@@ -11,7 +11,7 @@ const serverPresetNetworks = [
     'id': 'ada--0',
     'impl': 'ada',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/ada/ada.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/ada/ada.png',
     'name': 'Cardano',
     'rpcURLs': [
       {
@@ -52,12 +52,12 @@ const serverPresetNetworks = [
     'code': 'algo',
     'decimals': 6,
     'extensions': {
-      'position': 15,
+      'position': 16,
     },
     'id': 'algo--4160',
     'impl': 'algo',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/algo/algo.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/algo/algo.png',
     'name': 'Algorand',
     'rpcURLs': [
       {
@@ -109,7 +109,7 @@ const serverPresetNetworks = [
     'id': 'algo--1',
     'impl': 'algo',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/talgo/talgo.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/talgo/talgo.png',
     'name': 'Algorand Testnet',
     'rpcURLs': [
       {
@@ -147,7 +147,7 @@ const serverPresetNetworks = [
     'id': 'aptos--1',
     'impl': 'aptos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/apt/apt.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/apt/apt.png',
     'name': 'Aptos',
     'rpcURLs': [
       {
@@ -203,7 +203,7 @@ const serverPresetNetworks = [
     'id': 'aptos--2',
     'impl': 'aptos',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tapt/tapt.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tapt/tapt.png',
     'name': 'Aptos Testnet',
     'rpcURLs': [
       {
@@ -302,7 +302,7 @@ const serverPresetNetworks = [
     'id': 'btc--0',
     'impl': 'btc',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/btc/btc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/btc/btc.png',
     'name': 'Bitcoin',
     'rpcURLs': [
       {
@@ -346,12 +346,12 @@ const serverPresetNetworks = [
     'code': 'cfx',
     'decimals': 18,
     'extensions': {
-      'position': 14,
+      'position': 15,
     },
     'id': 'cfx--1029',
     'impl': 'cfx',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/cfx/cfx.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cfx/cfx.png',
     'name': 'Conflux',
     'rpcURLs': [
       {
@@ -396,7 +396,7 @@ const serverPresetNetworks = [
     'id': 'cfx--1',
     'impl': 'cfx',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tcfx/tcfx.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tcfx/tcfx.png',
     'name': 'Conflux Testnet',
     'rpcURLs': [
       {
@@ -444,7 +444,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--akashnet-2',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/akash/akash.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/akash/akash.png',
     'name': 'Akash',
     'rpcURLs': [
       {
@@ -509,7 +509,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--cosmoshub-4',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/cosmos/cosmos.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cosmos/cosmos.png',
     'name': 'Cosmos',
     'rpcURLs': [
       {
@@ -576,7 +576,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--crypto-org-chain-mainnet-1',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/cryptoorg/cryptoorg.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cryptoorg/cryptoorg.png',
     'name': 'Crypto.org',
     'rpcURLs': [
       {
@@ -646,7 +646,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--fetchhub-4',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/fetch/fetch.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/fetch/fetch.png',
     'name': 'Fetch.ai',
     'rpcURLs': [
       {
@@ -713,7 +713,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--juno-1',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/juno/juno.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/juno/juno.png',
     'name': 'Juno',
     'rpcURLs': [
       {
@@ -780,7 +780,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--osmosis-1',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/osmosis/osmosis.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/osmosis/osmosis.png',
     'name': 'Osmosis',
     'rpcURLs': [
       {
@@ -851,7 +851,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--celestia',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/celestia/celestia.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/celestia/celestia.png',
     'name': 'Celestia',
     'rpcURLs': [
       {
@@ -914,7 +914,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--phoenix-1',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/terra2/terra2.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/terra2/terra2.png',
     'name': 'Terra',
     'rpcURLs': [
       {
@@ -969,7 +969,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--secret-4',
     'impl': 'cosmos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/secret/secret.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/secret/secret.png',
     'name': 'Secret Network',
     'rpcURLs': [
       {
@@ -1037,7 +1037,7 @@ const serverPresetNetworks = [
     'id': 'cosmos--theta-testnet-001',
     'impl': 'cosmos',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/cosmos/cosmos.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cosmos/cosmos.png',
     'name': 'Cosmos Testnet',
     'rpcURLs': [
       {
@@ -1093,7 +1093,7 @@ const serverPresetNetworks = [
     'impl': 'cosmos',
     'isTestnet': true,
     'logoURI':
-      'https://onekey-asset.com/assets/babylontestnet/babylontestnet.png',
+      'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/babylontestnet/babylontestnet.png',
     'name': 'Babylon Testnet',
     'rpcURLs': [
       {
@@ -1131,7 +1131,7 @@ const serverPresetNetworks = [
     'id': 'doge--0',
     'impl': 'doge',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/doge/doge.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/doge/doge.png',
     'name': 'Dogecoin',
     'rpcURLs': [
       {
@@ -1188,7 +1188,7 @@ const serverPresetNetworks = [
     'id': 'dot--astar',
     'impl': 'dot',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/astar/astar.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/astar/astar.png',
     'name': 'Astar',
     'rpcURLs': [
       {
@@ -1251,7 +1251,7 @@ const serverPresetNetworks = [
     'id': 'dot--kusama',
     'impl': 'dot',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/kusama/kusama.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/kusama/kusama.png',
     'name': 'Kusama',
     'rpcURLs': [
       {
@@ -1314,7 +1314,7 @@ const serverPresetNetworks = [
     'id': 'dot--polkadot',
     'impl': 'dot',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/polkadot/polkadot.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/polkadot/polkadot.png',
     'name': 'Polkadot',
     'rpcURLs': [
       {
@@ -1374,7 +1374,7 @@ const serverPresetNetworks = [
     'id': 'dot--westend',
     'impl': 'dot',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/polkadot/polkadot.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/polkadot/polkadot.png',
     'name': 'Polkadot Westend',
     'rpcURLs': [
       {
@@ -1423,7 +1423,7 @@ const serverPresetNetworks = [
     'id': 'dot--manta',
     'impl': 'dot',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/manta/manta.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/manta/manta.png',
     'name': 'Manta Atlantic',
     'rpcURLs': [
       {
@@ -1466,7 +1466,7 @@ const serverPresetNetworks = [
     'id': 'dot--joystream',
     'impl': 'dot',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/joystream/joystream.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/joystream/joystream.png',
     'name': 'Joystream',
     'rpcURLs': [
       {
@@ -1521,7 +1521,7 @@ const serverPresetNetworks = [
     'id': 'evm--1',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/eth/eth.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/eth/eth.png',
     'name': 'Ethereum',
     'rpcURLs': [
       {
@@ -1628,7 +1628,7 @@ const serverPresetNetworks = [
         '0x7f5c764cbc14f9669b88837ca1490cca17c31607',
         '0xda10009cbd5d07dd0cecc66161fc93d7c9000da1',
       ],
-      'position': 11,
+      'position': 12,
       'providerOptions': {
         'contract_gaslimit_multiplier': 1,
       },
@@ -1636,7 +1636,7 @@ const serverPresetNetworks = [
     'id': 'evm--10',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/optimism/optimism.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/optimism/optimism.png',
     'name': 'Optimism',
     'rpcURLs': [
       {
@@ -1691,12 +1691,12 @@ const serverPresetNetworks = [
         '0xddafbb505ad214d7b80b1f830fccc89b60fb7a83',
         '0x3f56e0c36d275367b8c502090edf38289b3dea0d',
       ],
-      'position': 12,
+      'position': 14,
     },
     'id': 'evm--100',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/xdai/gno.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/xdai/gno.png',
     'name': 'Gnosis Chain',
     'rpcURLs': [
       {
@@ -1763,7 +1763,7 @@ const serverPresetNetworks = [
     'id': 'evm--10001',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/ethw/ethw.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/ethw/ethw.png',
     'name': 'EthereumPoW',
     'rpcURLs': [
       {
@@ -1808,7 +1808,7 @@ const serverPresetNetworks = [
     'id': 'evm--1030',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/cfx/cfx.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cfx/cfx.png',
     'name': 'Conflux eSpace',
     'rpcURLs': [
       {
@@ -1850,12 +1850,12 @@ const serverPresetNetworks = [
         '0xa71edc38d189767582c38a3145b5873052c3e47a',
         '0x0298c2b32eae4da002a15f36fdf7615bea3da047',
       ],
-      'position': 9,
+      'position': 10,
     },
     'id': 'evm--128',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/heco/heco.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/heco/heco.png',
     'name': 'Huobi ECO Chain',
     'rpcURLs': [
       {
@@ -1904,7 +1904,7 @@ const serverPresetNetworks = [
     'id': 'evm--1313161554',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/aurora/aurora.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/aurora/aurora.png',
     'name': 'Aurora',
     'rpcURLs': [
       {
@@ -1957,7 +1957,7 @@ const serverPresetNetworks = [
         '0x9fb83c0635de2e815fd1c21b3a292277540c2e8d',
         '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
       ],
-      'position': 5,
+      'position': 6,
       'providerOptions': {
         'EIP1559Enabled': true,
         'preferMetamask': true,
@@ -1966,7 +1966,7 @@ const serverPresetNetworks = [
     'id': 'evm--137',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/polygon/polygon.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/polygon/polygon.png',
     'name': 'Polygon',
     'rpcURLs': [
       {
@@ -2049,7 +2049,7 @@ const serverPresetNetworks = [
     'id': 'evm--25',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/cronos/cronos.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/cronos/cronos.png',
     'name': 'Cronos',
     'rpcURLs': [
       {
@@ -2117,12 +2117,12 @@ const serverPresetNetworks = [
         '0x04068da6c83afcfa0e13ba15a6696662335d5b75',
         '0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e',
       ],
-      'position': 6,
+      'position': 7,
     },
     'id': 'evm--250',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/fantom/fantom.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/fantom/fantom.png',
     'name': 'Fantom',
     'rpcURLs': [
       {
@@ -2190,7 +2190,7 @@ const serverPresetNetworks = [
     'id': 'evm--288',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/boba/boba_1.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/boba/boba_1.png',
     'name': 'Boba Network',
     'rpcURLs': [
       {
@@ -2253,7 +2253,7 @@ const serverPresetNetworks = [
     'id': 'evm--314',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/fil/fil.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/fil/fil.png',
     'name': 'Filecoin FEVM',
     'rpcURLs': [
       {
@@ -2301,7 +2301,7 @@ const serverPresetNetworks = [
     'id': 'evm--324',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/zksyncera/zksyncera.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/zksyncera/zksyncera.png',
     'name': 'zkSync Era Mainnet',
     'rpcURLs': [
       {
@@ -2344,12 +2344,12 @@ const serverPresetNetworks = [
         '0xff970a61a04b1ca14834a43f5de4533ebddb5cc8',
         '0xda10009cbd5d07dd0cecc66161fc93d7c9000da1',
       ],
-      'position': 7,
+      'position': 8,
     },
     'id': 'evm--42161',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/arbitrum/arbitrum.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/arbitrum/arbitrum.png',
     'name': 'Arbitrum',
     'rpcURLs': [
       {
@@ -2404,12 +2404,12 @@ const serverPresetNetworks = [
     'decimals': 18,
     'extensions': {
       'defaultStableTokens': ['0xb9c8f0d3254007ee4b98970b94544e473cd610ec'],
-      'position': 16,
+      'position': 17,
     },
     'id': 'evm--42220',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/celo/celo.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/celo/celo.png',
     'name': 'Celo',
     'rpcURLs': [
       {
@@ -2469,12 +2469,12 @@ const serverPresetNetworks = [
         '0x19860ccb0a68fd4213ab9d8266f7bbf05a8dde98',
         '0xd586e7f844cea2f87f50152665bcbc2c279d8d70',
       ],
-      'position': 8,
+      'position': 9,
     },
     'id': 'evm--43114',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/avalanche/avalanche.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/avalanche/avalanche.png',
     'name': 'Avalanche',
     'rpcURLs': [
       {
@@ -2535,7 +2535,7 @@ const serverPresetNetworks = [
     'id': 'evm--513100',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/etf/etf.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/etf/etf.png',
     'name': 'Ethereum Fair',
     'rpcURLs': [
       {
@@ -2589,7 +2589,7 @@ const serverPresetNetworks = [
     'id': 'evm--56',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/bsc/bsc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/bsc/bsc.png',
     'name': 'BNB Smart Chain',
     'rpcURLs': [
       {
@@ -2687,13 +2687,66 @@ const serverPresetNetworks = [
   },
   {
     'balance2FeeDecimals': 9,
+    'chainId': '7256',
+    'code': 'novai',
+    'decimals': 18,
+    'extensions': {
+      'defaultStableTokens': [
+        '0xE623AED6b4dAf04553B8fEe8daECCF1cfaAece37',
+      ],
+      'position': 5,
+    },
+    'id': 'evm--7256',
+    'impl': 'evm',
+    'isTestnet': false,
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/novai/novai.png',
+    'name': 'Novai Chain',
+    'rpcURLs': [
+      {
+        'url': 'https://rpc.novaichain.com',
+      },
+    ],
+    'shortcode': 'novai',
+    'shortname': 'NOVAI',
+    'symbol': 'NOVAI',
+    'feeMeta': {
+      'code': 'novai',
+      'decimals': 18,
+      'symbol': 'Gwei',
+    },
+    'defaultEnabled': true,
+    'priceConfigs': [
+      // {
+      //   'channel': 'coingecko',
+      //   'native': 'binancecoin',
+      //   'platform': 'binance-smart-chain',
+      // },
+      {
+        'channel': 'yahoo',
+        'native': 'BNB',
+      },
+    ],
+    'explorers': [
+      {
+        'address': 'https://scan.novaichain.com/novaichain',
+        'block': 'https://scan.novaichain.com/novaichain',
+        'name': 'https://scan.novaichain.com/',
+        'transaction': 'https://scan.novaichain.com/novaichain',
+      },
+    ],
+    'status': 'LISTED',
+    'createdAt': '2023-05-31T00:29:24.951Z',
+    'updatedAt': '2023-05-31T00:29:24.951Z',
+  },
+  {
+    'balance2FeeDecimals': 9,
     'chainId': '61',
     'code': 'etc',
     'decimals': 18,
     'id': 'evm--61',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/etc/etc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/etc/etc.png',
     'name': 'Ethereum Classic',
     'rpcURLs': [
       {
@@ -2741,12 +2794,12 @@ const serverPresetNetworks = [
         '0xc946daf81b08146b1c7a8da2a851ddf2b3eaaf85',
         '0x332730a4f6e03d9c55829435f10360e13cfa41ff',
       ],
-      'position': 10,
+      'position': 11,
     },
     'id': 'evm--66',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/okt/okt.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/okt/okt.png',
     'name': 'OKX Chain',
     'rpcURLs': [
       {
@@ -2792,7 +2845,7 @@ const serverPresetNetworks = [
     'id': 'evm--73927',
     'impl': 'evm',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/mvn/mvm.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/mvn/mvm.png',
     'name': 'Mixin Virtual Machine',
     'rpcURLs': [
       {
@@ -2832,7 +2885,7 @@ const serverPresetNetworks = [
     'id': 'evm--256',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/theco/theco.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/theco/theco.png',
     'name': 'Huobi ECO Chain Testnet',
     'rpcURLs': [
       {
@@ -2869,7 +2922,7 @@ const serverPresetNetworks = [
     'id': 'evm--28',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/boba/boba.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/boba/boba.png',
     'name': 'Boba Network Rinkeby Testnet',
     'rpcURLs': [
       {
@@ -2908,7 +2961,7 @@ const serverPresetNetworks = [
     'id': 'evm--421611',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tarbitrum/tarbitrum.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tarbitrum/tarbitrum.png',
     'name': 'Arbitrum Rinkeby',
     'rpcURLs': [
       {
@@ -2945,7 +2998,7 @@ const serverPresetNetworks = [
     'id': 'evm--421613',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tarbitrum/tarbitrum.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tarbitrum/tarbitrum.png',
     'name': 'Arbitrum Goerli',
     'rpcURLs': [
       {
@@ -2994,7 +3047,7 @@ const serverPresetNetworks = [
     'id': 'evm--5',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/teth/teth.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/teth/teth.png',
     'name': 'Ethereum Görli (Goerli) Testnet',
     'rpcURLs': [
       {
@@ -3037,7 +3090,7 @@ const serverPresetNetworks = [
     'id': 'evm--534353',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tscroll/tscroll.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tscroll/tscroll.png',
     'name': 'Scroll Alpha Testnet',
     'rpcURLs': [
       {
@@ -3074,7 +3127,7 @@ const serverPresetNetworks = [
     'id': 'evm--65',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tokt/tokt.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tokt/tokt.png',
     'name': 'OKX Chain Testnet',
     'rpcURLs': [
       {
@@ -3116,7 +3169,7 @@ const serverPresetNetworks = [
     'id': 'evm--69',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/toptimism/toptimism.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/toptimism/toptimism.png',
     'name': 'Optimistic Kovan Testnet',
     'rpcURLs': [
       {
@@ -3159,7 +3212,7 @@ const serverPresetNetworks = [
     'id': 'evm--80001',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tpolygon/tpolygon.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tpolygon/tpolygon.png',
     'name': 'Polygon Mumbai Testnet',
     'rpcURLs': [
       {
@@ -3205,7 +3258,7 @@ const serverPresetNetworks = [
     'id': 'evm--97',
     'impl': 'evm',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tbsc/tbsc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tbsc/tbsc.png',
     'name': 'Binance Smart Chain Testnet',
     'rpcURLs': [
       {
@@ -3242,7 +3295,7 @@ const serverPresetNetworks = [
     'id': 'fil--314',
     'impl': 'fil',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/fil/fil.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/fil/fil.png',
     'name': 'Filecoin',
     'rpcURLs': [
       {
@@ -3288,7 +3341,7 @@ const serverPresetNetworks = [
     'id': 'fil--314159',
     'impl': 'fil',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/fil/fil.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/fil/fil.png',
     'name': 'Filecoin Calibration Testnet',
     'rpcURLs': [
       {
@@ -3327,7 +3380,7 @@ const serverPresetNetworks = [
     'id': 'kaspa--kaspa',
     'impl': 'kaspa',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/kaspa/kas.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/kaspa/kas.png',
     'name': 'Kaspa',
     'rpcURLs': [
       {
@@ -3422,7 +3475,7 @@ const serverPresetNetworks = [
     'id': 'near--0',
     'impl': 'near',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/near/near.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/near/near.png',
     'name': 'Near',
     'rpcURLs': [
       {
@@ -3478,7 +3531,7 @@ const serverPresetNetworks = [
     'id': 'near--1',
     'impl': 'near',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/near/near.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/near/near.png',
     'name': 'Near Testnet',
     'rpcURLs': [
       {
@@ -3521,12 +3574,12 @@ const serverPresetNetworks = [
         'FR87nWEUxVgerFGhZM8Y4AggKGLnaXswr1Pd8wZ4kZcp',
         '9mWRABuz2x6koTPCWiCPM49WUbcrNqGTHBV9T9k7y1o7',
       ],
-      'position': 4,
+      'position': 5,
     },
     'id': 'sol--101',
     'impl': 'sol',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/sol/sol.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/sol/sol.png',
     'name': 'Solana',
     'rpcURLs': [
       {
@@ -3579,7 +3632,7 @@ const serverPresetNetworks = [
     'id': 'sol--103',
     'impl': 'sol',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tsol/tsol.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tsol/tsol.png',
     'name': 'Solana Devnet',
     'rpcURLs': [
       {
@@ -3616,12 +3669,12 @@ const serverPresetNetworks = [
     'code': 'stc',
     'decimals': 9,
     'extensions': {
-      'position': 13,
+      'position': 14,
     },
     'id': 'stc--1',
     'impl': 'stc',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/stc/stc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/stc/stc.png',
     'name': 'Starcoin',
     'rpcURLs': [
       {
@@ -3667,7 +3720,7 @@ const serverPresetNetworks = [
     'id': 'stc--251',
     'impl': 'stc',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tstc/tstc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tstc/tstc.png',
     'name': 'Starcoin barnard',
     'rpcURLs': [
       {
@@ -3705,7 +3758,7 @@ const serverPresetNetworks = [
     'id': 'sui--mainnet',
     'impl': 'sui',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/sui/sui.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/sui/sui.png',
     'name': 'SUI',
     'rpcURLs': [
       {
@@ -3753,7 +3806,7 @@ const serverPresetNetworks = [
     'id': 'sui--8888883',
     'impl': 'sui',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/sui/sui.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/sui/sui.png',
     'name': 'SUI TestNet',
     'rpcURLs': [
       {
@@ -3795,7 +3848,7 @@ const serverPresetNetworks = [
     'id': 'tbtc--0',
     'impl': 'tbtc',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/tbtc/tbtc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tbtc/tbtc.png',
     'name': 'Bitcoin Testnet',
     'rpcURLs': [
       {
@@ -3832,7 +3885,7 @@ const serverPresetNetworks = [
     'id': 'tbtc--1',
     'impl': 'tbtc',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/sbtc/sbtc.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/sbtc/sbtc.png',
     'name': 'Bitcoin Signet',
     'rpcURLs': [
       {
@@ -3872,7 +3925,7 @@ const serverPresetNetworks = [
     'id': 'tron--0x2b6653dc',
     'impl': 'tron',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/trx/trx.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/trx/trx.png',
     'name': 'Tron',
     'rpcURLs': [
       {
@@ -3921,7 +3974,7 @@ const serverPresetNetworks = [
     'id': 'tron--0x94a9059e',
     'impl': 'tron',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/ttrx/ttrx.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/ttrx/ttrx.png',
     'name': 'Tron Shasta Testnet',
     'rpcURLs': [
       {
@@ -4062,7 +4115,7 @@ const serverPresetNetworks = [
     'id': 'lightning--0',
     'impl': 'lightning',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/lnd/lnd.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/lnd/lnd.png',
     'name': 'Lightning Network',
     'rpcURLs': [
       {
@@ -4101,7 +4154,7 @@ const serverPresetNetworks = [
     'id': 'tlightning--0',
     'impl': 'tlightning',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/lnd/lnd.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/lnd/lnd.png',
     'name': 'Lightning Network Testnet',
     'rpcURLs': [],
     'shortcode': 'tlightning',
@@ -4133,7 +4186,7 @@ const serverPresetNetworks = [
     'impl': 'evm',
     'isTestnet': true,
     'logoURI':
-      'https://onekey-asset.com/assets/topsideprealpha/topsideprealpha.png',
+      'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/topsideprealpha/topsideprealpha.png',
     'name': 'Opside Testnet Pre-Alpha Network',
     'rpcURLs': [
       {
@@ -4170,7 +4223,7 @@ const serverPresetNetworks = [
     'id': 'nexa--0',
     'impl': 'nexa',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/nexa/nexa.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/nexa/nexa.png',
     'name': 'Nexa',
     'rpcURLs': [
       {
@@ -4207,7 +4260,7 @@ const serverPresetNetworks = [
     'id': 'nexa--testnet',
     'impl': 'nexa',
     'isTestnet': true,
-    'logoURI': 'https://onekey-asset.com/assets/nexa/nexa.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/nexa/nexa.png',
     'name': 'Nexa Testnet',
     'rpcURLs': [
       {
@@ -4240,7 +4293,7 @@ const serverPresetNetworks = [
     'chainId': '59144',
     'code': 'linea',
     'id': 'evm--59144',
-    'logoURI': 'https://onekey-asset.com/assets/linea/linea.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/linea/linea.png',
     'name': 'Linea',
     'rpcURLs': [
       {
@@ -4286,7 +4339,7 @@ const serverPresetNetworks = [
     'chainId': '8453',
     'code': 'base',
     'id': 'evm--8453',
-    'logoURI': 'https://onekey-asset.com/assets/base/base.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/base/base.png',
     'name': 'Base',
     'rpcURLs': [
       {
@@ -4338,7 +4391,7 @@ const serverPresetNetworks = [
     'chainId': '5000',
     'code': 'mantle',
     'id': 'evm--5000',
-    'logoURI': 'https://onekey-asset.com/assets/mantle/mantle.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/mantle/mantle.png',
     'name': 'Mantle',
     'rpcURLs': [
       {
@@ -4390,7 +4443,7 @@ const serverPresetNetworks = [
     'id': 'nervos--mainnet',
     'impl': 'nervos',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/nervos/nervos.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/nervos/nervos.png',
     'name': 'Nervos',
     'rpcURLs': [
       {
@@ -4442,7 +4495,7 @@ const serverPresetNetworks = [
     'id': 'neurai--0',
     'impl': 'neurai',
     'isTestnet': false,
-    'logoURI': 'https://onekey-asset.com/assets/neurai/neurai.png',
+    'logoURI': 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/neurai/neurai.png',
     'name': 'Neurai',
     'rpcURLs': [
       {

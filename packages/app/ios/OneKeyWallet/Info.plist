@@ -76,7 +76,7 @@
 	</array>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.so.onekey.wallet</key>
+		<key>iCloud.novai.npay.wallet</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<false/>

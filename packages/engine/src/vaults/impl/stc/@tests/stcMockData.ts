@@ -12,7 +12,7 @@ export const network: DBNetwork = {
   feeSymbol: 'STC',
   id: 'stc--251',
   impl: 'stc',
-  logoURI: 'https://onekey-asset.com/assets/tstc/tstc.png',
+  logoURI: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/tstc/tstc.png',
   name: 'Starcoin barnard',
   position: 33,
   rpcURL: 'https://barnard-seed.starcoin.org',

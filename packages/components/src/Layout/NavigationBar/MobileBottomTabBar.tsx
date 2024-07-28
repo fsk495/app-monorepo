@@ -32,7 +32,7 @@ import type { DeviceState } from '../../Provider/device';
 import type { BottomTabBarProps } from '../BottomTabs/types';
 import type { EdgeInsets } from 'react-native-safe-area-context';
 
-const DEFAULT_TABBAR_HEIGHT = 49;
+const DEFAULT_TABBAR_HEIGHT = 60;
 
 type Options = {
   deviceSize: DeviceState['size'];
@@ -68,6 +68,7 @@ export default function MobileBottomTabBar({
   const tabBarHeight = getTabBarHeight({
     insets,
   });
+  console.log("tabBarHeight  ",tabBarHeight)
 
   const horizontal = shouldUseHorizontalLabels({
     deviceSize: size,

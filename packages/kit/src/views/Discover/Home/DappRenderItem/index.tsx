@@ -18,6 +18,7 @@ type DappRenderItemProps = {
 };
 
 const handlePress = (props: DappRenderItemProps) => {
+  console.log("handlePress  ",handlePress);
   if (props.dappId) {
     openMatchDApp({
       id: props.dappId,

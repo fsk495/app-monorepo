@@ -1,0 +1,14 @@
+diff --git a/src/Server.js b/src/Server.js
+index f2ddeafc5c64bc4aaff1286fd2164c8d55113318..c8f5990769cd765a8d80e7b2388ed6704406da23 100644
+--- a/src/Server.js
++++ b/src/Server.js
+@@ -868,7 +868,8 @@ class Server {
+         if (
+           collapse ||
+           lineNumber == null ||
+-          (file != null && urls.has(file))
++          (file != null && urls.has(file)) ||
++          file?.startsWith?.('http')
+         ) {
+           continue;
+         }

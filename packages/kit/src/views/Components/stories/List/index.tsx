@@ -31,21 +31,21 @@ const TokenListData: TokenListDataType[] = [
     type: 'text',
     label: 'Label',
     description: 'Description...',
-    src: 'https://onekey-asset.com/assets/btc/btc.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/btc/btc.png',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     type: 'text',
     label: 'Label',
     description: 'Description...',
-    src: 'https://onekey-asset.com/assets/eth/eth.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/eth/eth.png',
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     type: 'text',
     label: 'Label',
     description: 'Description...',
-    src: 'https://onekey-asset.com/assets/bsc/bsc.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/bsc/bsc.png',
   },
 ];
 
@@ -103,7 +103,7 @@ const GroupingListData = [
 const MarketData = [
   {
     order: 1,
-    src: 'https://onekey-asset.com/assets/btc/btc.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/btc/btc.png',
     tokenShortName: 'BTC',
     tokenName: 'Bitcoin',
     price: '$20000.00',
@@ -113,7 +113,7 @@ const MarketData = [
   },
   {
     order: 1,
-    src: 'https://onekey-asset.com/assets/eth/eth.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/eth/eth.png',
     tokenShortName: 'BTC',
     tokenName: 'Bitcoin',
     price: '$20000.00',
@@ -123,7 +123,7 @@ const MarketData = [
   },
   {
     order: 1,
-    src: 'https://onekey-asset.com/assets/bsc/bsc.png',
+    src: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/bsc/bsc.png',
     tokenShortName: 'BTC',
     tokenName: 'Bitcoin',
     price: '$20000.00',

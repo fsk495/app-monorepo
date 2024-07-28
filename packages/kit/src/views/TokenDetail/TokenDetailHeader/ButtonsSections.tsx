@@ -34,7 +34,7 @@ import {
   RootRoutes,
   TabRoutes,
 } from '../../../routes/routesEnum';
-import { openUrlExternal } from '../../../utils/openUrl';
+import { openUrlExternal,openDapp } from '../../../utils/openUrl';
 import BaseMenu from '../../Overlay/BaseMenu';
 import { SendModalRoutes } from '../../Send/enums';
 import { TokenDetailContext } from '../context';
@@ -153,10 +153,14 @@ export const ButtonsSection: FC = () => {
 
   const onSwap = useCallback(
     async ({ token, account: a, network: n }: ISingleChainInfo) => {
+      console.log('onSwap token ',token);
       if (!token) {
         return;
       }
+      console.log('onSwap account ',a);
+      console.log('onSwap network ',n);
       const isLightningNetwork = isLightningNetworkByNetworkId(n.id);
+      console.log('onSwap isLightningNetwork ',isLightningNetwork);
       if (isLightningNetwork) {
         backgroundApiProxy.serviceSwap
           .sellToken(token, !isLightningNetwork)
@@ -173,11 +177,21 @@ export const ButtonsSection: FC = () => {
             }
           });
       } else {
-        await backgroundApiProxy.serviceSwap.buyToken(token);
+        if(n.id === 'evm--7256')
+        {
+          navigation?.goBack();
+          openDapp('https://swap.novaichain.com/novaichain#/swap');
+          return;
+        }
+        else
+        {
+          await backgroundApiProxy.serviceSwap.buyToken(token);
+        }
       }
       if (a && n) {
         backgroundApiProxy.serviceSwap.setRecipientToAccount(a, n);
       }
+      navigation?.goBack();
       navigation.navigate(RootRoutes.Main, {
         screen: MainRoutes.Tab,
         params: {
@@ -196,7 +210,9 @@ export const ButtonsSection: FC = () => {
         tokenAddress: token?.address,
         networkId: network?.id,
       });
-      openUrlExternal(signedUrl);
+      // openUrlExternal(signedUrl);
+      openDapp(signedUrl);
+      navigation?.goBack();
     },
     [],
   );
@@ -209,7 +225,9 @@ export const ButtonsSection: FC = () => {
         tokenAddress: token?.address,
         networkId: network?.id,
       });
-      openUrlExternal(signedUrl);
+      // openUrlExternal(signedUrl);
+      openDapp(signedUrl);
+      navigation?.goBack();
     },
     [],
   );

@@ -200,7 +200,7 @@ const ImportWallet = () => {
             }}
           />
         </ItemWrapper>
-        {(platformEnv.isNativeIOS || platformEnv.isNativeAndroidGooglePlay) && (
+        {/* {(platformEnv.isNativeIOS || platformEnv.isNativeAndroidGooglePlay) && (
           <ItemWrapper>
             <OptioniCloud
               title={intl.formatMessage(
@@ -212,7 +212,7 @@ const ImportWallet = () => {
               isLoading={iCloudLoading}
             />
           </ItemWrapper>
-        )}
+        )} */}
         {MigrationEnable && (
           <ItemWrapper>
             <OptionMigration
@@ -223,7 +223,7 @@ const ImportWallet = () => {
             />
           </ItemWrapper>
         )}
-        {supportedNFC && (
+        {/* {supportedNFC && (
           <ItemWrapper>
             <OptionOneKeyLite
               title={intl.formatMessage({
@@ -232,10 +232,10 @@ const ImportWallet = () => {
               onPress={onPressOneKeyLite}
             />
           </ItemWrapper>
-        )}
-        <ItemWrapper>
+        )} */}
+        {/* <ItemWrapper>
           <OptionKeyTag title="KeyTag" onPress={onPressKeyTag} />
-        </ItemWrapper>
+        </ItemWrapper> */}
         <ItemWrapper>
           <OptionAdress
             icon="EyeOutline"

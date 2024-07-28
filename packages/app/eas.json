@@ -13,9 +13,9 @@
         }
       },
       "ios": {
-        "image": "macos-ventura-13.3-xcode-14.3",
+        "cache": {"disabled": true},
         "resourceClass": "m1-medium",
-        "env": { 
+        "env": {
           "PLATFORM": "ios"
         }
       }
@@ -32,12 +32,14 @@
         "gradleCommand": ":app:assembleDirectDebug",
         "env": {
           "APPLICATION_ID_SUFFIX": "wrapper",
-          "OTA_UPDATE_ENABLE": "true"
+          "OTA_UPDATE_ENABLE": "true",
+          "image": "macos-catalina-12.2"
         }
       },
       "ios": {
         "enterpriseProvisioning": "adhoc",
-        "buildConfiguration": "Debug"
+        "buildConfiguration": "Debug",
+        "credentialsSource": "remote"
       }
     },
     "production-store": {
@@ -76,7 +78,8 @@
         "enterpriseProvisioning": "adhoc",
         "buildConfiguration": "Release",
         "distribution": "internal",
-        "credentialsSource": "local"
+        "credentialsSource": "remote",
+        "image": "macos-catalina-12.2"
       }
     },
     "production-huawei": {

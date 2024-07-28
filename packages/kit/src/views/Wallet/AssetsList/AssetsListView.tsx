@@ -52,7 +52,7 @@ function AssetsListViewCmp({
     accountId,
     networkId,
   });
-
+  console.log("accountTokens   ",accountTokens);
   let tokens = accountTokens;
 
   if (shouldHideInscriptions) {
@@ -115,7 +115,6 @@ function AssetsListViewCmp({
           onPress: onTokenCellPress,
           showTokenBalanceDetail,
         };
-
         return isString(row.item) ? (
           <TokenCellByKey {...sharedProps} tokenKey={row.item} />
         ) : (

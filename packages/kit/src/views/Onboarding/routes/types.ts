@@ -6,11 +6,13 @@ import type { IAddExistingWalletMode } from '../../../routes';
 import type { KeyTagRoutes } from '../../KeyTag/Routes/enums';
 import type { EOnboardingRoutes } from './enums';
 import type { NavigatorScreenParams } from '@react-navigation/native';
+import { IWallet } from '@onekeyhq/engine/src/types';
 
 export type IOnboardingRecoveryPhraseParams = {
   password: string;
   withEnableAuthentication?: boolean;
   mnemonic: string;
+  fromVerifyPassword?:boolean,
 };
 export type IOnboardingBehindTheSceneParams =
   IOnboardingRecoveryPhraseParams & {
@@ -75,5 +77,9 @@ export type IOnboardingRoutesParams = {
   };
   [EOnboardingRoutes.MigrationPreview]: {
     data: MigrateData;
+  };
+  [EOnboardingRoutes.VerifyPassword]: {
+    walletId: string;
+    wallet?: IWallet;
   };
 };

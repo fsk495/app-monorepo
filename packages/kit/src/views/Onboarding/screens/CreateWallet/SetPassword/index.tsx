@@ -105,7 +105,7 @@ function RedirectToRecoveryPhrase({
     async function generateMnemonicFunc() {
       const mnemonic = await backgroundApiProxy.engine.generateMnemonic();
       await wait(600);
-      navigation.replace(EOnboardingRoutes.RecoveryPhrase, {
+      navigation.replace(EOnboardingRoutes.BehindTheScene, {
         password,
         mnemonic,
         withEnableAuthentication,

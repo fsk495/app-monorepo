@@ -25,10 +25,18 @@ const ShowRecoveryPhrase = () => {
   const intl = useIntl();
   const navigation = useNavigation<NavigationProps>();
   const route = useRoute<RouteProps>();
-  const { mnemonic } = route.params;
+  const { mnemonic,fromVerifyPassword } = route.params;
   const onPressSavedPhrase = useCallback(() => {
-    navigation.replace(EOnboardingRoutes.BehindTheScene, route.params);
-  }, [navigation, route.params]);
+    if(fromVerifyPassword)
+    {
+      navigation.goBack();
+    }
+    else
+    {
+      navigation.replace(EOnboardingRoutes.BehindTheScene, route.params);
+    }
+    
+  }, [navigation, route.params,fromVerifyPassword]);
 
   return (
     <Layout

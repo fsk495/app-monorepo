@@ -1,20 +1,65 @@
 import { useMemo, useRef } from 'react';
 
 import type { ForwardRefHandle } from '@onekeyhq/app/src/views/NestedTabView/NestedTabView';
-import { Box } from '@onekeyhq/components';
-import { Tabs } from '@onekeyhq/components/src/CollapsibleTabView';
+import { Box, ScrollView } from '@onekeyhq/components';
+// import { Tabs } from '@onekeyhq/components/src/CollapsibleTabView';
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
 
 import { useOnTabChange, usePressTagEffect, useTabConfig } from '../config';
 
 import { Header } from './header';
+import DappItem from './DappItem';
+import { useIntl } from 'react-intl';
+
+const dapps = [
+  {
+    _id: '0',
+    url: 'https://dapp.novai.finance/#/',
+    name: 'Novai Finance',
+    shortName: 'Finance',
+    description: '0',//'Novai Finance is an organization that promotes and markets Novai Chain',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/Finance.png'
+  },
+  {
+    _id: '1',
+    url: 'https://scan.novaichain.com/novaichain',
+    name: 'Novai Scan',
+    shortName: 'NovaiScan',
+    description: '1',//'Novai Chain Block Explorer',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/Blockchain.png'
+  },
+  {
+    _id: '2',
+    url: 'https://swap.novaichain.com/#/swap',
+    name: 'Novai Swap',
+    shortName: 'Novai Swap',
+    description: '2',//'Novai Swap is a protocol for automated token exchange on Ethereum',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/Novaiswap.png'
+  },
+  {
+    _id: '3',
+    url: 'https://bridge.novaichain.com/#/',
+    name: 'NovaiBridge',
+    shortName: 'NovaiBridge',
+    description: '3',//'NovaiBridge is the place where Novai is obtained or withdrawn',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiBridge.png'
+  },
+  {
+    _id: '4',
+    url: 'https://faucets.novaichain.com/#/',
+    name: 'NovaiFaucet',
+    shortName: 'Faucet',
+    description: '4',//'NovaiFaucet is a free option to get a certain amount of Noavi',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiFaucets.png'
+  },
+];
 
 export const Mobile = () => {
   const ref = useRef<ForwardRefHandle>(null);
   usePressTagEffect({ ref });
-
+  const intl = useIntl()
   const tabConfig = useTabConfig();
-  const onIndexChange = useOnTabChange();
+  // const onIndexChange = useOnTabChange();
   const containerStyle = useMemo(
     () => ({
       flex: 1,
@@ -26,11 +71,39 @@ export const Mobile = () => {
     [],
   );
 
+  const translatedDapps = useMemo(() => {
+    return dapps.map(dapp => {
+      switch (dapp.description) {
+        case '0':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_finance' }) };
+        case '1':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_scan' }) };
+        case '2':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_swap' }) =="dapp_novai_swap"?'': intl.formatMessage({ id: 'dapp_novai_swap' })};
+        case '3':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_bridge' }) };
+        case '4':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_faucet' }) };
+        default:
+          return dapp;
+      }
+    });
+  }, [intl]);
+
   return (
     <Box flex="1" bg="background-default">
-      <Tabs.Container
+      <Box style={containerStyle}>
+        <Header />
+        <ScrollView contentContainerStyle={contentContainerStyle}>
+          {/* {tabConfig[0].component} */}
+          {translatedDapps.map((dapp)=>{
+            return <DappItem key={dapp._id} dapp={dapp} />
+          })}
+        </ScrollView>
+      </Box>
+      {/* <Tabs.Container
         headerHeight={114}
-        stickyTabBar
+        // stickyTabBar
         onIndexChange={onIndexChange}
         headerView={<Header />}
         containerStyle={containerStyle}
@@ -44,7 +117,7 @@ export const Mobile = () => {
             </Tabs.ScrollView>
           </Tabs.Tab>
         ))}
-      </Tabs.Container>
+      </Tabs.Container> */}
     </Box>
   );
 };

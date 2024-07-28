@@ -4,15 +4,15 @@ import type { TabRouteConfigBase } from '../../../../types';
 
 export const tabRoutesOrders = [
   TabRoutes.Home,
-  TabRoutes.Market,
+  // TabRoutes.Market,
   TabRoutes.Swap,
   TabRoutes.NFT,
   TabRoutes.Discover,
   TabRoutes.Me,
 ];
-if (process.env.NODE_ENV !== 'production') {
-  tabRoutesOrders.push(TabRoutes.Developer);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   tabRoutesOrders.push(TabRoutes.Developer);
+// }
 
 export const swapAndMarketRoutes = [TabRoutes.Swap, TabRoutes.Market];
 
@@ -21,7 +21,7 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     name: TabRoutes.Home,
     tabBarIcon: (focused) =>
       focused ? 'CreditCardSolid' : 'CreditCardOutline',
-    translationId: 'wallet__wallet',
+    translationId: 'title__assets',
     navHeaderType: 'AccountSelector',
   },
   [TabRoutes.Market]: {
@@ -40,6 +40,7 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     translationId: 'form__trade',
     hideDesktopNavHeader: true,
     hideMobileNavHeader: true,
+    hideOnMobile:true,
   },
   [TabRoutes.NFT]: {
     name: TabRoutes.NFT,
@@ -59,7 +60,7 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
   [TabRoutes.Me]: {
     name: TabRoutes.Me,
     tabBarIcon: (focused) => (focused ? 'Bars4Solid' : 'Bars4Outline'),
-    translationId: 'title__menu',
+    translationId: 'title__me',
     navHeaderType: 'AccountSelector',
   },
   [TabRoutes.Developer]: {
@@ -75,6 +76,9 @@ export const bottomTabBarRoutes: {
   key: TabRoutes;
 }[] = tabRoutesOrders
   .map((name) => {
+    console.log("tabRoutesConfigBaseMap[name].hideOnProduction  ",tabRoutesConfigBaseMap[name].hideOnProduction);
+    console.log("process.env.NODE_ENV  ",process.env.NODE_ENV)
+    console.log("process.env.NODE_ENV  ",name)
     if (tabRoutesConfigBaseMap[name].hideOnMobile) {
       return null;
     }

@@ -111,7 +111,7 @@ const TabNavigator = () => {
           tabBarIcon: tab.tabBarIcon,
           tabBarLabel: intl.formatMessage({ id: tab.translationId }),
           // TODO not working
-          tabBarStyle: { display: 'none', height: 0 },
+          tabBarStyle: { height: 60 },
         }}
       />
     ));

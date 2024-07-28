@@ -158,10 +158,10 @@ export const AppStateUnlock = () => {
         >
           <Box width="full" py={py}>
             <Box display="flex" flexDirection="column" alignItems="center">
-              <Box minH={50}>
+              {/* <Box minH={50}>
                 <Icon name="BrandLogoIllus" size={50} />
-              </Box>
-              <Typography.DisplayXLarge my="2">OneKey</Typography.DisplayXLarge>
+              </Box> */}
+              <Typography.DisplayXLarge my="2">NPay</Typography.DisplayXLarge>
               <Typography.Body1 color="text-subdued">
                 {intl.formatMessage({
                   id: 'content__the_decentralized_web_awaits',
@@ -194,9 +194,9 @@ export const AppStateUnlock = () => {
               <AppStateUnlockButton onOk={onOk} />
             </Center>
           </Box>
-          <Center position={isSmall ? 'relative' : 'absolute'} bottom="0">
+          {/* <Center position={isSmall ? 'relative' : 'absolute'} bottom="0">
             <ForgetPasswordButton />
-          </Center>
+          </Center> */}
         </Box>
       </Center>
     </KeyboardDismissView>

@@ -449,6 +449,7 @@ class ServiceAccount extends ServiceBase {
       autoAddAccountNetworkId: networkId,
       isAutoAddAllNetworkAccounts,
     });
+    console.log("createHDWallet  ",wallet);
     stopTrace('engine.createHDWallet');
 
     timelinePerfTrace.mark({

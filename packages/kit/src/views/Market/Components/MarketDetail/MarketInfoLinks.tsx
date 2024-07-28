@@ -33,6 +33,7 @@ export const MarketInfoLinks: FC<MarketInfoLinksProps> = ({ links }) => {
           borderColor="border-default"
           borderRadius="12px"
           onPress={() => {
+            return null;
             goToLink(
               links?.homePageUrl,
               intl.formatMessage({ id: 'form__website' }),
@@ -51,6 +52,7 @@ export const MarketInfoLinks: FC<MarketInfoLinksProps> = ({ links }) => {
           borderColor="border-default"
           borderRadius="12px"
           onPress={() => {
+            return null;
             goToLink(links?.twitterUrl, 'Twitter');
           }}
         >
@@ -66,6 +68,7 @@ export const MarketInfoLinks: FC<MarketInfoLinksProps> = ({ links }) => {
           borderColor="border-default"
           borderRadius="12px"
           onPress={() => {
+            return null;
             goToLink(links?.telegramUrl, 'Telegram');
           }}
         >
@@ -81,6 +84,7 @@ export const MarketInfoLinks: FC<MarketInfoLinksProps> = ({ links }) => {
           borderColor="border-default"
           borderRadius="12px"
           onPress={() => {
+            return null;
             goToLink(links?.discordUrl, 'Discord');
           }}
         >

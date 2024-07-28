@@ -1,0 +1,54 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# fastlane/Fastfile
+
+default_platform(:ios)
+
+platform :ios do
+
+  desc "Run tests"
+  lane :test do
+    run_tests(
+      workspace: "OneKeyWallet.xcworkspace",    # 替换为您的 Workspace 文件路径
+      scheme: "OneKeyWallet",              # 替换为您的 Scheme 名称
+      clean: true
+    )
+  end
+
+  desc "Build and export the iOS app"
+  lane :build do
+    clean_build_artifacts
+    cocoapods
+
+    build_app(
+      workspace: "OneKeyWallet.xcworkspace",    # 替换为您的 Workspace 文件路径
+      scheme: "OneKeyWallet",                   # 替换为您的 Scheme 名称
+      configuration: "Release",                 # 使用 Release 配置
+      export_method: "ad-hoc",                  # 或 "app-store" 或 "development" 根据您的需求选择
+      output_directory: "./build",              # 输出目录
+      clean: true,
+      build_path: "./build",
+      derived_data_path: "./build/DerivedData",
+      export_options: {
+        signingStyle: "manual",
+        teamID: "B8RDJF7YUS"  # 替换为您的开发团队 ID
+      }
+    )
+  end
+end
+
+
+

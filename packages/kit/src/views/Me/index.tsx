@@ -34,9 +34,9 @@ export const Me = (options: any) => {
           <SecuritySection />
           <PushSection />
           <AdvancedSection />
-          <AboutSection />
+          {/* <AboutSection /> */}
           <HardwareBridgeSection />
-          <FooterAction />
+          {/* <FooterAction /> */}
           {devModeEnable ? <DevSettingSection /> : null}
         </Box>
       </ScrollView>
@@ -45,7 +45,8 @@ export const Me = (options: any) => {
         bottom={{ base: 4, md: 8 }}
         right={{ base: 4, md: 8 }}
       >
-        <HelpSelector />
+        {/* 屏蔽浮点按钮帮助界面 */}
+        {/* <HelpSelector /> */}
       </Box>
     </Box>
   );

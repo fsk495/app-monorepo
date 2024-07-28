@@ -19,7 +19,7 @@ import { setDevMode } from '@onekeyhq/kit/src/store/reducers/settings';
 
 import {
   openUrl,
-  openUrlByWebview,
+  // openUrlByWebview,
   openUrlExternal,
 } from '../../../utils/openUrl';
 
@@ -128,12 +128,15 @@ export const AboutSection = () => {
           borderBottomWidth="1"
           borderBottomColor="divider"
           onPress={() =>
-            openUrl(
+          {
+            return
+            return openUrl(
               userAgreementUrl,
               intl.formatMessage({
                 id: 'form__user_agreement',
               }),
             )
+          }
           }
         >
           <Icon name="UserCircleOutline" />
@@ -158,13 +161,16 @@ export const AboutSection = () => {
           px={{ base: 4, md: 6 }}
           borderBottomWidth="1"
           borderBottomColor="divider"
-          onPress={() =>
-            openUrl(
+          onPress={() => {
+            return;
+            return openUrl(
               privacyPolicyUrl,
               intl.formatMessage({
                 id: 'form__privacy_policy',
               }),
             )
+          }
+            
           }
         >
           <Icon name="EllipsisHorizontalCircleOutline" />
@@ -189,13 +195,16 @@ export const AboutSection = () => {
           px={{ base: 4, md: 6 }}
           borderBottomWidth="1"
           borderBottomColor="divider"
-          onPress={() =>
-            openUrl(
+          onPress={() =>{
+            return ;
+            return openUrl(
               'https://www.onekey.so',
               intl.formatMessage({
                 id: 'form__website',
               }),
             )
+          }
+            
           }
         >
           <Icon name="GlobeAltOutline" />
@@ -222,7 +231,10 @@ export const AboutSection = () => {
           px={{ base: 4, md: 6 }}
           borderBottomWidth="1"
           borderBottomColor="divider"
-          onPress={() => openUrlExternal('https://www.discord.gg/onekey')}
+          onPress={() => { 
+            return ;
+            return openUrlExternal('https://www.discord.gg/onekey') 
+          }}
         >
           <Icon name="DiscordOutline" />
           <Text
@@ -244,7 +256,10 @@ export const AboutSection = () => {
           alignItems="center"
           py={4}
           px={{ base: 4, md: 6 }}
-          onPress={() => openUrlExternal('https://www.twitter.com/onekeyhq')}
+          onPress={() => {
+            return 
+            return openUrlExternal('https://www.twitter.com/onekeyhq')
+          }}
         >
           <Icon name="TwitterOutline" />
           <Text

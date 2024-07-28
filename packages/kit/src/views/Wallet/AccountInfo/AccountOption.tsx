@@ -33,6 +33,7 @@ import { ModalRoutes, RootRoutes, TabRoutes } from '../../../routes/routesEnum';
 import AccountMoreMenu from '../../Overlay/AccountMoreMenu';
 import { AccountReceiveMenu } from '../../Overlay/AccountReceiveMenu';
 import { ReceiveTokenModalRoutes } from '../../ReceiveToken/types';
+import { openDapp } from '../../../utils/openUrl';
 
 type AccountOptionProps = { isSmallView: boolean };
 
@@ -116,15 +117,24 @@ const AccountOption: FC<AccountOptionProps> = memo(
           const supported =
             await backgroundApiProxy.serviceSwap.tokenIsSupported(token);
           if (!supported) {
-            ToastManager.show(
-              {
-                title: intl.formatMessage({ id: 'msg__wrong_network_desc' }),
-              },
-              { type: 'default' },
-            );
-            token = await backgroundApiProxy.engine.getNativeTokenInfo(
-              OnekeyNetwork.eth,
-            );
+            if(n.id == 'evm--7256')
+            {
+              openDapp('https://swap.novaichain.com/novaichain#/swap');
+              return;
+            }
+            else
+            {
+              ToastManager.show(
+                {
+                  title: intl.formatMessage({ id: 'msg__wrong_network_desc' }),
+                },
+                { type: 'default' },
+              );
+              token = await backgroundApiProxy.engine.getNativeTokenInfo(
+                OnekeyNetwork.eth,
+              );
+            }
+            
           }
         }
         if (token) {

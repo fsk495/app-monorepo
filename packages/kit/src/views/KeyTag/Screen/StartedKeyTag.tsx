@@ -100,6 +100,7 @@ const Started = () => {
           justifyContent="center"
           alignItems="center"
           onPress={() => {
+            return ;
             openUrlExternal(keyTagShoppingUrl);
           }}
         >

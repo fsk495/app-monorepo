@@ -345,6 +345,9 @@ function TokenCell(props: TokenCellProps) {
     ...token
   } = props;
 
+  console.log('TokenCell   ',token);
+
+
   const priceView = useMemo(() => {
     if (deepRefreshMode) {
       return <TokenCellPriceDeepFresh token={token} />;

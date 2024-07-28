@@ -11,6 +11,7 @@ import {
   ModalRoutes,
   RootRoutes,
 } from '../../../routes/routesEnum';
+import { openDapp } from '../../../utils/openUrl';
 
 export type ButtonsType = (params: {
   networkId: string;
@@ -42,18 +43,26 @@ export const useFiatPay = ({
     networkId,
     action: useCallback(
       ({ network: n, account: a }) => {
-        navigation.navigate(RootRoutes.Modal, {
-          screen: ModalRoutes.FiatPay,
-          params: {
-            screen: FiatPayModalRoutes.SupportTokenListModal,
+        console.log('useFiatPay  ',n.id);
+        if (n.id === 'evm--7256') {
+          openDapp('https://swap.novaichain.com/novaichain#/swap');
+          return;
+        }
+        else {
+          navigation.navigate(RootRoutes.Modal, {
+            screen: ModalRoutes.FiatPay,
             params: {
-              type,
-              networkId: n.id,
-              accountId: a.id,
+              screen: FiatPayModalRoutes.SupportTokenListModal,
+              params: {
+                type,
+                networkId: n.id,
+                accountId: a.id,
+              },
             },
-          },
-        });
+          });
+        }
       },
+
       [navigation, type],
     ),
     filter: (p) =>

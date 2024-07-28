@@ -283,6 +283,7 @@ class ServiceNetwork extends ServiceBase {
     const previousActiveNetworkId: string | null = appSelector(
       (s) => s.general.activeNetworkId,
     );
+    console.log("initCheckingNetwork    previousActiveNetworkId 1",previousActiveNetworkId);
     const isValidNetworkId = networks.some(
       (network) => network.id === previousActiveNetworkId,
     );

@@ -26,4 +26,8 @@ export enum EOnboardingRoutes {
   // Migration
   Migration = 'Migration',
   MigrationPreview = 'MigrationPreview',
+
+  //VerifyPassword
+
+  VerifyPassword = 'VerifyPassword',
 }

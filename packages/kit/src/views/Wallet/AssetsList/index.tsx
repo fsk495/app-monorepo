@@ -250,7 +250,9 @@ function HomeTokenAssetsListCmp({
 }) {
   const [accountTokensInfo] = useAtomAssetsList(atomHomeOverviewAccountTokens);
   const { tokens: accountTokens = freezedEmptyArray } = accountTokensInfo;
-
+  console.log('HomeTokenAssetsListCmp accountTokensInfo ',accountTokensInfo);
+  console.log('HomeTokenAssetsListCmp accountTokens ',accountTokens);
+  console.log('HomeTokenAssetsListCmp freezedEmptyArray ',freezedEmptyArray);
   const footer = useMemo(
     () => (
       <>

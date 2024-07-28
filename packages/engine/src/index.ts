@@ -374,13 +374,13 @@ class Engine {
       await this.validator.validateWalletName(name);
     }
     await this.validator.validatePasswordStrength(password);
-
     const [usedMnemonic] = await Promise.all([
       this.validator.validateMnemonic(
         mnemonic || (await this.generateMnemonic()),
       ),
       this.validator.validateHDWalletNumber(),
     ]);
+
 
     timelinePerfTrace.mark({
       name: ETimelinePerfNames.createHDWallet,
@@ -409,7 +409,6 @@ class Engine {
         name,
         avatar,
       });
-
       timelinePerfTrace.mark({
         name: ETimelinePerfNames.createHDWallet,
         title: 'engine.createHDWallet >> dbApi.createHDWallet DONE',
@@ -445,7 +444,7 @@ class Engine {
       });
 
       const result = this.dbApi.confirmWalletCreated(wallet.id);
-
+      
       timelinePerfTrace.mark({
         name: ETimelinePerfNames.createHDWallet,
         title: 'engine.createHDWallet >> dbApi.confirmWalletCreated DONE',

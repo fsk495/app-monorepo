@@ -156,7 +156,7 @@ const Welcome = () => {
         scaleFade
         disableAnimation={disableAnimation}
       >
-        <Icon name="BrandLogoIllus" size={48} />
+        {/* <Icon name="BrandLogoIllus" size={48} /> */}
         <Text
           typography={{ sm: 'DisplayXLarge', md: 'Display2XLarge' }}
           mt={6}

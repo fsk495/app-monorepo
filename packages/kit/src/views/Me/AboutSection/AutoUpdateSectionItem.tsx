@@ -116,6 +116,7 @@ const AutoUpdateSectionItem: FC = () => {
           borderBottomWidth="1"
           borderBottomColor="divider"
           onPress={() => {
+            return 
             if (state === 'available') {
               if (!platformEnv.supportAutoUpdate) {
                 // Narrowing type to VersionInfo

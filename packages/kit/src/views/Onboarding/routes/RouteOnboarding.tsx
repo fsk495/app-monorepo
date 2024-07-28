@@ -19,6 +19,7 @@ import BackupDetails from '../screens/RestoreFromCloud/BackupDetails';
 import BackupsList from '../screens/RestoreFromCloud/BackupsList';
 import ThirdPartyWallet from '../screens/ThirdPartyWallet';
 import Welcome from '../screens/Welcome';
+import VerifyPassword from '../screens/VerifyPassword';
 
 import { EOnboardingRoutes } from './enums';
 
@@ -85,6 +86,10 @@ export const stackScreenList = [
     name: EOnboardingRoutes.MigrationPreview,
     component: PreviewImportData,
   },
+  {
+    name:EOnboardingRoutes.VerifyPassword,
+    component: VerifyPassword,
+  }
 ];
 
 export const StackNavigator =

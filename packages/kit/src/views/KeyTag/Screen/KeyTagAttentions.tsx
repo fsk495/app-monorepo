@@ -33,6 +33,7 @@ const KeyTagBackupWalletAttentions = () => {
       });
       return;
     }
+    console.log("mnemonic   ",mnemonic ,wallet);
     navigation.navigate(KeyTagRoutes.ShowDotMap, { mnemonic, wallet });
   }, [walletId, password, navigation, wallet]);
   const modalContent = useMemo(

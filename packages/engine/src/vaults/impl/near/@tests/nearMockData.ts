@@ -12,7 +12,7 @@ const network: DBNetwork = {
   feeSymbol: 'NEAR',
   id: 'near--0',
   impl: 'near',
-  logoURI: 'https://onekey-asset.com/assets/near/near.png',
+  logoURI: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/near/near.png',
   name: 'Near Mainnet',
   position: 33,
   rpcURL: 'https://node.onekey.so/near',

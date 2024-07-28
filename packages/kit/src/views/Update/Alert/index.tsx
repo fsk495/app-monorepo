@@ -24,6 +24,7 @@ import platformEnv from '@onekeyhq/shared/src/platformEnv';
 
 const UpdateAlert: FC = () => {
   const intl = useIntl();
+  // 检测是不是最新版
   const { enabled, latest: lastVersion } = useAutoUpdate();
 
   const navigation = useAppNavigation();
@@ -59,7 +60,6 @@ const UpdateAlert: FC = () => {
   if (!('package' in lastVersion)) {
     return null;
   }
-
   return enabled ? (
     <Box
       position="absolute"

@@ -1,0 +1,19 @@
+# app_identifier("[[APP_IDENTIFIER]]") # The bundle identifier of your app
+# apple_id("[[APPLE_ID]]") # Your Apple Developer Portal username
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
+# fastlane/Appfile
+
+app_identifier("novai.npay.wallet") # 替换为您的应用标识符
+apple_id("fansaikun@icloud.com")  # 替换为您的 Apple ID
+
+team_id("B8RDJF7YUS")  # 替换为您的 Apple 开发者团队 ID
+
+# 如果使用 App Store Connect API
+app_store_connect_api_key(
+  key_id: "2BKW2P3W9M", # 替换为您的 ASC API Key ID
+  issuer_id: "60dafc36-bfb3-474f-93a6-73173433c7b1", # 替换为您的 Issuer ID
+  key_filepath: "../../AuthKey_2BKW2P3W9M.p8" # 替换为您的 P8 密钥文件路径
+)
