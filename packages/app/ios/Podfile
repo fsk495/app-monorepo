@@ -20,15 +20,6 @@ require File.join(File.dirname(`node --print "require.resolve('@react-native-com
 
 platform :ios, '14.0'
 prepare_react_native_project!
-# If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
-# because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
-#
-# To fix this you can also exclude `react-native-flipper` using a `react-native.config.js`
-# ```js
-# module.exports = {
-#   dependencies: {
-#     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
-# ```
 
 flipper_config = ENV['CI'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.162.0' })
 linkage = ENV['USE_FRAMEWORKS']
@@ -61,6 +52,9 @@ target 'OneKeyWallet' do
     end
   end
 
+  # pod 'Flipper-Folly', :modular_headers => true, :exclude_files => '**/Conv.o'
+  # pod 'RCT-Folly', :modular_headers => true, :exclude_files => '**/Conv.o'
+
   config = use_native_modules!
 
   flags = get_default_flags()
@@ -83,6 +77,8 @@ target 'OneKeyWallet' do
   pod "GCDWebServer", "~> 3.5.3"
 
   post_install do |installer|
+    Pod::UI.puts "Post-install script started"
+
     react_native_post_install(
       installer,
       config[:reactNativePath],
@@ -90,12 +86,16 @@ target 'OneKeyWallet' do
       # necessary for Mac Catalyst builds
       :mac_catalyst_enabled => false
     )
+
+    Pod::UI.puts "React Native post install completed"
+
     # This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.
     # 禁用资源包签名
     installer.target_installation_results.pod_target_installation_results
       .each do |pod_name, target_installation_result|
       target_installation_result.resource_bundle_targets.each do |resource_bundle_target|
+        Pod::UI.puts "Configuring resource bundle target: #{resource_bundle_target.name}"
         resource_bundle_target.build_configurations.each do |config|
           config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
           config.build_settings['DEVELOPMENT_TEAM'] = "B8RDJF7YUS" # 替换为你的团队 ID
@@ -105,6 +105,7 @@ target 'OneKeyWallet' do
 
     # 解决 DEFINES_MODULE 冲突
     installer.pods_project.targets.each do |target|
+      Pod::UI.puts "Configuring target: #{target.name}"
       target.build_configurations.each do |config|
         config.build_settings['DEFINES_MODULE'] = 'YES'
         config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
@@ -115,6 +116,7 @@ target 'OneKeyWallet' do
     # 设置 DEVELOPMENT_TEAM
     installer.generated_projects.each do |project|
       project.targets.each do |target|
+        Pod::UI.puts "Setting DEVELOPMENT_TEAM for target: #{target.name}"
         target.build_configurations.each do |config|
           config.build_settings["DEVELOPMENT_TEAM"] = "B8RDJF7YUS"  # 替换为你的团队 ID
         end
@@ -142,14 +144,31 @@ target 'OneKeyWallet' do
     end
 
     # 覆盖 Pods/boost/boost/container_hash/hash.hpp 文件
-    source_file = File.join(__dir__, '..', 'hash.hpp')
-    target_file = File.join(__dir__, 'Pods', 'boost', 'boost', 'container_hash', 'hash.hpp')
-    
-    if File.exist?(source_file)
-      FileUtils.cp(source_file, target_file)
-      Pod::UI.puts "Copied #{source_file} to #{target_file}"
+    source_file_hash = File.expand_path(File.join(__dir__, 'copy' ,'hash.hpp'))
+    target_file_hash = File.join(__dir__, 'Pods', 'boost', 'boost', 'container_hash', 'hash.hpp')
+
+    source_file_FlipperTransportTypes = File.expand_path(File.join(__dir__, 'copy', 'FlipperTransportTypes.h'))
+    target_file_FlipperTransportTypes = File.join(__dir__, 'Pods', 'Flipper', 'xplat', 'Flipper', 'FlipperTransportTypes.h')
+
+    Pod::UI.puts "Source file path: #{source_file_hash}"
+    Pod::UI.puts "Target file path: #{target_file_hash}"
+
+    if File.exist?(source_file_hash)
+      FileUtils.chmod(0644, source_file_hash) 
+      FileUtils.cp(source_file_hash, target_file_hash)
+      Pod::UI.puts "Copied #{source_file_hash} to #{target_file_hash}"
     else
-      Pod::UI.puts "Source file #{source_file} does not exist!"
+      Pod::UI.puts "Source file #{source_file_hash} does not exist!"
     end
+
+    if File.exist?(source_file_FlipperTransportTypes)
+      FileUtils.chmod(0644, target_file_FlipperTransportTypes) 
+      FileUtils.cp(source_file_FlipperTransportTypes, target_file_FlipperTransportTypes)
+      Pod::UI.puts "Copied #{source_file_FlipperTransportTypes} to #{target_file_FlipperTransportTypes}"
+    else
+      Pod::UI.puts "Source file #{source_file_FlipperTransportTypes} does not exist!"
+    end
+
+    Pod::UI.puts "Post-install script completed"
   end
 end

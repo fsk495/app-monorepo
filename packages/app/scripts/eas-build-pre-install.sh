@@ -2,12 +2,12 @@
 # EAS Environment Secrets
 # Run Path: packages/app
 
-# 设置 JAVA_HOME 指向特定的 JDK 8 版本
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_351.jdk/Contents/Home
+# 设置 JAVA_HOME 指向特定的 JDK 11 版本
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home
 export PATH=$JAVA_HOME/bin:$PATH
 
-# 添加 cmake 3.18.1 到 PATH
-export PATH=/Users/fan/Library/Android/sdk/cmake/3.18.1/bin:$PATH
+# 添加 cmake 3.22.1 到 PATH
+export PATH=/Users/fan/Library/Android/sdk/cmake/3.22.1/bin:$PATH
 
 # 设置 NODE_ENV 环境变量
 export NODE_ENV=production

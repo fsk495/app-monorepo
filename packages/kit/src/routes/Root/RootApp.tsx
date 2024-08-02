@@ -15,8 +15,6 @@ import { RootRoutes } from '../routesEnum';
 import ModalStackNavigator from './Modal';
 import { buildModalOpenAnimationOptions } from './Modal/buildModalStackNavigatorOptions';
 import createStackNavigator from './Modal/createStackNavigator';
-
-// const ModalStackNavigator = createLazyComponent(() => import('./Modal'));
 const OnLanding = createLazyComponent(
   () => import('@onekeyhq/kit/src/views/OnLanding'),
 );
@@ -32,10 +30,7 @@ const RootStack = createStackNavigator();
 
 const RootNavigatorContainer: FC = ({ children }) => {
   const isVerticalLayout = useIsVerticalLayout();
-  // const boardingCompleted = useAppSelector((s) => s.status.boardingCompleted);
-  // const initialRouteName = boardingCompleted
-  //   ? RootRoutes.Root
-  //   : RootRoutes.Onboarding;
+
   const initialRouteName = RootRoutes.Main;
   const screenOptions = useMemo(
     () => ({

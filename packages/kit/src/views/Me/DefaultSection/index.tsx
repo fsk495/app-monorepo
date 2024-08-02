@@ -5,7 +5,6 @@ import { useAddressBook } from '../../AddressBook/Listing';
 import { useActiveWalletAccount } from '@onekeyhq/kit/src/hooks';
 
 
-import { useNavigation } from '@react-navigation/core';
 import { useIntl } from 'react-intl';
 
 import {
@@ -16,36 +15,20 @@ import {
   Text,
   useTheme,
 } from '@onekeyhq/components';
-import { HomeRoutes, RootRoutes } from '@onekeyhq/kit/src/routes/routesEnum';
-import type { HomeRoutesParams } from '@onekeyhq/kit/src/routes/types';
-import supportedNFC from '@onekeyhq/shared/src/detector/nfc';
+import { RootRoutes } from '@onekeyhq/kit/src/routes/routesEnum';
 
 import useAppNavigation from '../../../hooks/useAppNavigation';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
-import { MigrationEnable } from '../../Onboarding/screens/Migration/util';
 
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type NavigationProps = NativeStackNavigationProp<
-  HomeRoutesParams,
-  HomeRoutes.ScreenOnekeyLiteDetail
->;
 
 export const DefaultSection = () => {
   const intl = useIntl();
-  const navigation = useNavigation<NavigationProps>();
   const navigationRoot = useAppNavigation();
-  const appNavigation = useAppNavigation();
   const { themeVariant } = useTheme();
 
-  const { wallet, network, accountId, networkId, walletId } =
+  const { walletId } =
     useActiveWalletAccount();
-
-  console.log("DefaultSection   wallet  ",wallet);
-  console.log("DefaultSection   network  ",network);
-  console.log("DefaultSection   accountId  ",accountId);
-  console.log("DefaultSection   networkId  ",networkId);
-  console.log("DefaultSection   walletId  ",walletId);
   const { showAddressBookModal } = useAddressBook();
   return (
     <Box w="full" mb="6">
@@ -155,16 +138,12 @@ export const DefaultSection = () => {
           py={4}
           px={{ base: 4, md: 6 }}
           onPress={() => {
-            // navigation.replace(EOnboardingRoutes.ShowRecoveryPhrase, route.params);
             navigationRoot.navigate(RootRoutes.Onboarding, {
               screen: EOnboardingRoutes.VerifyPassword,
               params: { 
                 walletId,
-              }
+              },
             });
-            // navigationRoot.navigate(RootRoutes.Onboarding, {
-            //   screen: EOnboardingRoutes.VerifyPassword,
-            // });
           }}
         >
           <Icon name="KeytagOutline" />

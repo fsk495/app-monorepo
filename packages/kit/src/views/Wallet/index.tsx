@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { memo, useCallback, useMemo, useRef } from 'react';
-
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { useIntl } from 'react-intl';
 
 import type { ForwardRefHandle } from '@onekeyhq/app/src/views/NestedTabView/NestedTabView';
@@ -36,6 +36,7 @@ import NFTList from './NFT/NFTList';
 import ToolsPage from './Tools';
 import { WalletHomeTabEnum } from './type';
 import { WalletTabsWithAuth } from './WalletTabsWithAuth';
+import { Platform } from 'react-native';
 
 function AccountHeader() {
   const isVerticalLayout = useIsVerticalLayout();
@@ -63,6 +64,7 @@ const WalletTabs: FC = () => {
     useActiveWalletAccount();
   const timer = useRef<ReturnType<typeof setTimeout>>();
   const { showUnlockView } = useAppLock();
+
   // LazyRenderCurrentHomeTab
   const tokensTab = useMemo(
     () => (
@@ -177,6 +179,7 @@ const WalletTabs: FC = () => {
   }, [network?.settings, networkId, tokensTab, nftTab, historyTab, toolsTab]);
 
   const onRefresh = useCallback(() => {
+    console.log("开始刷新");
     ref?.current?.setRefreshing(true);
     backgroundApiProxy.serviceOverview.refreshCurrentAccount().finally(() => {
       setTimeout(() => ref?.current?.setRefreshing(false), 50);
@@ -231,7 +234,7 @@ const WalletTabs: FC = () => {
     <Tabs.Container
       // IMPORTANT: key is used to force re-render when the tab is changed
       // otherwise android app will crash when tabs are changed
-      key={platformEnv.isNativeAndroid ? `${tabContents.length}` : undefined}
+      key={platformEnv.isNativeAndroid ? `${tabContents.length}` : `${tabContents.length}`}
       canOpenDrawer
       stickyTabBar
       initialTabName={homeTabName}
@@ -262,7 +265,6 @@ const WalletTabs: FC = () => {
       />
     </>
   );
-
   if (network?.settings.validationRequired) {
     if (showUnlockView) {
       return null;

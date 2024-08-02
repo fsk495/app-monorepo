@@ -2,12 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/fan/Downloads/app-monorepo-4.23.0/packages/app/ios/OneKeyWallet.xcodeproj">
+      location = "group:OneKeyWallet.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:OneKeyWallet.xcodeproj">
    </FileRef>
 </Workspace>

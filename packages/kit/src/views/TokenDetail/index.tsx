@@ -1,4 +1,4 @@
-import { memo, useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { useNavigation, useRoute } from '@react-navigation/core';
 import { useIntl } from 'react-intl';
@@ -36,7 +36,9 @@ import type { HomeRoutes } from '../../routes/routesEnum';
 import type { HomeRoutesParams } from '../../routes/types';
 import type { RouteProp } from '@react-navigation/core';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { LayoutChangeEvent } from 'react-native';
+import { Platform, type LayoutChangeEvent } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { ForwardRefHandle } from '@onekeyhq/app/src/views/NestedTabView/NestedTabView';
 
 export type TokenDetailViewProps = NativeStackScreenProps<
   HomeRoutesParams,
@@ -62,6 +64,7 @@ const TokenDetailLoading = memo(TokenDetailLoadingWithoutMemo);
 
 function TokenDetailViewWithoutMemo() {
   const intl = useIntl();
+  const ref = useRef<ForwardRefHandle>(null);
   const [showSwapPanel, setShowSwapPanel] = useState(false);
   const isVerticalLayout = useIsVerticalLayout();
   const route = useRoute<RouteProps>();
@@ -192,6 +195,21 @@ function TokenDetailViewWithoutMemo() {
     [headerHeight],
   );
 
+  const onRefresh = useCallback(() => {
+    ref?.current?.setRefreshing(true);
+    setTimeout(() => ref?.current?.setRefreshing(false), 50);
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      if(Platform.OS === 'ios')
+      {
+        console.log("主动刷新 防止按钮失效");
+        onRefresh();
+      }
+    }, [onRefresh]),
+  );
+
   if (isBRC20)
     return (
       <TokenDetailContext.Provider value={contextValue}>
@@ -214,7 +232,8 @@ function TokenDetailViewWithoutMemo() {
         <Tabs.Container
           headerHeight={headerHeight}
           key={String(headerHeight)}
-          disableRefresh
+          // disableRefresh
+          onRefresh={onRefresh}
           headerView={tabsHeader}
           containerStyle={{
             maxWidth: 1088, // 1024+32*2

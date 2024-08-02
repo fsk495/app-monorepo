@@ -76,9 +76,6 @@ export const bottomTabBarRoutes: {
   key: TabRoutes;
 }[] = tabRoutesOrders
   .map((name) => {
-    console.log("tabRoutesConfigBaseMap[name].hideOnProduction  ",tabRoutesConfigBaseMap[name].hideOnProduction);
-    console.log("process.env.NODE_ENV  ",process.env.NODE_ENV)
-    console.log("process.env.NODE_ENV  ",name)
     if (tabRoutesConfigBaseMap[name].hideOnMobile) {
       return null;
     }

@@ -153,14 +153,10 @@ export const ButtonsSection: FC = () => {
 
   const onSwap = useCallback(
     async ({ token, account: a, network: n }: ISingleChainInfo) => {
-      console.log('onSwap token ',token);
       if (!token) {
         return;
       }
-      console.log('onSwap account ',a);
-      console.log('onSwap network ',n);
       const isLightningNetwork = isLightningNetworkByNetworkId(n.id);
-      console.log('onSwap isLightningNetwork ',isLightningNetwork);
       if (isLightningNetwork) {
         backgroundApiProxy.serviceSwap
           .sellToken(token, !isLightningNetwork)
