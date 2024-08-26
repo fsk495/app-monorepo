@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import type { FC } from 'react';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -47,6 +46,12 @@ import { calculateGains } from '../../../utils/priceUtils';
 import { showAccountValueSettings } from '../../Overlay/AccountValueSettings';
 
 import AccountOption from './AccountOption';
+import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setReminded } from '../../../store/reducers/reminderSlice';
+
+import type { ReminderState } from '../../../store/reducers/reminderSlice';
 
 
 export const FIXED_VERTICAL_HEADER_HEIGHT = 238;
@@ -347,15 +352,13 @@ const AccountUpdateTips: FC<AccountUpdateTipsProps> = ({
 };
 
 const SummedValueComp = memo(
-  ({ networkId, accountId }: { networkId: string; accountId: string }) => {
+  ({ networkId, accountId, walletId }: { networkId: string; accountId: string; walletId: string }) => {
     const totalValue = useAppSelector(
-      (s) =>
-        s.overview.overviewStats?.[networkId]?.[accountId]?.summary?.totalValue,
+      (s) => s.overview.overviewStats?.[networkId]?.[accountId]?.summary?.totalValue,
     );
-
+    const navigation = useAppNavigation();
     const nftTotalValue = useAppSelector(
-      (s) =>
-        s.overview.overviewStats?.[networkId]?.[accountId]?.nfts?.totalValue,
+      (s) => s.overview.overviewStats?.[networkId]?.[accountId]?.nfts?.totalValue,
     );
 
     const includeNFTsInTotal = useAppSelector(
@@ -364,7 +367,8 @@ const SummedValueComp = memo(
 
     const isWatching = isWatchingAccount({ accountId });
 
-    const [hasShownToast, setHasShownToast] = useState(false);
+    const [lastRemindedTime, setLastRemindedTime] = useState(Date.now());
+    const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
     const summaryTotalValue = useMemo(() => {
       if (!totalValue || includeNFTsInTotal) {
@@ -373,15 +377,77 @@ const SummedValueComp = memo(
       return new BigNumber(totalValue).minus(nftTotalValue ?? 0).toFixed();
     }, [includeNFTsInTotal, nftTotalValue, totalValue]);
     const intl = useIntl();
-    useEffect(()=>{
-      console.log("summaryTotalValue   ",summaryTotalValue);
-      if (summaryTotalValue && new BigNumber(summaryTotalValue).gt(1) && !hasShownToast)
-      {
-        ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
-        setHasShownToast(true);
-      }
-    }, [summaryTotalValue, hasShownToast])
 
+    const reminderState = useSelector((state: { reminder: ReminderState }) => {
+      if (!state.reminder) {
+        console.error('state.reminder is undefined');
+        return undefined;
+      }
+      return state.reminder[`${walletId}_${networkId}`];
+    });
+
+    const reminded = reminderState?.reminded;
+    const backedUp = reminderState?.backedUp;
+
+    useEffect(() => {
+      console.log("reminded  ",!reminded);
+      if (!reminded) {
+        checkBackupReminder(true);
+      }
+    }, [reminded,summaryTotalValue]);
+
+    useEffect(() => {
+      checkBackupReminder(true);
+    }, [networkId, walletId]);
+
+    useEffect(() => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+      const newIntervalId = setInterval(() => {
+        checkBackupReminder(false);
+      }, 3600000); // Check every hour
+      setIntervalId(newIntervalId);
+
+      return () => {
+        if (newIntervalId) {
+          clearInterval(newIntervalId);
+        }
+      };
+    }, [summaryTotalValue, intl, navigation, walletId, reminded, backedUp, lastRemindedTime]);
+
+    const checkBackupReminder = (isOnce: boolean) => {
+      console.log("checkBackupReminder   ", summaryTotalValue, backedUp, isOnce)
+      
+      if (summaryTotalValue && new BigNumber(summaryTotalValue).gt(1) && !backedUp) {
+        const now = Date.now();
+        if (isOnce) {
+          ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
+          backgroundApiProxy.dispatch(setReminded({ walletId, networkId }))
+          setLastRemindedTime(now);
+          backgroundApiProxy.dispatch(setReminded({ walletId, networkId }));
+          navigation.navigate(RootRoutes.Onboarding, {
+            screen: EOnboardingRoutes.VerifyPassword,
+            params: {
+              walletId,
+              networkId,
+            },
+          });
+        }
+        else if (now - lastRemindedTime >= 3600000) { // 3600000 ms = 1 hour
+          ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
+          setLastRemindedTime(now);
+          backgroundApiProxy.dispatch(setReminded({ walletId, networkId }));
+          navigation.navigate(RootRoutes.Onboarding, {
+            screen: EOnboardingRoutes.VerifyPassword,
+            params: {
+              walletId,
+              networkId,
+            },
+          });
+        }
+      }
+    };
 
     return (
       <Box flexDirection="row" alignItems="center" mt={1} w="full">
@@ -475,7 +541,7 @@ const ChangedValueComp = memo(
 ChangedValueComp.displayName = 'ChangedValueComp';
 
 const AccountAmountInfo: FC = () => {
-  const { networkId, accountId } = useActiveWalletAccount();
+  const { networkId, accountId, walletId } = useActiveWalletAccount();
 
   return (
     <Box alignItems="flex-start" flex="1">
@@ -483,7 +549,7 @@ const AccountAmountInfo: FC = () => {
         <SectionCopyAddress />
         <SectionOpenBlockBrowser />
       </Box>
-      <SummedValueComp networkId={networkId} accountId={accountId} />
+      <SummedValueComp networkId={networkId} accountId={accountId} walletId={walletId} />
       <ChangedValueComp networkId={networkId} accountId={accountId} />
     </Box>
   );

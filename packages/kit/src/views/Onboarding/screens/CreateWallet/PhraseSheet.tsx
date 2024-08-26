@@ -18,11 +18,15 @@ import type { IBoxProps } from 'native-base';
 type PhraseSheetProps = {
   onPressSavedPhrase?: () => void;
   mnemonic: string;
+  walletId: string;
+  networkId: string;
 } & IBoxProps;
 
 const PhraseSheet: FC<PhraseSheetProps> = ({
   onPressSavedPhrase,
   mnemonic,
+  walletId,
+  networkId,
   ...rest
 }) => {
   const intl = useIntl();
@@ -39,7 +43,7 @@ const PhraseSheet: FC<PhraseSheetProps> = ({
         ↓ {intl.formatMessage({ id: 'content__click_below_to_copy' })} ↓
       </Text>
       <Box flex={1} mb={8}>
-        <MnemonicCard mnemonic={mnemonic} />
+        <MnemonicCard mnemonic={mnemonic} walletId={walletId} networkId={networkId} />
       </Box>
       <Text typography="Body2" color="text-subdued" textAlign="center" mb={4}>
         {intl.formatMessage({ id: 'content__save_phrase_securely' })}

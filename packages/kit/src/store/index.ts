@@ -51,6 +51,8 @@ import statusReducer from './reducers/status';
 import swapReducer from './reducers/swap';
 import swapTransactionsReducer from './reducers/swapTransactions';
 import tokensReducer from './reducers/tokens';
+import reminderReducer from './reducers/reminderSlice';
+
 
 import type {
   Action,
@@ -84,6 +86,7 @@ const allReducers = combineReducers({
   overview: overviewReducer,
   httpServer: httpServerReducer,
   limitOrder: limitOrderReducer,
+  reminder: reminderReducer,
 });
 
 function rootReducer(reducers: Reducer, initialState = {}): any {

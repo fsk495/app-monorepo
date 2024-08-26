@@ -4,15 +4,20 @@ import { Box, Pressable, Text, ToastManager } from '@onekeyhq/components';
 
 import { formatMessage } from '../Provider';
 import { copyToClipboard } from '../utils/ClipboardUtils';
+import backgroundApiProxy from '@onekeyhq/kit/src/background/instance/backgroundApiProxy';
+import { setBackedUp } from '@onekeyhq/kit/src/store/reducers/reminderSlice';
 
-const copyMnemonicToClipboard = (text?: string) => {
+const copyMnemonicToClipboard = (walletId:string,networkId:string,text?: string) => {
   if (!text) return;
   copyToClipboard(text);
+  backgroundApiProxy.dispatch(setBackedUp({ walletId, networkId }))
   ToastManager.show({ title: formatMessage({ id: 'msg__copied' }) });
 };
 const MnemonicCard: FC<{
   mnemonic: string;
-}> = ({ mnemonic }) => {
+  walletId: string;
+  networkId: string;
+}> = ({ mnemonic,walletId,networkId }) => {
   const words = mnemonic.split(' ').filter(Boolean);
   const halfIndex = words.length / 2;
   const leftCol: ReactNode[] = [];
@@ -58,7 +63,7 @@ const MnemonicCard: FC<{
       borderRadius="12"
       flexDirection="row"
       onPress={() => {
-        copyMnemonicToClipboard(mnemonic);
+        copyMnemonicToClipboard(walletId,networkId,mnemonic);
       }}
     >
       <Box flex={1}>{leftCol}</Box>

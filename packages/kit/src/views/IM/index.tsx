@@ -125,6 +125,7 @@ const ImScreen: React.FC = () => {
           onLoadStart={() => setLoading(true)}
           onLoad={() => setLoading(false)}
           onMessage={handleMessage} // 添加 onMessage 处理程序
+          cacheEnabled={true}
           style={styles.webview}
         />
       ) : (

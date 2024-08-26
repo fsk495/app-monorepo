@@ -12,6 +12,8 @@ export type IOnboardingRecoveryPhraseParams = {
   password: string;
   withEnableAuthentication?: boolean;
   mnemonic: string;
+  walletId:string,
+  networkId:string,
   fromVerifyPassword?: boolean,
 };
 export type IOnboardingBehindTheSceneParams =
@@ -80,6 +82,7 @@ export type IOnboardingRoutesParams = {
   };
   [EOnboardingRoutes.VerifyPassword]: {
     walletId: string;
+    networkId:string,
     wallet?: IWallet;
   };
   [EOnboardingRoutes.SendRedPackage]: {

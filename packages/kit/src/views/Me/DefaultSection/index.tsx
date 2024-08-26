@@ -27,7 +27,7 @@ export const DefaultSection = () => {
   const navigationRoot = useAppNavigation();
   const { themeVariant } = useTheme();
 
-  const { walletId } =
+  const { walletId,networkId } =
     useActiveWalletAccount();
   const { showAddressBookModal } = useAddressBook();
   return (
@@ -142,6 +142,7 @@ export const DefaultSection = () => {
               screen: EOnboardingRoutes.VerifyPassword,
               params: { 
                 walletId,
+                networkId,
               },
             });
           }}

@@ -25,18 +25,16 @@ const ShowRecoveryPhrase = () => {
   const intl = useIntl();
   const navigation = useNavigation<NavigationProps>();
   const route = useRoute<RouteProps>();
-  const { mnemonic,fromVerifyPassword } = route.params;
+  const { mnemonic, fromVerifyPassword, walletId, networkId } = route.params;
   const onPressSavedPhrase = useCallback(() => {
-    if(fromVerifyPassword)
-    {
+    if (fromVerifyPassword) {
       navigation.goBack();
     }
-    else
-    {
+    else {
       navigation.replace(EOnboardingRoutes.BehindTheScene, route.params);
     }
-    
-  }, [navigation, route.params,fromVerifyPassword]);
+
+  }, [navigation, route.params, fromVerifyPassword]);
 
   return (
     <Layout
@@ -48,6 +46,8 @@ const ShowRecoveryPhrase = () => {
       secondaryContent={
         <PhraseSheet
           mnemonic={mnemonic}
+          walletId={walletId}
+          networkId={networkId}
           onPressSavedPhrase={onPressSavedPhrase}
         />
       }

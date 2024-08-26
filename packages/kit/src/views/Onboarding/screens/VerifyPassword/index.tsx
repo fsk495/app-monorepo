@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   IconButton,
   useSafeAreaInsets,
+  Text, // 导入 Text 组件
 } from '@onekeyhq/components';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { type StackNavigationProp } from '@react-navigation/stack';
@@ -23,6 +24,7 @@ import { encodeSensitiveText } from '@onekeyhq/engine/src/secret/encryptors/aes2
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
 import { wait } from '../../../../utils/helper';
 import { Keyboard, Platform } from 'react-native';
+import AppStateUnlockButton from '../../../../components/AppLock/AppStateUnlockButton';
 
 type NavigationProps = StackNavigationProp<
   IOnboardingRoutesParams,
@@ -36,7 +38,7 @@ type RouteProps = RouteProp<
 const VerifyPassword = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavigationProps>();
-  const { walletId } = route.params;
+  const { walletId,networkId } = route.params;
   const intl = useIntl();
   const isSmall = useIsVerticalLayout();
   const [password, setPassword] = useState('');
@@ -98,6 +100,8 @@ const VerifyPassword = () => {
       navigation.replace(EOnboardingRoutes.ShowRecoveryPhrase, {
         password,
         mnemonic,
+        walletId,
+        networkId,
         fromVerifyPassword: true,
       });
     } catch (error) {
@@ -142,6 +146,17 @@ const VerifyPassword = () => {
             />
             <Box width="full" py={py}>
               <Box mt="8">
+                <Text
+                  fontSize="2xl"
+                  fontWeight="bold"
+                  textAlign="center"
+                  mb="4"
+                >
+                  {intl.formatMessage({
+                    id: 'title__recovery_phrase',
+                    defaultMessage: 'Verify Password',
+                  })}
+                </Text>
                 <Form.PasswordInput
                   value={password}
                   onChangeText={onChangeText}
@@ -162,9 +177,6 @@ const VerifyPassword = () => {
                   })}
                 </Button>
               </Box>
-              {/* <Center mt="8">
-                <AppStateUnlockButton onOk={onOk} />
-              </Center> */}
             </Box>
           </Box>
         </Center>
