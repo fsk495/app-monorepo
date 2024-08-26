@@ -249,7 +249,7 @@ function TokenCellFiatValueDeepFresh({ token }: { token: IAccountToken }) {
   const result = useReduxSingleTokenFiatValuesSimple({
     token,
   });
-
+  // 显示代币的总价值，和变化趋势
   return <TokenCellFiatValue valuesInfo={result} />;
 }
 

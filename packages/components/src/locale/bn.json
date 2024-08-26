@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "UTXOs পরিচালনা করুন",
   "title__market": "বাজার",
   "title__me": "আমাকে",
+  "title__im": "IM",
   "title__menu": "তালিকা",
   "title__migration": "মাইগ্রেশন",
   "title__migration_desc": "NPay অ্যাপের মধ্যে স্থানান্তর করুন",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "একক-চেইন অ্যাকাউন্ট",
   "wallet__wallet": "ওয়ালেট",
   "wallet__watched_accounts": "অ্যাকাউন্ট দেখা",
-  "dapp_novai_finance": "নোভাই ফাইন্যান্স হল একটি সংস্থা যা নোভাই চেইনকে প্রচার করে এবং বাজারজাত করে",
-  "dapp_novai_scan": "নোভাই চেইন ব্লক এক্সপ্লোরার",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "নোভাইব্রিজ হল সেই জায়গা যেখানে নোভাই গ্রহণ করা হয় বা প্রত্যাহার করা হয়",
-  "dapp_novai_faucet": "NovaiFaucet একটি নির্দিষ্ট পরিমাণ নোভাই পাওয়ার একটি বিনামূল্যের বিকল্প"
+  "dapp_novai_finance": "নোভাই চেইনে দ্বৈত-মুদ্রা খনির চুক্তি",
+  "dapp_novai_scan": "নোভাই ব্লক ব্রাউজার",
+  "dapp_novai_swap": "নোভাই অফিসিয়াল ডেক্স",
+  "dapp_novai_bridge": "নোভাই অফিসিয়াল ক্রস-চেইন ব্রিজ",
+  "dapp_novai_faucet": "নোভাই লেনদেন ফি বিনামূল্যে পান",
+  "dapp_novai_dragon": "শত সহস্র অংশগ্রহণকারীর সাথে নোভাই অন-চেইন গেম",
+  "history_brower": "এক্সপ্লোরার চেক করুন",
+
+  "send_red_envelopes":"লাল খাম পাঠান",
+  "receive_red_envelopes":"লাল খাম গ্রহণ",
+  "title_piece":"টুকরা",
+  "content__backup_your_mnemonic": "'মাই' এ <b>স্মরণীয়</b> ব্যাকআপ",
+  "title_tip_mnemonic":"আপনার অ্যাকাউন্টের ব্যালেন্স 1U ছাড়িয়ে গেছে, অনুগ্রহ করে সময়মতো আপনার স্মৃতির ব্যাক আপ নিন।"
 }

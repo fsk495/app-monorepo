@@ -292,7 +292,7 @@ describe('messageUtils', () => {
           unexpectedChainId,
         ),
       ).toThrow(
-        `Cannot sign messages for chainId "${mockedCurrentChainId}", because OneKey is switching networks.`,
+        `Cannot sign messages for chainId "${mockedCurrentChainId}", because NPay is switching networks.`,
       );
     });
 

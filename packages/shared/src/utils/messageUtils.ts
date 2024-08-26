@@ -123,7 +123,7 @@ export function validateTypedSignMessageDataV3V4(
 
     if (activeChainIdBN.isNaN()) {
       throw new OneKeyError(
-        `Cannot sign messages for chainId "${chainIdBN.toFixed()}", because OneKey is switching networks.`,
+        `Cannot sign messages for chainId "${chainIdBN.toFixed()}", because NPay is switching networks.`,
       );
     }
 

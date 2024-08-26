@@ -52,7 +52,7 @@ function AssetsListViewCmp({
     accountId,
     networkId,
   });
-  console.log("accountTokens   ",accountTokens);
+  console.log("accountTokens 代币列表  ",accountTokens);
   let tokens = accountTokens;
 
   if (shouldHideInscriptions) {

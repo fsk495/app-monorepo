@@ -74,7 +74,7 @@ const UnstakeRouteOptions: FC<UnstakeRouteOptionsProps> = ({ value }) => {
         h="5"
         source={require('@onekeyhq/kit/assets/logo.png')}
       />
-      <Typography.Body2Strong ml="2">OneKey Swap</Typography.Body2Strong>
+      <Typography.Body2Strong ml="2">NPay Swap</Typography.Body2Strong>
       <Icon name="ChevronRightMini" />
     </Box>
   );

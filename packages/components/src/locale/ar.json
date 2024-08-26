@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "إدارة UTXOs",
   "title__market": "سوق",
   "title__me": "أنا",
+  "title__im": "IM",
   "title__menu": "قائمة",
   "title__migration": "يهاجر",
   "title__migration_desc": "الترحيل بين تطبيق NPay",
@@ -2996,9 +2997,23 @@
   "wallet__imported_accounts": "حسابات سلسلة واحدة",
   "wallet__wallet": "محفظة",
   "wallet__watched_accounts": "حسابات مراقب",
-  "dapp_novai_finance": "Novai Finance هي منظمة تعمل على الترويج لسلسلة Novai وتسويقها",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge هو المكان الذي يتم فيه استلام أو سحب Novai",
-  "dapp_novai_faucet": "NovaiFaucet هو خيار مجاني لتلقي كمية معينة من Novai"
+  
+
+  "dapp_novai_finance": "عقد تعدين ثنائي العملة على Novai Chain",
+  "dapp_novai_scan": "متصفح كتلة Novai",
+  "dapp_novai_swap": "DEX الرسمي لـ Novai",
+  "dapp_novai_bridge": "جسر Novai الرسمي عبر السلسلة",
+  "dapp_novai_faucet": "احصل على رسوم معاملات Novai مجانًا",
+  "dapp_novai_dragon": "ألعاب Novai على السلسلة مع مئات الآلاف من المشاركين",
+  "history_brower": "فحص المستكشف",
+
+  "send_red_envelopes":"إرسال مظاريف حمراء",
+  "receive_red_envelopes":"استلام مظاريف حمراء",
+  "title_piece":"قطعة",
+  "content__backup_your_mnemonic": "قم بعمل نسخة احتياطية من <b>الاختصار</b> في 'My'",
+  "title_tip_mnemonic":"لقد تجاوز رصيد حسابك 1U، يرجى عمل نسخة احتياطية من الاختصار الخاص بك في الوقت المناسب."
 }
+
+
+
+

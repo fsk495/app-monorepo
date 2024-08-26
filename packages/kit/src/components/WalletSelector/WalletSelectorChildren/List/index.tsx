@@ -81,9 +81,9 @@ function SectionHeader({
   const intl = useIntl();
   const label = useMemo(() => {
     if (type === 'hd') return intl.formatMessage({ id: 'wallet__app_wallet' });
-    if (type === 'hw')
-      return intl.formatMessage({ id: 'wallet__hardware_wallet' });
-    return intl.formatMessage({ id: 'content__other' });
+    // if (type === 'hw')
+    //   return intl.formatMessage({ id: 'wallet__hardware_wallet' });
+    // return intl.formatMessage({ id: 'content__other' });
   }, [intl, type]);
 
   const showAddIconButton = shouldShowMiniCreateButton({ section });
@@ -211,7 +211,8 @@ function Body() {
       )}
       renderSectionFooter={({ section }: { section: IWalletDataSection }) => {
         const isEmptyData = !section?.data?.length;
-        const showCreateWalletButton = shouldShowBigCreateButton({ section });
+        let showCreateWalletButton = shouldShowBigCreateButton({ section });
+        showCreateWalletButton = false;
         if (showCreateWalletButton) {
           const bottomMargin: JSX.Element | null = <Box h={6} />;
           if (section.type === EWalletDataSectionType.hd) {

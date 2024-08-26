@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "管理 UTXO",
   "title__market": "市場",
   "title__me": "我",
+  "title__im": "IM",
   "title__menu": "菜單",
   "title__migration": "遷移",
   "title__migration_desc": "在 NPay 應用之間遷移",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "單鏈賬戶",
   "wallet__wallet": "錢包",
   "wallet__watched_accounts": "觀察賬戶",
-  "dapp_novai_finance": "Novai Finance 是一家推廣和行銷 Novai Chain 的組織",
-  "dapp_novai_scan": "Novai Chain 鏈區塊瀏覽器",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge 是獲取或提取 Novai 的地方",
-  "dapp_novai_faucet": "NovaiFaucet 是獲得一定數量 Noavi 的免費選項"
+  "dapp_novai_finance": "Novai Chain 上的雙幣挖礦合約",
+  "dapp_novai_scan": "Novai 區塊瀏覽器",
+  "dapp_novai_swap": "Novai 官方DEX",
+  "dapp_novai_bridge": "Novai 官方跨鏈橋",
+  "dapp_novai_faucet": "免費取得 Novai 手續費",
+  "dapp_novai_dragon": "數十萬人參與的 Novai 鏈上游戲",
+  "history_brower": "檢查資源管理器",
+
+  "send_red_envelopes":"發紅包",
+  "receive_red_envelopes":"收紅包",
+  "title_piece":"個",
+  "content__backup_your_mnemonic": "在 '我的' 備份<b>助記詞</b>",
+  "title_tip_mnemonic":"您的帳戶金額已超過1U，請及時備份助記詞。"
 }

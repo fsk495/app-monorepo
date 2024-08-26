@@ -5,7 +5,7 @@ import { intersection } from 'lodash';
 import { useAppSelector } from '../../../../hooks';
 
 const CDefaultPopular = ['usd', 'eur', 'gbp', 'jpy', 'cny', 'hkd'];
-const CDefaultCrypto = ['btc', 'eth', 'sats', 'bits'];
+const CDefaultCrypto = ['btc', 'eth'];//, 'sats', 'bits'];
 
 export const useCurrencyData = (key: string) => {
   const fiatMoneyMap = useAppSelector((s) => s.fiatMoney.map);

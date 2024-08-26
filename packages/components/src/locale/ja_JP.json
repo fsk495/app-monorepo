@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "UTXOの管理",
   "title__market": "マーケット",
   "title__me": "自分",
+  "title__im": "IM",
   "title__menu": "メニュー",
   "title__migration": "移行",
   "title__migration_desc": "NPay アプリ間で移行する",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "シングルチェーンアカウント",
   "wallet__wallet": "ウォレット",
   "wallet__watched_accounts": "閲覧用アカウント",
-  "dapp_novai_finance": "Novai Finance は Novai Chain を宣伝および販売する組織です",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge は Novai を取得または引き出す場所です",
-  "dapp_novai_faucet": "NovaiFaucet は一定量の Noavi を取得するための無料オプションです"
+  "dapp_novai_finance": "Novai Chain のデュアル通貨マイニング契約",
+  "dapp_novai_scan": "Novai ブロック ブラウザ",
+  "dapp_novai_swap": "Novai 公式 DEX",
+  "dapp_novai_bridge": "Novai 公式クロスチェーン ブリッジ",
+  "dapp_novai_faucet": "Novai 取引手数料を無料で取得",
+  "dapp_novai_dragon": "数十万人が参加する Novai オンチェーン ゲーム",
+  "history_brower": "エクスプローラーをチェック",
+  
+  "send_red_envelopes":"赤い封筒を送る",
+  "receive_red_envelopes":"赤い封筒を受け取る",
+  "title_piece":"ピース",
+  "content__backup_your_mnemonic": "「マイ」で <b>ニーモニック</b> をバックアップしてください",
+  "title_tip_mnemonic":"アカウント残高が 1U を超えました。ニーモニックを早めにバックアップしてください。"
 }

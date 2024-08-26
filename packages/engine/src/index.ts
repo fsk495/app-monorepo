@@ -304,10 +304,10 @@ class Engine {
       if (weight === 0) {
         weight =
           this.HIDDEN_WALLET_SORT_WEIGHT[
-            a.passphraseState || a.hidden ? 'hidden' : 'normal'
+          a.passphraseState || a.hidden ? 'hidden' : 'normal'
           ] -
           this.HIDDEN_WALLET_SORT_WEIGHT[
-            b.passphraseState || b.hidden ? 'hidden' : 'normal'
+          b.passphraseState || b.hidden ? 'hidden' : 'normal'
           ];
         if (weight === 0) {
           return natsort({ insensitive: true })(a.name, b.name);
@@ -444,7 +444,7 @@ class Engine {
       });
 
       const result = this.dbApi.confirmWalletCreated(wallet.id);
-      
+
       timelinePerfTrace.mark({
         name: ETimelinePerfNames.createHDWallet,
         title: 'engine.createHDWallet >> dbApi.confirmWalletCreated DONE',
@@ -644,42 +644,42 @@ class Engine {
         .map((a: DBAccount) =>
           typeof networkId === 'undefined'
             ? {
-                id: a.id,
-                name: a.name,
-                type: a.type,
-                path: a.path,
-                coinType: a.coinType,
-                tokens: [],
-                address: a.address,
-                addresses: isLightningNetwork(a.coinType)
-                  ? JSON.stringify(get(a, 'addresses', {}))
-                  : undefined,
-                pubKey: get(a, 'pub', ''),
-              }
+              id: a.id,
+              name: a.name,
+              type: a.type,
+              path: a.path,
+              coinType: a.coinType,
+              tokens: [],
+              address: a.address,
+              addresses: isLightningNetwork(a.coinType)
+                ? JSON.stringify(get(a, 'addresses', {}))
+                : undefined,
+              pubKey: get(a, 'pub', ''),
+            }
             : this.getVaultWithoutCache({ accountId: a.id, networkId }).then(
-                (vault) =>
-                  vault.getOutputAccount().catch((error) => {
-                    if (a.type === AccountType.SIMPLE) {
-                      vault
-                        .validateAddress(a.address)
-                        .then((address) => {
-                          if (!address) {
-                            setTimeout(() => {
-                              this.removeAccount(a.id, '', networkId, true);
-                              checkActiveWallet();
-                            }, 100);
-                          }
-                        })
-                        .catch(() => {
+              (vault) =>
+                vault.getOutputAccount().catch((error) => {
+                  if (a.type === AccountType.SIMPLE) {
+                    vault
+                      .validateAddress(a.address)
+                      .then((address) => {
+                        if (!address) {
                           setTimeout(() => {
                             this.removeAccount(a.id, '', networkId, true);
                             checkActiveWallet();
                           }, 100);
-                        });
-                    }
-                    throw error;
-                  }),
-              ),
+                        }
+                      })
+                      .catch(() => {
+                        setTimeout(() => {
+                          this.removeAccount(a.id, '', networkId, true);
+                          checkActiveWallet();
+                        }, 100);
+                      });
+                  }
+                  throw error;
+                }),
+            ),
         ),
     );
 
@@ -808,7 +808,7 @@ class Engine {
     password: string;
     credentialType: AccountCredentialType;
   }): // networkId?: string, TODO: different curves on different networks.
-  Promise<string> {
+    Promise<string> {
     const { coinType } = await this.dbApi.getAccount(accountId);
     // TODO: need a method to get default network from coinType.
     // network shortcode
@@ -1262,8 +1262,8 @@ class Engine {
       }
       let tokenInfo:
         | (Pick<Token, 'name' | 'symbol' | 'decimals'> & {
-            logoURI?: string;
-          })
+          logoURI?: string;
+        })
         | undefined;
       const { impl, chainId } = parseNetworkId(networkId);
       if (!impl || !chainId) {
@@ -1589,7 +1589,6 @@ class Engine {
       tokens.map((token: Token) => token.tokenIdOnNetwork),
     );
     const tokensOnNetwork = await simpleDb.token.getTokens({ networkId });
-
     return tokens.concat(
       tokensOnNetwork.filter(
         (token1: Token) => !existingTokens.has(token1.tokenIdOnNetwork),
@@ -1611,11 +1610,32 @@ class Engine {
         return;
       }
       try {
-        const tokens = await fetchOnlineTokens({
+        let tokens = await fetchOnlineTokens({
           impl,
           chainId,
           includeNativeToken: 1,
         });
+        if (impl === 'evm' && chainId === '7256' && tokens.length === 0) {
+          tokens = [
+            {
+              "name": "nUSDT",
+              "symbol": "nUSDT",
+              "address": "0xe623aed6b4daf04553b8fee8daeccf1cfaaece37",
+              "decimals": 6,
+              "logoURI": "https://drag2.s3.ap-east-1.amazonaws.com/pocket/Npay/tokenicon/nusd.png",
+              "impl": "evm",
+              "status": "LISTED",
+              "addToIndex": true,
+              "chainId": "7256",
+              "source": [
+              ],
+              "checked": true,
+              "marketCap": 6514432102.253393,
+              "onramperId": "nUSDT",
+              "riskLevel": 1,
+            }
+          ]
+        }
         if (tokens.length) {
           await simpleDb.token.updateTokens(impl, chainId, tokens);
         }
@@ -2372,7 +2392,6 @@ class Engine {
   @backgroundMethod()
   async listNetworks(enabledOnly = true): Promise<Array<Network>> {
     const dbNetworks = await this.dbApi.listNetworks();
-
     const devModeEnable = appSelector((s) => s.settings.devMode?.enable);
     const networks = await Promise.all(
       dbNetworks
@@ -3119,6 +3138,24 @@ class Engine {
     }
     return null;
   }
+
+  @backgroundMethod()
+  async getProvider(networId?: string) {
+    console.log('获取 Provider  ')
+    if (!networId) {
+      console.log("getProvider  网络ID不对 ",);
+      return;
+    }
+    const provider = this.providerManager.getProvider(networId);
+
+    if (!provider) {
+      console.log('没有找到 provider ', networId);
+      return;
+    }
+
+    return provider
+  }
+
 }
 
 export { Engine };

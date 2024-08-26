@@ -199,7 +199,7 @@ const Welcome = () => {
               roundedTop={{ base: 0, sm: 'xl' }}
               onPress={onPressImportWallet}
             />
-            <PressableListItem
+            {/* <PressableListItem
               icon="UsbCableOutline"
               label={intl.formatMessage({
                 id: 'action__connect_hardware_wallet',
@@ -220,7 +220,7 @@ const Welcome = () => {
                   />
                 </Box>
               </Hidden>
-            </PressableListItem>
+            </PressableListItem> */}
           </Box>
         </Box>
         <Hidden till="sm">
@@ -232,7 +232,7 @@ const Welcome = () => {
             <Divider flex={1} />
           </Box>
         </Hidden>
-        <ConnectThirdPartyWallet onPress={onPressThirdPartyWallet} />
+        {/* <ConnectThirdPartyWallet onPress={onPressThirdPartyWallet} /> */}
       </Layout>
       <TermsOfService />
     </>

@@ -28,8 +28,8 @@ const Body: FC<BodyProps> = () => {
 
   function sectionHeaderLabel(type: string) {
     if (type === 'hd') return intl.formatMessage({ id: 'wallet__app_wallet' });
-    if (type === 'hw')
-      return intl.formatMessage({ id: 'wallet__hardware_wallet' });
+    // if (type === 'hw')
+    //   return intl.formatMessage({ id: 'wallet__hardware_wallet' });
     return intl.formatMessage({ id: 'content__other' });
   }
 

@@ -412,6 +412,8 @@ export async function fetchData<T>(
   try {
     const postData = isPostBody ? query : undefined;
     const requestConfig = { url: apiUrl, method, data: postData };
+    console.log("fetchData 1  ",apiUrl)
+    console.log("fetchData 2  ",requestConfig)
     const { data } = await axios.request<T>(requestConfig);
     return data;
   } catch (e) {

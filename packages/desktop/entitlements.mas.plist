@@ -6,7 +6,7 @@
     <true/>
     <key>com.apple.security.application-groups</key>
     <array>
-      <string>B8RDJF7YUS.so.onekey.wallet</string>
+      <string>B8RDJF7YUS.novai.npay.wallet</string>
     </array>
     <key>com.apple.security.network.client</key>
     <true/>

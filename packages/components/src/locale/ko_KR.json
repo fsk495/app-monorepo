@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "UTXO 관리",
   "title__market": "시장",
   "title__me": "나",
+  "title__im": "IM",
   "title__menu": "메뉴",
   "title__migration": "이주",
   "title__migration_desc": "NPay 앱 간 마이그레이션",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "단일 체인 계정",
   "wallet__wallet": "지갑",
   "wallet__watched_accounts": "시청 계정",
-  "dapp_novai_finance": "Novai Finance는 Novai Chain을 홍보하고 마케팅하는 조직입니다",
-  "dapp_novai_scan": "Novai Chain 체인 블록 탐색기",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge는 Novai를 획득하거나 출금하는 곳입니다",
-  "dapp_novai_faucet": "NovaiFaucet은 일정량의 Noavi를 얻을 수 있는 무료 옵션입니다"
+  "dapp_novai_finance": "Novai Chain에서 이중 통화 채굴 계약",
+  "dapp_novai_scan": "Novai 블록 브라우저",
+  "dapp_novai_swap": "Novai 공식 DEX",
+  "dapp_novai_bridge": "Novai 공식 크로스 체인 브릿지",
+  "dapp_novai_faucet": "Novai 거래 수수료를 무료로 받으세요",
+  "dapp_novai_dragon": "수십만 명의 참가자가 있는 Novai 온체인 게임",
+  "history_brower": "탐색기 확인",
+  
+  "send_red_envelopes":"붉은 봉투를 보내다",
+  "receive_red_envelopes":"붉은 봉투를 받다",
+  "title_piece":"piece",
+  "content__backup_your_mnemonic": "'내'에 <b>니모닉</b>을 백업하세요.",
+  "title_tip_mnemonic":"귀하의 계좌 잔액이 1U를 초과했습니다. 시간 내에 니모닉을 백업하세요."
 }

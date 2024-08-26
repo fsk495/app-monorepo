@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "UTXO प्रबंधित करें",
   "title__market": "मंडी",
   "title__me": "मैं",
+  "title__im": "IM",
   "title__menu": "मेन्यू",
   "title__migration": "प्रवास",
   "title__migration_desc": "NPay ऐप के बीच माइग्रेट करें",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "एकल-श्रृंखला खाते",
   "wallet__wallet": "बटुआ",
   "wallet__watched_accounts": "देखे गए खाते",
-  "dapp_novai_finance": "नोवी फाइनेंस एक ऐसा संगठन है जो नोवी चेन को बढ़ावा देता है और उसका विपणन करता है",
-  "dapp_novai_scan": "नोवी चेन ब्लॉक एक्सप्लोरर",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "नोवीब्रिज वह स्थान है जहाँ नोवी प्राप्त या वापस लिया जाता है",
-  "dapp_novai_faucet": "नोवीफॉसेट एक निश्चित मात्रा में नोवी प्राप्त करने का एक निःशुल्क विकल्प है"
+  "dapp_novai_finance": "नोवाई चेन पर दोहरी मुद्रा खनन अनुबंध",
+  "dapp_novai_scan": "नोवाई ब्लॉक ब्राउज़र",
+  "dapp_novai_swap": "नोवाई आधिकारिक DEX",
+  "dapp_novai_bridge": "नोवाई आधिकारिक क्रॉस-चेन ब्रिज",
+  "dapp_novai_faucet": "नोवाई लेनदेन शुल्क मुफ़्त पाएं",
+  "dapp_novai_dragon": "नोवाई ऑन-चेन गेम जिसमें सैकड़ों हज़ार प्रतिभागी हैं",
+  "history_brower": "एक्सप्लोरर की जाँच करें",
+  
+  "send_red_envelopes":"लाल लिफाफे भेजें",
+  "receive_red_envelopes":"लाल लिफाफे प्राप्त करें",
+  "title_piece":"टुकड़ा",
+  "content__backup_your_mnemonic": "'My' में <b>निमोनिक</b> का बैकअप लें",
+  "title_tip_mnemonic":"आपके खाते की शेष राशि 1U से अधिक हो गई है, कृपया समय रहते अपने निमोनिक का बैकअप ले लें।"
 }

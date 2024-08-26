@@ -430,7 +430,7 @@ class ServiceDapp extends ServiceBase {
     );
     let shouldShowNotMatchedNetworkModal = true;
     const requestMethod = (request.data as IJsonRpcRequest)?.method || '';
-    const notMatchedErrorMessage = `OneKey Wallet chain/network not matched. method=${requestMethod} scope=${
+    const notMatchedErrorMessage = `NPay Wallet chain/network not matched. method=${requestMethod} scope=${
       request.scope || ''
     } origin=${request.origin || ''}`;
 

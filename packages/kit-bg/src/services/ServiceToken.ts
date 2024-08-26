@@ -226,6 +226,7 @@ export default class ServiceToken extends ServiceBase {
         if (autodetectedTokens.length) {
           accountTokens.push(...autodetectedTokens);
         }
+        
       } catch (e) {
         debugLogger.common.error('fetchAccountTokens error', e);
         return accountTokens;
@@ -306,16 +307,12 @@ export default class ServiceToken extends ServiceBase {
   @backgroundMethod()
   async fetchAccountTokens(options: IFetchAccountTokensParams) {
     const { accountId, networkId } = options;
-    console.log('fetchAccountTokens  accountId ',accountId);
-    console.log('fetchAccountTokens  networkId ',networkId);
     if (!accountId || !networkId) {
       return [];
     }
-    console.log('fetchAccountTokens  !isAccountCompatibleWithNetwork(accountId, networkId) ',!isAccountCompatibleWithNetwork(accountId, networkId));
     if (!isAccountCompatibleWithNetwork(accountId, networkId)) {
       return [];
     }
-    console.log('fetchAccountTokens  isAllNetworks(networkId) ',isAllNetworks(networkId));
     if (isAllNetworks(networkId)) {
       return [];
     }

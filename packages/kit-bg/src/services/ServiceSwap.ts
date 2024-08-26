@@ -126,7 +126,7 @@ export default class ServiceSwap extends ServiceBase {
       address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
       decimals: 6,
       logoURI:
-        'https://common.onekey-asset.com/token/evm-1/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.jpg',
+        'https://drag2.s3.ap-east-1.amazonaws.com/pocket/Npay/token/evm-1/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.jpg',
       impl: 'evm',
       chainId: '1',
     } as ServerToken;

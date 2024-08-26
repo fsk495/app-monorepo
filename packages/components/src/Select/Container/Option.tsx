@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 
 import { useIsVerticalLayout } from '@onekeyhq/components';
+import { Image } from 'react-native';
 
 import Badge from '../../Badge';
 import Box from '../../Box';
@@ -36,6 +37,12 @@ function Leading<T>({ option }: { option: SelectItem<T> }) {
           color={option.destructive ? 'icon-critical' : 'icon-default'}
           size={isSmallScreen ? 24 : 20}
           {...option.iconProps}
+        />
+      )}
+      {!!option.iconUrl && (
+        <Image
+          source={{ uri: option.iconUrl }}
+          style={{ width: 24, height: 24, marginRight: 8 }}
         />
       )}
     </>
@@ -112,7 +119,8 @@ function RenderSingleOption<T>({
           >
             {(!!option.tokenProps ||
               !!option.iconProps ||
-              !!option.leading) && <Leading option={option} />}
+              !!option.leading ||
+              !!option.iconUrl) && <Leading option={option} />}
             {optionText}
             {!!option.trailing && option.trailing}
             {!!isActive && !!activatable && (
@@ -128,6 +136,7 @@ function RenderSingleOption<T>({
     )
   );
 }
+
 type IRenderOptions<T = any> = Pick<
   ChildProps<T>,
   'activeOption' | 'onChange' | 'renderItem' | 'options' | 'activatable'

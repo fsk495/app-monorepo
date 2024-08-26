@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Pamahalaan ang mga UTXO",
   "title__market": "Merkado",
   "title__me": "Ako",
+  "title__im": "IM",
   "title__menu": "Menu",
   "title__migration": "Migration",
   "title__migration_desc": "Mag-migrate sa pagitan ng NPay app",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Mga Single-chain na Account",
   "wallet__wallet": "wallet",
   "wallet__watched_accounts": "Mga Napanood na Account",
-  "dapp_novai_finance": "Ang Novai Finance ay isang organisasyon na nagpo-promote at nag-market ng Novai Chain",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "Ang NovaiBridge ay ang lugar kung saan tinatanggap o na-withdraw ang Novai",
-  "dapp_novai_faucet": "Ang NovaiFaucet ay isang libreng opsyon para makatanggap ng partikular na halaga ng Novai"
+  "dapp_novai_finance": "Dual-currency na kontrata sa pagmimina sa Novai Chain",
+  "dapp_novai_scan": "Novai block browser",
+  "dapp_novai_swap": "Opisyal ng Novai DEX",
+  "dapp_novai_bridge": "Novai opisyal na cross-chain bridge",
+  "dapp_novai_faucet": "Kumuha ng mga bayad sa transaksyon sa Novai nang libre",
+  "dapp_novai_dragon": "Novai on-chain na laro na may daan-daang libong kalahok",
+  "history_brower": "suriin ang explorer",
+  
+  "send_red_envelopes":"Magpadala ng mga pulang sobre",
+  "receive_red_envelopes":"Tumanggap ng mga pulang sobre",
+  "title_piece":"piraso",
+  "content__backup_your_mnemonic": "I-backup ang <b>Mnemonic</b> sa 'My'",
+  "title_tip_mnemonic":"Ang balanse ng iyong account ay lumampas sa 1U, mangyaring i-back up ang iyong mnemonic sa oras."
 }

@@ -66,6 +66,7 @@ export type SelectItem<T = any> = {
   badge?: string;
   leading?: ReactNode;
   trailing?: ReactNode;
+  iconUrl?:string
 };
 
 export type SelectGroupItem<T = string> = {

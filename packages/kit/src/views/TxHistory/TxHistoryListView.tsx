@@ -23,7 +23,7 @@ import { HISTORY_CONSTS } from '@onekeyhq/shared/src/engine/engineConsts';
 import debugLogger from '@onekeyhq/shared/src/logger/debugLogger';
 
 import backgroundApiProxy from '../../background/instance/backgroundApiProxy';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useNetwork } from '../../hooks';
 import useFormatDate from '../../hooks/useFormatDate';
 import { useIsFocusedAllInOne } from '../../hooks/useIsFocusedAllInOne';
 import { usePromiseResult } from '../../hooks/usePromiseResult';
@@ -41,6 +41,7 @@ import { TxHistoryListViewHeader } from './TxHistoryListViewHeader';
 
 import type { IAccountToken } from '../Overview/types';
 import type { SectionListProps } from 'react-native';
+import { openDapp } from '../../utils/openUrl';
 
 export type IHistoryListSectionGroup = {
   title?: string;
@@ -150,6 +151,7 @@ function TxHistoryListSectionList(props: {
   networkId: string;
 }) {
   const { networkId, data: historyListData, SectionListComponent } = props;
+  const network =  useNetwork({networkId})
   const { size } = useUserDevice();
   const formatDate = useFormatDate();
   const responsivePadding = useMemo(() => {
@@ -170,6 +172,8 @@ function TxHistoryListSectionList(props: {
     [historyListData, formatDate],
   );
   const isEmpty = !sections || !sections.length;
+
+  
 
   // TODO open detail modal cause re-render
   const renderItem: SectionListProps<IHistoryTx>['renderItem'] = useCallback(
@@ -197,6 +201,17 @@ function TxHistoryListSectionList(props: {
     );
 
   const divider = useCallback(() => <Divider key="separator" />, []);
+  const onTextClick=()=>{
+    // 查找交易历史记录
+    if(network.network?.blockExplorerURL.name)
+    {
+      openDapp(network.network?.blockExplorerURL.name)
+    }
+    else
+    {
+      openDapp('https://scan.novaichain.com/novaichain')
+    }
+  }
   const sectionListProps = {
     renderItem,
     renderSectionHeader,
@@ -212,7 +227,7 @@ function TxHistoryListSectionList(props: {
         networkId={networkId}
       />
     ),
-    ListEmptyComponent: <TxHistoryListViewEmpty key="empty" />,
+    ListEmptyComponent: <TxHistoryListViewEmpty key="empty" onTextClick={onTextClick}/>,
     ListFooterComponent: <Box key="footer" h="20px" />,
     ItemSeparatorComponent: divider,
     keyExtractor: (tx: IHistoryTx, index: number) =>

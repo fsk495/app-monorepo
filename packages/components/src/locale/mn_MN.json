@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "UTXO-г удирдах",
   "title__market": "Зах зээл",
   "title__me": "Би",
+  "title__im": "IM",
   "title__menu": "Цэс",
   "title__migration": "Шилжилт хөдөлгөөн",
   "title__migration_desc": "NPay програм хооронд шилжих",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Нэг хэлхээтэй дансууд",
   "wallet__wallet": "Түрийвч",
   "wallet__watched_accounts": "Үзсэн бүртгэлүүд",
-  "dapp_novai_finance": "Novai Finance бол Новаи сүлжээг сурталчилж, зах зээлд нийлүүлдэг байгууллага юм",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge бол Новайг олж авах эсвэл эргүүлэн татах газар юм",
-  "dapp_novai_faucet": "NovaiFaucet бол тодорхой хэмжээний Noavi авах үнэгүй сонголт юм"
+  "dapp_novai_finance": "Novai Chain дээр хос валютын олборлолтын гэрээ",
+  "dapp_novai_scan": "Novai блок хөтөч",
+  "dapp_novai_swap": "Новагийн албан ёсны DEX",
+  "dapp_novai_bridge": "Новай албан ёсны хөндлөн гинжин гүүр",
+  "dapp_novai_faucet": "Novai гүйлгээний шимтгэлийг үнэгүй аваарай",
+  "dapp_novai_dragon": "Хэдэн зуун мянган оролцогчтой Новаи тоглоомууд",
+  "history_brower": "Explorer-г шалгана уу",
+  
+  "send_red_envelopes":"Улаан дугтуй илгээнэ үү",
+  "receive_red_envelopes":"Улаан дугтуйг хүлээн авна уу",
+  "title_piece":"хэсэг",
+  "content__backup_your_mnemonic": "'Миний' доторх <b>Мнемоник</b> нөөцлөлт",
+  "title_tip_mnemonic":"Таны дансны үлдэгдэл 1U-ээс хэтэрсэн тул мнемоникээ цаг тухайд нь нөөцөлнө үү."
 }

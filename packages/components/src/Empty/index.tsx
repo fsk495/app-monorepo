@@ -2,6 +2,7 @@ import type { ComponentProps, FC, ReactNode } from 'react';
 import { isValidElement } from 'react';
 
 import { useIsVerticalLayout } from '@onekeyhq/components';
+import { StyleSheet } from 'react-native';
 
 import Box from '../Box';
 import Button from '../Button';
@@ -11,6 +12,13 @@ import Image from '../Image';
 import Text from '../Text';
 
 import type { ICON_NAMES } from '../Icon/Icons';
+
+const styles = StyleSheet.create({
+  clickableText: {
+    color: '#0000FF', // 淡蓝色
+    textDecorationLine: 'underline',
+  },
+});
 
 type BoxProps = ComponentProps<typeof Box>;
 type NonString<T> = T extends string ? never : T;
@@ -26,6 +34,8 @@ type EmptyProps = {
   actionProps?: ComponentProps<typeof Button>;
   handleAction?: () => void;
   isLoading?: boolean;
+  clickableText?: string;
+  onTextClick?: () => void;
 } & BoxProps;
 
 function renderIcon(icon: EmptyProps['icon']) {
@@ -56,6 +66,8 @@ const Empty: FC<EmptyProps> = ({
   handleAction,
   actionProps,
   isLoading,
+  clickableText='',
+  onTextClick,
   ...rest
 }) => {
   const isSmallScreen = useIsVerticalLayout();
@@ -80,6 +92,7 @@ const Empty: FC<EmptyProps> = ({
         >
           {title}
         </Text>
+        
         <Text
           textAlign="center"
           typography={{ sm: 'Body1', md: 'Body2' }}
@@ -88,7 +101,18 @@ const Empty: FC<EmptyProps> = ({
         >
           {subTitle}
         </Text>
-        {!!handleAction && (
+        {!!clickableText && (
+          <Text
+            mt={4}
+            color="text-link"
+            textAlign="center"
+            onPress={onTextClick}
+            style={styles.clickableText}
+          >
+            {clickableText}
+          </Text>
+        )}
+        {/* {!!handleAction && (
           <Button
             isLoading={isLoading}
             mt={6}
@@ -99,7 +123,8 @@ const Empty: FC<EmptyProps> = ({
           >
             {actionTitle}
           </Button>
-        )}
+        )} */}
+        
       </Center>
     </Box>
   );

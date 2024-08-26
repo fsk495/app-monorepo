@@ -38,6 +38,7 @@ export enum TabRoutes {
   Discover = 'discover',
   Me = 'me',
   Developer = 'developer',
+  IM = 'im',
 }
 
 export enum HomeRoutes {

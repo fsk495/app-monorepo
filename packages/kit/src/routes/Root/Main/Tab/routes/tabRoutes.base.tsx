@@ -9,6 +9,7 @@ export const tabRoutesOrders = [
   TabRoutes.NFT,
   TabRoutes.Discover,
   TabRoutes.Me,
+  // TabRoutes.IM,
 ];
 // if (process.env.NODE_ENV !== 'production') {
 //   tabRoutesOrders.push(TabRoutes.Developer);
@@ -67,6 +68,12 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     name: TabRoutes.Developer,
     tabBarIcon: (focused) => (focused ? 'ChipOutline' : 'ChipOutline'),
     translationId: 'form__dev_mode',
+    hideOnProduction: true,
+  },
+  [TabRoutes.IM]: {
+    name: TabRoutes.IM,
+    tabBarIcon: (focused) => (focused ? 'IMSoild' : 'IMOutline'),
+    translationId: 'title__im',
     hideOnProduction: true,
   },
 };

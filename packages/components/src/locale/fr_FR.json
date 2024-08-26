@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Gérer les UTXO",
   "title__market": "Marché",
   "title__me": "Moi",
+  "title__im": "IM",
   "title__menu": "Menu",
   "title__migration": "Migration",
   "title__migration_desc": "Migrer entre l'application NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Comptes à chaîne unique",
   "wallet__wallet": "Portefeuille",
   "wallet__watched_accounts": "Comptes surveillés",
-  "dapp_novai_finance": "Novai Finance est une organisation qui promeut et commercialise la chaîne Novai",
-  "dapp_novai_scan": "Explorateur de blocs de chaîne Novai",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge est le lieu où Novai est reçu ou retiré",
-  "dapp_novai_faucet": "NovaiFaucet est une option gratuite pour recevoir une certaine quantité de Novai"
+  "dapp_novai_finance": "Contrat minier à double devise sur Novai Chain",
+  "dapp_novai_scan": "Navigateur de blocs Novai",
+  "dapp_novai_swap": "DEX officiel de Novai",
+  "dapp_novai_bridge": "Pont inter-chaînes officiel de Novai",
+  "dapp_novai_faucet": "Obtenez gratuitement les frais de transaction Novai",
+  "dapp_novai_dragon": "Jeux Novai en chaîne avec des centaines de milliers de participants",
+  "history_brower": "vérifier l'explorateur",
+  
+  "send_red_envelopes":"Envoyer des enveloppes rouges",
+  "receive_red_envelopes":"Recevoir des enveloppes rouges",
+  "title_piece":"pièce",
+  "content__backup_your_mnemonic": "Sauvegardez <b>Mnémonique</b> dans « Mon »",
+  "title_tip_mnemonic":"Le solde de votre compte a dépassé 1U, veuillez sauvegarder votre mnémonique à temps."
 }

@@ -21,6 +21,9 @@ import ThirdPartyWallet from '../screens/ThirdPartyWallet';
 import Welcome from '../screens/Welcome';
 import VerifyPassword from '../screens/VerifyPassword';
 
+import SendRedEnvelopesScreen from '../../IM/send';
+import ReceiveRedEnvelopesScreen from '../../IM/receive';
+
 import { EOnboardingRoutes } from './enums';
 
 import type { IOnboardingRoutesParams } from './types';
@@ -89,7 +92,16 @@ export const stackScreenList = [
   {
     name:EOnboardingRoutes.VerifyPassword,
     component: VerifyPassword,
-  }
+  },
+
+  {
+    name:EOnboardingRoutes.SendRedPackage,
+    component: SendRedEnvelopesScreen,
+  },
+  {
+    name:EOnboardingRoutes.ReceiveRedPackage,
+    component: ReceiveRedEnvelopesScreen,
+  },
 ];
 
 export const StackNavigator =

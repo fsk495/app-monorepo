@@ -28,6 +28,10 @@ export enum EOnboardingRoutes {
   MigrationPreview = 'MigrationPreview',
 
   //VerifyPassword
-
   VerifyPassword = 'VerifyPassword',
+
+  //IM Send And Receive
+
+  SendRedPackage = 'SendRedPackage',
+  ReceiveRedPackage = 'ReceiveRedPackage',
 }

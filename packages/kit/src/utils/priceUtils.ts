@@ -139,6 +139,7 @@ export function getPreBaseValue({
   const price = new BigNumber(priceInfo?.[vsCurrency] || 0);
   const res: Record<string, number> = {};
   res[vsCurrency] = price.dividedBy(change.plus(100)).times(100).toNumber();
+  // console.log("getPreBaseValue   ",res,priceInfo);
   return res;
 }
 

@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Gestisci gli UTXO",
   "title__market": "Mercato",
   "title__me": "Io",
+  "title__im": "IM",
   "title__menu": "Menù",
   "title__migration": "Migrazione",
   "title__migration_desc": "Migrare tra l'app NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Conti a catena singola",
   "wallet__wallet": "Portafoglio",
   "wallet__watched_accounts": "Conti guardati",
-  "dapp_novai_finance": "Novai Finance è un'organizzazione che promuove e commercializza Novai Chain",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge è il luogo in cui Novai viene ottenuto o ritirato",
-  "dapp_novai_faucet": "NovaiFaucet è un'opzione gratuita per ottenere una certa quantità di Noavi"
+  "dapp_novai_finance": "Contratto di mining a doppia valuta su Novai Chain",
+  "dapp_novai_scan": "Browser a blocchi Novai",
+  "dapp_novai_swap": "DEX ufficiale Novai",
+  "dapp_novai_bridge": "Bridge cross-chain ufficiale Novai",
+  "dapp_novai_faucet": "Ottieni gratuitamente le commissioni di transazione Novai",
+  "dapp_novai_dragon": "Giochi on-chain Novai con centinaia di migliaia di partecipanti",
+  "history_brower": "controlla esploratore",
+  
+  "send_red_envelopes":"Invia buste rosse",
+  "receive_red_envelopes":"Ricevi buste rosse",
+  "title_piece":"pezzo",
+  "content__backup_your_mnemonic": "Esegui il backup di <b>Mnemonico</b> in 'My'",
+  "title_tip_mnemonic":"Il saldo del tuo account ha superato 1U, esegui il backup del tuo mnemonico in tempo."
 }

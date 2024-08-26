@@ -20,6 +20,7 @@ export const linkingPathMap = {
   tabMe: `/menu`,
   tabDiscover: `/explorer`,
   tabDeveloper: `/developer`,
+  tabIM: `/im`,
 
   // ** home urls
   revoke: `/revoke`,

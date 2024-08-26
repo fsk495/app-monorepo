@@ -86,7 +86,7 @@ const PinPanel: FC<PinPanelProps> = ({ visible }) => {
         >
           <Icon name="BrandLogoIllus" size={16} />
           <Text flex={1} mx={3} typography="Body2">
-            OneKey
+            NPay
           </Text>
           <Icon name="PinMini" size={16} />
         </Box>

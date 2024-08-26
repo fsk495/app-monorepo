@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Управление UTXO",
   "title__market": "Рынок",
   "title__me": "Я",
+  "title__im": "IM",
   "title__menu": "Меню",
   "title__migration": "Миграция",
   "title__migration_desc": "Миграция между приложением NPay",
@@ -2996,9 +2997,22 @@
   "wallet__imported_accounts": "Счета с одной цепью",
   "wallet__wallet": "Бумажник",
   "wallet__watched_accounts": "Просмотренные аккаунты",
-  "dapp_novai_finance": "Novai Finance — организация, которая продвигает и продает сеть Novai",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge — место получения или вывода Novai",
-  "dapp_novai_faucet": "NovaiFaucet — бесплатная возможность получить определенное количество Noavi"
+  "dapp_novai_finance": "Контракт на майнинг двух валют на Novai Chain",
+  "dapp_novai_scan": "Блок-браузер Novai",
+  "dapp_novai_swap": "Официальный DEX Novai",
+  "dapp_novai_bridge": "Официальный кросс-чейн-мост Novai",
+  "dapp_novai_faucet": "Получите комиссию за транзакции Novai бесплатно",
+  "dapp_novai_dragon": "Игры Novai on-chain с сотнями тысяч участников",
+  "history_brower": "проверить проводник",
+  
+  "send_red_envelopes":"Отправить красные конверты",
+  "receive_red_envelopes":"Получите красные конверты",
+  "title_piece":"часть",
+  "content__backup_your_mnemonic": "Резервное копирование <b>Мнемоники</b> в «Мои»",
+  "title_tip_mnemonic":"Баланс вашего счета превысил 1U, пожалуйста, сделайте резервную копию мнемоники вовремя."
 }
+
+
+
+
+

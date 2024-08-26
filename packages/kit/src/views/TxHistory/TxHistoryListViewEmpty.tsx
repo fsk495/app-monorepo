@@ -7,9 +7,11 @@ import { useTxHistoryContext } from './TxHistoryContext';
 export function TxHistoryListViewEmpty({
   isLoading,
   refresh,
+  onTextClick
 }: {
   isLoading?: boolean;
   refresh?: () => void;
+  onTextClick?:()=> void;
 }) {
   const intl = useIntl();
   const txDetailContext = useTxHistoryContext();
@@ -24,6 +26,8 @@ export function TxHistoryListViewEmpty({
         actionTitle={intl.formatMessage({ id: 'action__refresh' })}
         handleAction={txDetailContext?.context.refresh ?? refresh}
         isLoading={Boolean(txDetailContext?.context.isLoading || isLoading)}
+        clickableText={intl.formatMessage({ id: 'history_brower' })}
+        onTextClick={onTextClick}
       />
     </Box>
   );

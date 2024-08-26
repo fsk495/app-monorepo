@@ -23,7 +23,7 @@ export const Me = (options: any) => {
 
   console.log('Me screen options >>>>', options);
   const inset = useSafeAreaInsets();
-
+  
   return (
     <Box bg="background-default" flex="1">
       <ScrollView px={4} py={{ base: 6, md: 8 }} bg="background-default">

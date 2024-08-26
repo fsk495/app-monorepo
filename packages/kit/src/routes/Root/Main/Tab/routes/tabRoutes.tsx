@@ -6,6 +6,7 @@ import AppRootTabMarket from './AppRootTabMarket';
 import AppRootTabMe from './AppRootTabMe';
 // import AppRootTabNFT from './AppRootTabNFT';
 import AppRootTabSwap from './AppRootTabSwap';
+import AppRootTabIM from './AppRootTabIM';
 import { tabRoutesOrders } from './tabRoutes.base';
 
 import type { TabRouteConfig } from '../../../../types';
@@ -17,6 +18,7 @@ const allRoutes: TabRouteConfig[] = [
   // AppRootTabNFT,
   AppRootTabDiscover,
   AppRootTabMe,
+  AppRootTabIM,
 ];
 export const tabRoutes: TabRouteConfig[] = tabRoutesOrders
   .map((name) => {

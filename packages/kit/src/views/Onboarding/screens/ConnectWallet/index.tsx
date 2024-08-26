@@ -83,8 +83,8 @@ function ConnectHardwareButton() {
       }}
     >
       <Text typography="Heading" maxW={{ base: 160, sm: 'auto' }}>
-        {intl.formatMessage({ id: 'action__connect' })} OneKey{'\n'}
-        {intl.formatMessage({ id: 'wallet__hardware_wallet' })}
+        {intl.formatMessage({ id: 'action__connect' })} NPay{'\n'}
+        {/* {intl.formatMessage({ id: 'wallet__hardware_wallet' })} */}
       </Text>
       <Box flex={1} />
       <Box alignSelf="flex-start">
@@ -152,7 +152,7 @@ function ConnectOneKeyLiteButton() {
           mx={3}
           typography={{ sm: 'Body1Strong', md: 'Body2Strong' }}
         >
-          OneKey Lite
+          NPay Lite
         </Text>
         <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
       </Pressable>

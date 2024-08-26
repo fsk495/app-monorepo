@@ -102,16 +102,16 @@ export function WalletCreateSelectDropdown({
           }),
           value: 'import',
         },
-        {
-          leading: <OptionLeading iconName="LinkOutline" />,
-          label: intl.formatMessage({
-            id: 'action__connect_3rd_party_wallet' as any,
-          }),
-          description: intl.formatMessage({
-            id: 'content__connect_3rd_party_wallet_desc' as any,
-          }),
-          value: 'connect',
-        },
+        // {
+        //   leading: <OptionLeading iconName="LinkOutline" />,
+        //   label: intl.formatMessage({
+        //     id: 'action__connect_3rd_party_wallet' as any,
+        //   }),
+        //   description: intl.formatMessage({
+        //     id: 'content__connect_3rd_party_wallet_desc' as any,
+        //   }),
+        //   value: 'connect',
+        // },
       ];
     }
     return [];
@@ -143,11 +143,11 @@ export function WalletCreateSelectDropdown({
             },
           });
         }
-        if (v === 'connect') {
-          if (externalAccountCreator.isCreateAccountSupported) {
-            externalAccountCreator.createAccount();
-          }
-        }
+        // if (v === 'connect') {
+        //   if (externalAccountCreator.isCreateAccountSupported) {
+        //     externalAccountCreator.createAccount();
+        //   }
+        // }
       }}
       dropdownPosition="right"
       footer={null}

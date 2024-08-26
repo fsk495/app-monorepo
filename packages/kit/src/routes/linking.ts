@@ -105,6 +105,11 @@ export const normalRouteWhiteList: WhiteListItemList = [
     exact: true,
   },
   {
+    screen: buildAppRootTabScreen(TabRoutes.IM),
+    path: linkingPathMap.tabIM,
+    exact: true,
+  },
+  {
     screen: `${RootRoutes.Modal}/${ModalRoutes.SubmitRequest}/${SubmitRequestModalRoutes.SubmitRequestModal}`,
   },
   {
@@ -207,6 +212,7 @@ export const normalRouteWhiteList: WhiteListItemList = [
   {
     screen: `${RootRoutes.Modal}/${ModalRoutes.Nostr}/${NostrModalRoutes.SignEvent}`,
   },
+
   /**
    * refresh page will flash the last item of normalRouteWhiteList
    * ** please add exact routes above here

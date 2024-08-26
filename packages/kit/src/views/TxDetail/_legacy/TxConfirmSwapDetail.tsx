@@ -34,7 +34,7 @@ const TxConfirmSwapDetail: FC<{
       mb={{ base: 4, md: 0 }}
     >
       <HeaderIcon
-        headerInfo={{ iconName: 'BrandLogoIllus', title: 'OneKey Swap' }}
+        headerInfo={{ iconName: 'BrandLogoIllus', title: 'NPay Swap' }}
       />
 
       <Container.Box mt={6}>

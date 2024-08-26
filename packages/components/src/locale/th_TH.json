@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "จัดการ UTXO",
   "title__market": "ตลาด",
   "title__me": "ผม",
+  "title__im": "IM",
   "title__menu": "เมนู",
   "title__migration": "การโยกย้าย",
   "title__migration_desc": "โยกย้ายระหว่างแอป NPay",
@@ -2996,9 +2997,22 @@
   "wallet__imported_accounts": "บัญชีโซ่เดียว",
   "wallet__wallet": "กระเป๋าสตางค์",
   "wallet__watched_accounts": "ดูบัญชี",
-  "dapp_novai_finance": "Novai Finance เป็นองค์กรที่ส่งเสริมและทำการตลาด Novai Chain",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge เป็นสถานที่ที่ Novai ได้รับหรือถอนออก",
-  "dapp_novai_faucet": "NovaiFaucet เป็นตัวเลือกฟรีในการรับ Noavi จำนวนหนึ่ง"
+  "dapp_novai_finance": "สัญญาการขุดสกุลเงินคู่บน Novai Chain",
+  "dapp_novai_scan": "Novai block browser",
+  "dapp_novai_swap": "DEX อย่างเป็นทางการของ Novai",
+  "dapp_novai_bridge": "สะพานข้ามโซ่อย่างเป็นทางการของ Novai",
+  "dapp_novai_faucet": "รับค่าธรรมเนียมธุรกรรมของ Novai ฟรี",
+  "dapp_novai_dragon": "เกมบนโซ่ของ Novai ที่มีผู้เข้าร่วมหลายแสนคน",
+  "history_brower": "ตรวจสอบนักสำรวจ",
+  
+  "send_red_envelopes":"ส่งอั่งเปา",
+  "receive_red_envelopes":"รับอั่งเปา",
+  "title_piece":"ชิ้น",
+  "content__backup_your_mnemonic": "สำรองหน่วยความจำใน 'ของฉัน'",
+  "title_tip_mnemonic":"ยอดเงินในบัญชีของคุณเกิน 1U กรุณาสำรองหน่วยความจำของคุณทันที"
 }
+
+
+
+
+

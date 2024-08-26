@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Box,
@@ -6,20 +6,16 @@ import {
   Center,
   Form,
   KeyboardDismissView,
-  Modal,
   ToastManager,
   useIsVerticalLayout,
   KeyboardAvoidingView,
   IconButton,
-  Icon,
   useSafeAreaInsets,
 } from '@onekeyhq/components';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { type StackNavigationProp } from '@react-navigation/stack';
 import { IOnboardingRoutesParams } from '../../routes/types';
 import { EOnboardingRoutes } from '../../routes/enums';
-import Protected, { ValidationFields } from '../../../../components/Protected';
-import LayoutContainer from '../../Layout';
 import backgroundApiProxy from '../../../../background/instance/backgroundApiProxy';
 import { useIntl } from 'react-intl';
 import { appUIEventBus, AppUIEventBusNames } from '@onekeyhq/shared/src/eventBus/appUIEventBus';
@@ -27,7 +23,6 @@ import { encodeSensitiveText } from '@onekeyhq/engine/src/secret/encryptors/aes2
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
 import { wait } from '../../../../utils/helper';
 import { Keyboard, Platform } from 'react-native';
-import AppStateUnlockButton from '../../../../components/AppLock/AppStateUnlockButton';
 
 type NavigationProps = StackNavigationProp<
   IOnboardingRoutesParams,
@@ -49,7 +44,7 @@ const VerifyPassword = () => {
   const justifyContent = isSmall ? 'space-between' : 'center';
   const py = isSmall ? '16' : undefined;
   const insets = useSafeAreaInsets();
-  const [mnemonic, setMnemonic] = useState<string | null>(null);
+  const [, setMnemonic] = useState<string | null>(null);
 
   const onChangeText = useCallback((text: string) => {
     setPassword(text);
@@ -85,15 +80,10 @@ const VerifyPassword = () => {
     }
   }, [doUnlockAction, password, intl]);
 
-  const onOk = useCallback(
-    (pw: string) => {
-      doUnlockAction(pw);
-    },
-    [doUnlockAction],
-  );
 
   const handleProtectedSubmit = useCallback(async (password: string) => {
     try {
+      // 获取助记词
       const mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
       if (!mnemonic?.length) {
         ToastManager.show({

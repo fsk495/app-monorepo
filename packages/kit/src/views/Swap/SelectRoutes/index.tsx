@@ -159,7 +159,7 @@ const RouteOption: FC<RouteOptionProps> = ({ response, index }) => {
           </Box>
           <Box>
             <Typography.Body1Strong maxW="32" numberOfLines={1}>
-              {name || 'OneKey Swap'}
+              {name || 'NPay Swap'}
             </Typography.Body1Strong>
             <ArrivalTime typography="Body2" value={data?.arrivalTime} />
           </Box>

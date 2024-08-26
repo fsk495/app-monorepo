@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Manage UTXOs",
   "title__market": "Market",
   "title__me": "Me",
+  "title__im": "IM",
   "title__menu": "Menu",
   "title__migration": "Migration",
   "title__migration_desc": "Migrate between NPay app",
@@ -2998,9 +2999,17 @@
   "wallet__watched_accounts": "Watch-only Accounts",
 
 
-  "dapp_novai_finance":"Novai Finance is an organization that promotes and markets Novai Chain",
-  "dapp_novai_scan":"Novai Chain Block Explorer",
-  "dapp_novai_swap":"",
-  "dapp_novai_bridge":"NovaiBridge is the place where Novai is obtained or withdrawn",
-  "dapp_novai_faucet":"NovaiFaucet is a free option to get a certain amount of Noavi"
+  "dapp_novai_finance":"Dual-currency mining contract on Novai Chain",
+  "dapp_novai_scan":"Novai block browser",
+  "dapp_novai_swap":"Novai official DEX",
+  "dapp_novai_bridge":"Novai official cross-chain bridge",
+  "dapp_novai_faucet":"Get Novai transaction fees for free",
+  "dapp_novai_dragon": "Novai on-chain games with hundreds of thousands of participants",
+  "history_brower": "Cheack explorer",
+
+  "send_red_envelopes":"Send red envelopes",
+  "receive_red_envelopes":"Receive red envelopes",
+  "title_piece":"piece",
+  "content__backup_your_mnemonic": "Backup <b>Mnemonic</b> in 'My'",
+  "title_tip_mnemonic":"Your account balance has exceeded 1U, please back up your mnemonic in time."
 }

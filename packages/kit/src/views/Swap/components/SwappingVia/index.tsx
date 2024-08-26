@@ -96,7 +96,7 @@ const SwappingVia: FC<SwappingViaProps> = ({
     return (
       <Box flexDirection="row" flexGrow={1}>
         <Text typography={typography} color={color} isTruncated>
-          OneKey Swap
+          NPay Swap
         </Text>
       </Box>
     );
@@ -139,7 +139,7 @@ const SwappingVia: FC<SwappingViaProps> = ({
   return (
     <Box alignItems="center" flexDirection="row" flexGrow={1}>
       <Text typography={typography} color={color}>
-        OneKey Swap
+        NPay Swap
       </Text>
     </Box>
   );

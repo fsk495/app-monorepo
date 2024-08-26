@@ -60,6 +60,11 @@ export const AboutSection = () => {
     },
     [intl],
   );
+
+  /**
+   * handleCopyVersion 版本信息
+   * ${settings.version}${settings.buildNumber ? `-${settings.buildNumber}` : ''}
+   */
   return (
     <Box w="full" mb="6">
       <Box pb="2">
@@ -86,9 +91,7 @@ export const AboutSection = () => {
           onPress={() => {
             openDebugMode();
             handleCopyVersion(
-              `${settings.version}${
-                settings.buildNumber ? `-${settings.buildNumber}` : ''
-              }`,
+              `${settings.version}`,
             );
           }}
         >
@@ -119,7 +122,7 @@ export const AboutSection = () => {
         </Pressable>
         <AutoUpdateSectionItem />
         <AppRateSectionItem />
-        <Pressable
+        {/* <Pressable
           display="flex"
           flexDirection="row"
           alignItems="center"
@@ -152,8 +155,8 @@ export const AboutSection = () => {
           <Box>
             <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
           </Box>
-        </Pressable>
-        <Pressable
+        </Pressable> */}
+        {/* <Pressable
           display="flex"
           flexDirection="row"
           alignItems="center"
@@ -186,7 +189,7 @@ export const AboutSection = () => {
           <Box>
             <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
           </Box>
-        </Pressable>
+        </Pressable> */}
         <Pressable
           display="flex"
           flexDirection="row"
@@ -196,9 +199,8 @@ export const AboutSection = () => {
           borderBottomWidth="1"
           borderBottomColor="divider"
           onPress={() =>{
-            return ;
             return openUrl(
-              'https://www.onekey.so',
+              'https://www.novaichain.com',
               intl.formatMessage({
                 id: 'form__website',
               }),
@@ -232,8 +234,7 @@ export const AboutSection = () => {
           borderBottomWidth="1"
           borderBottomColor="divider"
           onPress={() => { 
-            return ;
-            return openUrlExternal('https://www.discord.gg/onekey') 
+            return openUrlExternal('https://discord.gg/kYCZH49rr4') 
           }}
         >
           <Icon name="DiscordOutline" />
@@ -257,8 +258,7 @@ export const AboutSection = () => {
           py={4}
           px={{ base: 4, md: 6 }}
           onPress={() => {
-            return 
-            return openUrlExternal('https://www.twitter.com/onekeyhq')
+            return openUrlExternal('https://x.com/NovaiChain_')
           }}
         >
           <Icon name="TwitterOutline" />

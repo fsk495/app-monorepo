@@ -8,6 +8,9 @@ export const ONBOARDING_PROCESS_INFO_LIST = [
   {
     text: 'content__encrypting_your_data',
   },
+  {
+    text: 'content__backup_your_mnemonic',
+  },
   // {
   //   text: 'content__backing_up_to_icloud',
   // },

@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Quản lý UTXO",
   "title__market": "Thị trường",
   "title__me": "Tôi",
+  "title__im": "IM",
   "title__menu": "Thực đơn",
   "title__migration": "di cư",
   "title__migration_desc": "Di chuyển giữa các ứng dụng NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Tài khoản chuỗi đơn",
   "wallet__wallet": "Cái ví",
   "wallet__watched_accounts": "Tài khoản đã theo dõi",
-  "dapp_novai_finance": "Novai Finance là tổ chức quảng bá và tiếp thị Novai Chain",
-  "dapp_novai_scan": "Trình khám phá khối chuỗi Novai",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge là nơi nhận hoặc rút Novai",
-  "dapp_novai_faucet": "NovaiFaucet là một lựa chọn miễn phí để nhận được một lượng Noavi nhất định"
+  "dapp_novai_finance": "Hợp đồng khai thác tiền tệ kép trên Novai Chain",
+  "dapp_novai_scan": "Trình duyệt khối Novai",
+  "dapp_novai_swap": "DEX chính thức của Novai",
+  "dapp_novai_bridge": "Cầu nối chuỗi chéo chính thức của Novai",
+  "dapp_novai_faucet": "Nhận phí giao dịch Novai miễn phí",
+  "dapp_novai_dragon": "Trò chơi trên chuỗi Novai với hàng trăm nghìn người tham gia",
+  "history_brower": "kiểm tra trình khám phá",
+  
+  "send_red_envelopes":"Gửi phong bao lì xì",
+  "receive_red_envelopes":"Nhận phong bao lì xì",
+  "title_piece":"mảnh",
+  "content__backup_your_mnemonic": "Sao lưu <b>Mnemonic</b> trong 'My'",
+  "title_tip_mnemonic":"Số dư tài khoản của bạn đã vượt quá 1U, vui lòng sao lưu mã ghi nhớ của bạn kịp thời."
 }

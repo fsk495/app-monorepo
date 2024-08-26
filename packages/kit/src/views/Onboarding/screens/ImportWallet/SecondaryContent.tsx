@@ -48,49 +48,49 @@ const SecondaryContent: FC<SecondaryContentProps> = ({
   }[] => {
     if (mode === 'mnemonic') {
       return [
-        {
-          title: 'content__never_import_your_hadware_wallets_recovery_phrase',
-          description:
-            'content__never_import_your_hadware_wallets_recovery_phrase_desc',
-          element: (
-            <Pressable
-              mx={-2}
-              mt="8px"
-              onPress={() => {
-                navigation.navigate(EOnboardingRoutes.ConnectHardwareModal);
-              }}
-            >
-              {({ isHovered, isPressed }) => (
-                <Box
-                  flexDir="row"
-                  py={{ base: '12px', sm: '8px' }}
-                  px="8px"
-                  bgColor={
-                    // eslint-disable-next-line no-nested-ternary
-                    isPressed
-                      ? 'surface-pressed'
-                      : isHovered
-                      ? 'surface-hovered'
-                      : undefined
-                  }
-                  rounded="xl"
-                >
-                  <WalletAvatar size="xs" walletImage="hw" />
-                  <Text flex={1} typography="Body2Strong" ml="12px">
-                    {intl.formatMessage({
-                      id: 'action__connect_hardware_wallet',
-                    })}
-                  </Text>
-                  <Icon
-                    name="ChevronRightMini"
-                    color="icon-subdued"
-                    size={20}
-                  />
-                </Box>
-              )}
-            </Pressable>
-          ),
-        },
+        // {
+        //   title: 'content__never_import_your_hadware_wallets_recovery_phrase',
+        //   description:
+        //     'content__never_import_your_hadware_wallets_recovery_phrase_desc',
+        //   element: (
+        //     <Pressable
+        //       mx={-2}
+        //       mt="8px"
+        //       onPress={() => {
+        //         navigation.navigate(EOnboardingRoutes.ConnectHardwareModal);
+        //       }}
+        //     >
+        //       {({ isHovered, isPressed }) => (
+        //         <Box
+        //           flexDir="row"
+        //           py={{ base: '12px', sm: '8px' }}
+        //           px="8px"
+        //           bgColor={
+        //             // eslint-disable-next-line no-nested-ternary
+        //             isPressed
+        //               ? 'surface-pressed'
+        //               : isHovered
+        //               ? 'surface-hovered'
+        //               : undefined
+        //           }
+        //           rounded="xl"
+        //         >
+        //           <WalletAvatar size="xs" walletImage="hw" />
+        //           <Text flex={1} typography="Body2Strong" ml="12px">
+        //             {intl.formatMessage({
+        //               id: 'action__connect_hardware_wallet',
+        //             })}
+        //           </Text>
+        //           <Icon
+        //             name="ChevronRightMini"
+        //             color="icon-subdued"
+        //             size={20}
+        //           />
+        //         </Box>
+        //       )}
+        //     </Pressable>
+        //   ),
+        // },
         {
           title: 'content__where_find_phrase',
         },

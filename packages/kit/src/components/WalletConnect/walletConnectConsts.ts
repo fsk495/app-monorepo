@@ -70,13 +70,13 @@ if (platformEnv.isExtension) {
 }
 
 export const WALLET_CONNECT_CLIENT_META = {
-  name: `OneKey ${platformNameShort}`,
-  description: 'Connect with OneKey',
+  name: `NPay ${platformNameShort}`,
+  description: 'Connect with NPay',
   // wallet-connect identify different dapps by url
   url: `https://${platformName}.onekey.so`,
   icons: [
-    'https://web.onekey-asset.com/portal/b688e1435d0d1e2e92581eb8dd7442c88da36049/icons/icon-256x256.png',
-    'https://www.onekey.so/favicon.ico',
+    'https://drag2.s3.ap-east-1.amazonaws.com/pocket/Npay/portal/b688e1435d0d1e2e92581eb8dd7442c88da36049/icons/icon-256x256.png',
+    // 'https://www.onekey.so/favicon.ico',
     // 'https://example.walletconnect.org/favicon.ico'
   ],
 };

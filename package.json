@@ -53,7 +53,9 @@
     "swap-lock-registry": "npx swap-lock-registry --yarn --parallel --url https://registry.yarnpkg.com yarn.lock",
     "debug:hardware-sdk": "node ./development/debug-hardware-sdk.js",
     "debug:android:tracker": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8177 tcp:8177 && npx react-native-rempl",
-    "debug:tracker": "npx react-native-rempl"
+    "debug:tracker": "npx react-native-rempl",
+    "build:android": "cd packages/app/android && ./gradlew aR && cd -",
+    "build:ios": "cd packages/app && eas build --profile production --platform ios --local && cd -"
   },
   "ultra": {
     "concurrent": [
@@ -88,6 +90,7 @@
     "bitcoinjs-message": "2.2.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.2.0",
     "expo": "49.0.6",
     "expo-device": "~5.4.0",
     "fast-json-stable-stringify": "^2.1.0",
@@ -117,6 +120,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
     "@types/babel__preset-env": "^7",
     "@types/chrome": "^0.0.161",
+    "@types/crypto-js": "^4",
     "@types/jest": "^29.2.3",
     "@types/json-stringify-safe": "^5",
     "@types/jsrsasign": "^10",

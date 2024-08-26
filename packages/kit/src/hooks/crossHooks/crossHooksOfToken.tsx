@@ -208,5 +208,8 @@ export function useReduxSingleTokenFiatValuesSimple({
     balanceInfo,
     token,
   });
+  // console.log('useReduxSingleTokenFiatValuesSimple  valuesInfo ',valuesInfo);
+  // console.log('useReduxSingleTokenFiatValuesSimple  priceInfo ',priceInfo);
+  // console.log('useReduxSingleTokenFiatValuesSimple  balanceInfo ',balanceInfo);
   return valuesInfo;
 }

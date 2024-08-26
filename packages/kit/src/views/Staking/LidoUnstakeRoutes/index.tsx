@@ -65,7 +65,7 @@ const LidoEthUnstakeRoutes = () => {
               source={require('@onekeyhq/kit/assets/logo_black.png')}
             />
             <Box flexDirection="column" justifyContent="space-between">
-              <Typography.Body1Strong>OneKey Swap</Typography.Body1Strong>
+              <Typography.Body1Strong>NPay Swap</Typography.Body1Strong>
               <Typography.Body2 color="text-subdued">
                 {intl.formatMessage(
                   { id: 'content__str_minutes_plural' },

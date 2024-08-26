@@ -12,7 +12,7 @@ export type IOnboardingRecoveryPhraseParams = {
   password: string;
   withEnableAuthentication?: boolean;
   mnemonic: string;
-  fromVerifyPassword?:boolean,
+  fromVerifyPassword?: boolean,
 };
 export type IOnboardingBehindTheSceneParams =
   IOnboardingRecoveryPhraseParams & {
@@ -45,8 +45,8 @@ export type IOnboardingRoutesParams = {
   [EOnboardingRoutes.ConnectWallet]: IOnboardingConnectWalletParams | undefined;
   [EOnboardingRoutes.ConnectHardwareModal]: undefined;
   [EOnboardingRoutes.ThirdPartyWallet]:
-    | IOnboardingConnectWalletParams
-    | undefined;
+  | IOnboardingConnectWalletParams
+  | undefined;
 
   [EOnboardingRoutes.ImportWallet]: IOnboardingImportWalletParams | undefined;
   [EOnboardingRoutes.RecoveryWallet]: IOnboardingImportWalletParams & {
@@ -69,8 +69,8 @@ export type IOnboardingRoutesParams = {
     numOfContacts: number;
   };
   [EOnboardingRoutes.KeyTag]:
-    | NavigatorScreenParams<{ [KeyTagRoutes.ImportKeytag]: undefined }>
-    | undefined;
+  | NavigatorScreenParams<{ [KeyTagRoutes.ImportKeytag]: undefined }>
+  | undefined;
   [EOnboardingRoutes.Migration]: {
     scanText?: string;
     disableAnimation?: boolean;
@@ -81,5 +81,18 @@ export type IOnboardingRoutesParams = {
   [EOnboardingRoutes.VerifyPassword]: {
     walletId: string;
     wallet?: IWallet;
+  };
+  [EOnboardingRoutes.SendRedPackage]: {
+    imserver_id?: number;
+    peerID?: number;
+    peerType?: number;
+    onRedEnvelopeSent?: (chainName: string, redEnvelopeId: string | undefined) => void;
+  };
+  [EOnboardingRoutes.ReceiveRedPackage]: {
+    imserver_id?: number;
+    peerID?: number;
+    peerType?: number;
+    redEnvelopeId?:number,
+    onRedEnvelopeReceived?: (redEnvelopeId: string) => void;
   };
 };

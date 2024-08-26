@@ -126,6 +126,9 @@ function navigateToMe() {
 function navigateToDeveloper() {
   navigateToAppRootTab(TabRoutes.Developer);
 }
+function navigateToIM() {
+  navigateToAppRootTab(TabRoutes.IM);
+}
 
 // TODO background check, not allowed in background
 export const navigationShortcuts = {
@@ -137,6 +140,7 @@ export const navigationShortcuts = {
   navigateToDeveloper,
   navigateToNFT,
   navigateToMe,
+  navigateToIM,
   navigateToTokenDetail,
   navigateToMarketDetail,
 };

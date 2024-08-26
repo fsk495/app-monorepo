@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Administrar UTXO",
   "title__market": "Mercado",
   "title__me": "Yo",
+  "title__im": "IM",
   "title__menu": "Menú",
   "title__migration": "Migración",
   "title__migration_desc": "Migrar entre la aplicación NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Cuentas de cadena única",
   "wallet__wallet": "Billetera",
   "wallet__watched_accounts": "Cuentas vigiladas",
-  "dapp_novai_finance": "Novai Finance es una organización que promueve y comercializa la Cadena Novai",
-  "dapp_novai_scan": "Explorador de bloques de cadena Novai",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge es el lugar donde se recibe o retira Novai",
-  "dapp_novai_faucet": "NovaiFaucet es una opción gratuita para recibir una determinada cantidad de Novai"
+  "dapp_novai_finance": "Contrato de minería de doble moneda en Novai Chain",
+  "dapp_novai_scan": "Navegador de bloques de Novai",
+  "dapp_novai_swap": "DEX oficial de Novai",
+  "dapp_novai_bridge": "Puente oficial entre cadenas de Novai",
+  "dapp_novai_faucet": "Obtenga las tarifas de transacción de Novai de forma gratuita",
+  "dapp_novai_dragon": "Juegos en cadena de Novai con cientos de miles de participantes",
+  "history_brower": "Explorador de cheques",
+
+  "send_red_envelopes":"Enviar sobres rojos",
+  "receive_red_envelopes":"Recibir sobres rojos",
+  "title_piece":"pieza",
+  "content__backup_your_mnemonic": "Realice una copia de seguridad de <b>Mnemotécnica</b> en 'Mi'",
+  "title_tip_mnemonic":"El saldo de su cuenta ha excedido 1U, por favor haga una copia de seguridad de su mnemotécnica a tiempo."  
 }

@@ -93,7 +93,7 @@ export default class ServicePrice extends ServiceBase {
       vsCurrency,
       platform: networkId,
       contractAddresses: restTokenIds,
-    };
+    }
     const datas = await this.getCgkTokenPrice(params);
     if (Object.keys(datas).length > 0) {
       dispatch(
@@ -190,7 +190,7 @@ export default class ServicePrice extends ServiceBase {
     if (priceMap?.[priceId] && priceMap[priceId]?.[vsCurrency]) {
       return priceMap[priceId][vsCurrency];
     }
-    const params: FetchSimpTokenPriceType = { networkId, vsCurrency };
+    const params: FetchSimpTokenPriceType = { networkId, vsCurrency};
     if (tokenId) params.tokenIds = [tokenId];
     const data = await this.fetchSimpleTokenPrice(params);
     if (data && Object.keys(data).length > 0) {
@@ -216,7 +216,7 @@ export default class ServicePrice extends ServiceBase {
     platform,
     contractAddresses,
     coingeckIds,
-    vsCurrency = 'usd',
+    vsCurrency = 'usd'
   }: PriceQueryParams) {
     const params: {
       vs_currency: string;
@@ -236,12 +236,45 @@ export default class ServicePrice extends ServiceBase {
       params.ids = ids.join(',');
     }
     try {
-      const data = await fetchData<Record<string, Record<string, number>>>(
-        `/simple/price`,
-        params,
-        {},
-      );
-      return data;
+      console.log("getCgkTokenPrice    ", platform);
+
+      if (platform === 'evm--7256') {
+        let contractsAddresses = '';
+        if (contractAddresses?.length) {
+          const contracts = contractAddresses.filter((address) => address?.length);
+          contractsAddresses = contracts.join(',');
+        }
+        const queryParams = new URLSearchParams({
+          symbols: 'NOVAI,NUSD',
+          vs_currency: vsCurrency,
+          addresses: `,${contractsAddresses}`
+        });
+
+        const url = `https://buy.novai.finance/recharge/novai/getCoinPriceDto?${queryParams.toString()}`;
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        let responseData = await response.json();
+        console.log("获取币价   ", responseData);
+        return responseData as Record<string, Record<string, number>>;
+      }
+      else {
+        const data = await fetchData<Record<string, Record<string, number>>>(
+          `/simple/price`,
+          params,
+          {},
+        );
+        console.log("获取币价 onekey   ", data);
+        return data;
+      }
+
     } catch {
       return {};
     }

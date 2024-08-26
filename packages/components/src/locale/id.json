@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Kelola UTXO",
   "title__market": "Pasar",
   "title__me": "Saya",
+  "title__im": "IM",
   "title__menu": "Menu",
   "title__migration": "Migrasi",
   "title__migration_desc": "Bermigrasi antar aplikasi NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Akun rantai tunggal",
   "wallet__wallet": "Dompet",
   "wallet__watched_accounts": "Akun khusus tontonan",
-  "dapp_novai_finance": "Novai Finance adalah organisasi yang mempromosikan dan memasarkan Novai Chain",
-  "dapp_novai_scan": "Penjelajah Blok Rantai Novai",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge merupakan tempat dimana Novai didapatkan atau ditarik",
-  "dapp_novai_faucet": "NovaiFaucet adalah opsi gratis untuk mendapatkan Noavi dalam jumlah tertentu"
+  "dapp_novai_finance": "Kontrak penambangan mata uang ganda di Novai Chain",
+  "dapp_novai_scan": "Peramban blok Novai",
+  "dapp_novai_swap": "DEX resmi Novai",
+  "dapp_novai_bridge": "Jembatan lintas rantai resmi Novai",
+  "dapp_novai_faucet": "Dapatkan biaya transaksi Novai secara gratis",
+  "dapp_novai_dragon": "Permainan on-chain Novai dengan ratusan ribu peserta",
+  "history_brower": "periksa penjelajah",
+  
+  "send_red_envelopes":"Kirim amplop merah",
+  "receive_red_envelopes":"Terima amplop merah",
+  "title_piece":"bagian",
+  "content__backup_your_mnemonic": "Cadangkan <b>Mnemonic</b> di 'My'",
+  "title_tip_mnemonic":"Saldo akun Anda telah melampaui 1U, harap cadangkan mnemonic Anda tepat waktu."
 }

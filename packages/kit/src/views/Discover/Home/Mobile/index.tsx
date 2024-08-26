@@ -5,7 +5,7 @@ import { Box, ScrollView } from '@onekeyhq/components';
 // import { Tabs } from '@onekeyhq/components/src/CollapsibleTabView';
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
 
-import { useOnTabChange, usePressTagEffect, useTabConfig } from '../config';
+import { usePressTagEffect, useTabConfig } from '../config';
 
 import { Header } from './header';
 import DappItem from './DappItem';
@@ -24,7 +24,7 @@ const dapps = [
     _id: '1',
     url: 'https://scan.novaichain.com/novaichain',
     name: 'Novai Scan',
-    shortName: 'NovaiScan',
+    shortName: 'Novai Scan',
     description: '1',//'Novai Chain Block Explorer',
     logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/Blockchain.png'
   },
@@ -39,18 +39,26 @@ const dapps = [
   {
     _id: '3',
     url: 'https://bridge.novaichain.com/#/',
-    name: 'NovaiBridge',
-    shortName: 'NovaiBridge',
+    name: 'Novai Bridge',
+    shortName: 'Novai Bridge',
     description: '3',//'NovaiBridge is the place where Novai is obtained or withdrawn',
     logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiBridge.png'
   },
   {
     _id: '4',
     url: 'https://faucets.novaichain.com/#/',
-    name: 'NovaiFaucet',
+    name: 'Novai Faucet',
     shortName: 'Faucet',
     description: '4',//'NovaiFaucet is a free option to get a certain amount of Noavi',
     logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiFaucets.png'
+  },
+  {
+    _id: '5',
+    url: 'https://dapp.dragmeta.vip',
+    name: 'Dragon',
+    shortName: 'Dragon',
+    description: '5',//'NovaiFaucet is a free option to get a certain amount of Noavi',
+    logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiDragon.png'
   },
 ];
 
@@ -84,6 +92,8 @@ export const Mobile = () => {
           return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_bridge' }) };
         case '4':
           return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_faucet' }) };
+        case '5':
+          return { ...dapp, description: intl.formatMessage({ id: 'dapp_novai_dragon' }) };
         default:
           return dapp;
       }

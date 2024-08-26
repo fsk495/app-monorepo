@@ -558,7 +558,7 @@ class ProviderApiWalletConnect extends WalletConnectClientForWallet {
         });
       if (!walletConnectUtils.isEvmNamespaceV2(peerNamespace)) {
         throw new Error(
-          `OneKey WalletConnect peer namespace support EVM chain only`,
+          `NPay WalletConnect peer namespace support EVM chain only`,
         );
       }
       if (!peerChainId) {
@@ -571,7 +571,7 @@ class ProviderApiWalletConnect extends WalletConnectClientForWallet {
         //      show Error message Modal on Ext
         // formatMessage:   msg__mismatched_networks
         throw new Error(
-          `Calling [${params?.request?.method}] ERROR:  Mismatched networks. Please switch OneKey Wallet current network to chainId=${peerChainId}`,
+          `Calling [${params?.request?.method}] ERROR:  Mismatched networks. Please switch NPay Wallet current network to chainId=${peerChainId}`,
         );
       }
 

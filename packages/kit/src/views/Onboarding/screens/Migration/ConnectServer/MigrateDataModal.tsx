@@ -358,7 +358,7 @@ const Content: FC<Props> = ({ serverAddress, serverInfo, closeOverlay }) => {
               onPress={migrateAction}
               isLoading={isLoading}
             >
-              {intl.formatMessage({ id: 'action__migrate' })}
+              {intl.formatMessage({ id: 'action__merge' })}
             </Button>
           </Box>
         </>

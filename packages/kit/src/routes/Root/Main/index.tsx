@@ -21,19 +21,19 @@ function MainScreen() {
 
   const { reduxReady } = useProviderValue();
 
-  useEffect(() => {
-    if (reduxReady) {
-      appUpdates.addUpdaterListener();
-      appUpdates
-        .checkUpdate()
-        ?.then((versionInfo) => {
-          if (versionInfo) {
-            dispatch(enable(), available(versionInfo));
-          }
-        })
-        .catch();
-    }
-  }, [dispatch, reduxReady]);
+  // useEffect(() => {
+  //   if (reduxReady) {
+  //     appUpdates.addUpdaterListener();
+  //     appUpdates
+  //       .checkUpdate()
+  //       ?.then((versionInfo) => {
+  //         if (versionInfo) {
+  //           dispatch(enable(), available(versionInfo));
+  //         }
+  //       })
+  //       .catch();
+  //   }
+  // }, [dispatch, reduxReady]);
 
   return (
     <Box ref={setMainScreenDom} w="full" h="full">

@@ -40,7 +40,7 @@ export const homeTab: WebTab = {
   // // url to load (from outside control)
   // urlToGo: 'about:blank',
   // TODO i18n
-  title: 'OneKey',
+  title: 'NPay',
   isCurrent: true,
   canGoBack: false,
   loading: false,

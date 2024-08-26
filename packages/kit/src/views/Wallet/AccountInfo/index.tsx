@@ -14,6 +14,7 @@ import {
   Pressable,
   Skeleton,
   Text,
+  ToastManager,
   Tooltip,
   Typography,
   useIsVerticalLayout,
@@ -46,6 +47,7 @@ import { calculateGains } from '../../../utils/priceUtils';
 import { showAccountValueSettings } from '../../Overlay/AccountValueSettings';
 
 import AccountOption from './AccountOption';
+
 
 export const FIXED_VERTICAL_HEADER_HEIGHT = 238;
 export const FIXED_HORIZONTAL_HEDER_HEIGHT = 152;
@@ -362,12 +364,24 @@ const SummedValueComp = memo(
 
     const isWatching = isWatchingAccount({ accountId });
 
+    const [hasShownToast, setHasShownToast] = useState(false);
+
     const summaryTotalValue = useMemo(() => {
       if (!totalValue || includeNFTsInTotal) {
         return totalValue;
       }
       return new BigNumber(totalValue).minus(nftTotalValue ?? 0).toFixed();
     }, [includeNFTsInTotal, nftTotalValue, totalValue]);
+    const intl = useIntl();
+    useEffect(()=>{
+      console.log("summaryTotalValue   ",summaryTotalValue);
+      if (summaryTotalValue && new BigNumber(summaryTotalValue).gt(1) && !hasShownToast)
+      {
+        ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
+        setHasShownToast(true);
+      }
+    }, [summaryTotalValue, hasShownToast])
+
 
     return (
       <Box flexDirection="row" alignItems="center" mt={1} w="full">

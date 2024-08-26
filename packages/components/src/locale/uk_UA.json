@@ -2807,6 +2807,7 @@
   "title__manage_utxos": "Керуйте UTXO",
   "title__market": "Ринок",
   "title__me": "я",
+  "title__im": "IM",
   "title__menu": "Меню",
   "title__migration": "Міграція",
   "title__migration_desc": "Перехід між програмами NPay",
@@ -2996,9 +2997,17 @@
   "wallet__imported_accounts": "Одноланцюгові облікові записи",
   "wallet__wallet": "гаманець",
   "wallet__watched_accounts": "Переглянуті акаунти",
-  "dapp_novai_finance": "Novai Finance – це організація, яка займається просуванням та маркетингом мережі Novai",
-  "dapp_novai_scan": "Novai Chain Block Explorer",
-  "dapp_novai_swap": "",
-  "dapp_novai_bridge": "NovaiBridge - це місце, де отримується або знімається Novai",
-  "dapp_novai_faucet": "NovaiFaucet — це безкоштовна можливість отримати певну кількість Noavi"
+  "dapp_novai_finance": "Контракт на двовалютний майнінг на Novai Chain",
+  "dapp_novai_scan": "Novai block browser",
+  "dapp_novai_swap": "Novai офіційний DEX",
+  "dapp_novai_bridge": "Novai офіційний поперечно-ланцюговий міст",
+  "dapp_novai_faucet": "Отримайте комісії за транзакції Novai безкоштовно",
+  "dapp_novai_dragon": "Ігри Novai on-chain із сотнями тисяч учасників",
+  "history_brower": "перевірте провідник",
+  
+  "send_red_envelopes":"Надішліть червоні конверти",
+  "receive_red_envelopes":"Отримайте червоні конверти",
+  "title_piece":"шматок",
+  "content__backup_your_mnemonic": "Резервне копіювання <b>Мнемоніки</b> в «Моєму»",
+  "title_tip_mnemonic":"Баланс вашого рахунку перевищив 1U, будь ласка, вчасно створіть резервну копію пам’ятного знака."
 }

@@ -91,7 +91,7 @@ import type {
   StoredSeedCredential,
 } from '../base';
 import type { IDeviceType } from '@onekeyfe/hd-core';
-
+import englishNames from '../../englishNames.json'; // 导入英文名字的 JSON 文件
 type TokenBinding = {
   accountId: string;
   networkId: string;
@@ -981,7 +981,7 @@ class IndexedDBApi implements DBAPI {
             const walletId = `hd-${context.nextHD}`;
             ret = {
               id: walletId,
-              name: name || `Wallet ${context.nextHD}`,
+              name: name || `${this.generateRandomEnglishName()}`,
               avatar,
               type: WALLET_TYPE_HD,
               backuped,
@@ -2981,6 +2981,12 @@ class IndexedDBApi implements DBAPI {
           }
         }),
     );
+  }
+
+  // 随机生成英文名字的函数
+  private generateRandomEnglishName(): string {
+    const randomIndex = Math.floor(Math.random() * englishNames.length);
+    return englishNames[randomIndex];
   }
 }
 
