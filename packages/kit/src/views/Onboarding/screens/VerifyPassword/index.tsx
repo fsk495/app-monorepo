@@ -11,7 +11,8 @@ import {
   KeyboardAvoidingView,
   IconButton,
   useSafeAreaInsets,
-  Text, // 导入 Text 组件
+  Text,
+  Typography, // 导入 Text 组件
 } from '@onekeyhq/components';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { type StackNavigationProp } from '@react-navigation/stack';
@@ -25,6 +26,9 @@ import platformEnv from '@onekeyhq/shared/src/platformEnv';
 import { wait } from '../../../../utils/helper';
 import { Keyboard, Platform } from 'react-native';
 import AppStateUnlockButton from '../../../../components/AppLock/AppStateUnlockButton';
+import { isHdWallet, isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
+import { ModalRoutes, RootRoutes } from '../../../../routes/routesEnum';
+import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 
 type NavigationProps = StackNavigationProp<
   IOnboardingRoutesParams,
@@ -38,7 +42,7 @@ type RouteProps = RouteProp<
 const VerifyPassword = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavigationProps>();
-  const { walletId,networkId } = route.params;
+  const { walletId, networkId,accountId } = route.params;
   const intl = useIntl();
   const isSmall = useIsVerticalLayout();
   const [password, setPassword] = useState('');
@@ -47,6 +51,24 @@ const VerifyPassword = () => {
   const py = isSmall ? '16' : undefined;
   const insets = useSafeAreaInsets();
   const [, setMnemonic] = useState<string | null>(null);
+  const [privateKey, setPrivateKey] = useState<string | undefined>('');
+
+  const showTitle = useCallback(() => { 
+    let tit = ''
+    if (isHdWallet({ walletId }))
+    {
+      tit = intl.formatMessage({
+        id: 'title__recovery_phrase',
+      })
+    }
+    else if (isImportedWallet({ walletId }))
+    {
+      tit = intl.formatMessage({
+        id: 'form__private_key',
+      })
+    }
+    return tit;
+  }, [walletId])
 
   const onChangeText = useCallback((text: string) => {
     setPassword(text);
@@ -86,24 +108,50 @@ const VerifyPassword = () => {
   const handleProtectedSubmit = useCallback(async (password: string) => {
     try {
       // 获取助记词
-      const mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
-      if (!mnemonic?.length) {
-        ToastManager.show({
-          title: intl.formatMessage({
-            id: 'msg__wrong_password',
-            defaultMessage: 'Wrong password.',
-          }),
+      if(isHdWallet({walletId}))
+      {
+        const mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
+        if (!mnemonic?.length) {
+          ToastManager.show({
+            title: intl.formatMessage({
+              id: 'msg__wrong_password',
+              defaultMessage: 'Wrong password.',
+            }),
+          });
+          return;
+        }
+        setMnemonic(mnemonic);
+        navigation.replace(EOnboardingRoutes.ShowRecoveryPhrase, {
+          password,
+          mnemonic,
+          walletId,
+          networkId,
+          fromVerifyPassword: true,
         });
-        return;
       }
-      setMnemonic(mnemonic);
-      navigation.replace(EOnboardingRoutes.ShowRecoveryPhrase, {
-        password,
-        mnemonic,
-        walletId,
-        networkId,
-        fromVerifyPassword: true,
-      });
+      else
+      {
+        const credentialType = AccountCredentialType.PrivateKey;
+        const $privateKey = await backgroundApiProxy.engine.getAccountPrivateKey({ accountId, credentialType, password });
+        if (!$privateKey?.length) {
+          ToastManager.show({
+            title: intl.formatMessage({
+              id: 'msg__wrong_password',
+              defaultMessage: 'Wrong password.',
+            }),
+          });
+          return;
+        }
+        setPrivateKey($privateKey);
+        console.log("跳转到私钥界面   ",$privateKey);
+        navigation.replace(EOnboardingRoutes.PrivateOrPublicKeyPreview, {
+          privateOrPublicKey: $privateKey,
+          qrCodeContainerSize: { base: 296, md: 208 },
+          walletId,
+          networkId,
+        });
+        
+      }
     } catch (error) {
       ToastManager.show({
         title: intl.formatMessage({
@@ -145,18 +193,16 @@ const VerifyPassword = () => {
               zIndex={9999}
             />
             <Box width="full" py={py}>
-              <Box mt="8">
-                <Text
-                  fontSize="2xl"
-                  fontWeight="bold"
-                  textAlign="center"
-                  mb="4"
-                >
-                  {intl.formatMessage({
-                    id: 'title__recovery_phrase',
-                    defaultMessage: 'Verify Password',
-                  })}
-                </Text>
+              <Box mb="8">
+                <Typography.DisplayLarge textAlign="center" mb={2}>
+                  {showTitle()}
+                </Typography.DisplayLarge>
+                <Typography.Body1 textAlign="center" color="text-subdued">
+                  {
+                    intl.formatMessage({
+                      id: 'Verify_password_to_continue',
+                    })}
+                </Typography.Body1>
                 <Form.PasswordInput
                   value={password}
                   onChangeText={onChangeText}

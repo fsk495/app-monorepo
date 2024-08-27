@@ -3009,5 +3009,6 @@
   "receive_red_envelopes":"赤い封筒を受け取る",
   "title_piece":"ピース",
   "content__backup_your_mnemonic": "「マイ」で <b>ニーモニック</b> をバックアップしてください",
-  "title_tip_mnemonic":"アカウント残高が 1U を超えました。ニーモニックを早めにバックアップしてください。"
+  "title_tip_mnemonic":"アカウント残高が 1U を超えました。ニーモニックを早めにバックアップしてください。",
+  "content_show_private_key":"秘密鍵を表示"
 }

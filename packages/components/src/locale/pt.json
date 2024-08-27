@@ -3009,5 +3009,6 @@
   "receive_red_envelopes":"Receba envelopes vermelhos",
   "title_piece":"pedaço",
   "content__backup_your_mnemonic": "Faça o backup do <b>Mnemónico</b> em 'Meu'",
-  "title_tip_mnemonic":"O saldo da sua conta excedeu 1U."
+  "title_tip_mnemonic":"O saldo da sua conta excedeu 1U.",
+  "content_show_private_key":"Mostrar chave privada"
 }

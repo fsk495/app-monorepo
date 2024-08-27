@@ -42,7 +42,6 @@ export const PrivateOrPublicKeyPreview: FC<{
 }> = ({ privateOrPublicKey, qrCodeContainerSize }) => {
   const intl = useIntl();
   const isSmallScreen = useIsVerticalLayout();
-
   const copyDataToClipboard = useCallback(() => {
     copyToClipboard(privateOrPublicKey ?? '');
     ToastManager.show({ title: intl.formatMessage({ id: 'msg__copied' }) });

@@ -423,7 +423,6 @@ const SummedValueComp = memo(
         const now = Date.now();
         if (isOnce) {
           ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
-          backgroundApiProxy.dispatch(setReminded({ walletId, networkId }))
           setLastRemindedTime(now);
           backgroundApiProxy.dispatch(setReminded({ walletId, networkId }));
           navigation.navigate(RootRoutes.Onboarding, {
@@ -431,6 +430,7 @@ const SummedValueComp = memo(
             params: {
               walletId,
               networkId,
+              accountId,
             },
           });
         }
@@ -443,6 +443,7 @@ const SummedValueComp = memo(
             params: {
               walletId,
               networkId,
+              accountId,
             },
           });
         }

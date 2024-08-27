@@ -3009,5 +3009,6 @@
   "receive_red_envelopes":"Terima amplop merah",
   "title_piece":"bagian",
   "content__backup_your_mnemonic": "Cadangkan <b>Mnemonic</b> di 'My'",
-  "title_tip_mnemonic":"Saldo akun Anda telah melampaui 1U, harap cadangkan mnemonic Anda tepat waktu."
+  "title_tip_mnemonic":"Saldo akun Anda telah melampaui 1U, harap cadangkan mnemonic Anda tepat waktu.",
+  "content_show_private_key":"Tampilkan kunci pribadi"
 }

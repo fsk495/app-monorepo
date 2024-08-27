@@ -27,6 +27,7 @@ import ReceiveRedEnvelopesScreen from '../../IM/receive';
 import { EOnboardingRoutes } from './enums';
 
 import type { IOnboardingRoutesParams } from './types';
+import PrivateOrPublicKeyPreview from '../screens/VerifyPassword/previewView';
 
 export const stackScreenList = [
   {
@@ -101,6 +102,10 @@ export const stackScreenList = [
   {
     name:EOnboardingRoutes.ReceiveRedPackage,
     component: ReceiveRedEnvelopesScreen,
+  },
+  {
+    name:EOnboardingRoutes.PrivateOrPublicKeyPreview,
+    component:PrivateOrPublicKeyPreview,
   },
 ];
 

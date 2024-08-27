@@ -34,4 +34,5 @@ export enum EOnboardingRoutes {
 
   SendRedPackage = 'SendRedPackage',
   ReceiveRedPackage = 'ReceiveRedPackage',
+  PrivateOrPublicKeyPreview = "PrivateOrPublicKeyPreview",
 }

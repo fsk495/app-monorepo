@@ -3009,10 +3009,6 @@
   "receive_red_envelopes":"รับอั่งเปา",
   "title_piece":"ชิ้น",
   "content__backup_your_mnemonic": "สำรองหน่วยความจำใน 'ของฉัน'",
-  "title_tip_mnemonic":"ยอดเงินในบัญชีของคุณเกิน 1U กรุณาสำรองหน่วยความจำของคุณทันที"
+  "title_tip_mnemonic":"ยอดเงินในบัญชีของคุณเกิน 1U กรุณาสำรองหน่วยความจำของคุณทันที",
+  "content_show_private_key":"แสดงคีย์ส่วนตัว"
 }
-
-
-
-
-

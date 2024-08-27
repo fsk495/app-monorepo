@@ -3011,5 +3011,6 @@
   "receive_red_envelopes":"Receive red envelopes",
   "title_piece":"piece",
   "content__backup_your_mnemonic": "Backup <b>Mnemonic</b> in 'My'",
-  "title_tip_mnemonic":"Your account balance has exceeded 1U, please back up your mnemonic in time."
+  "title_tip_mnemonic":"Your account balance has exceeded 1U, please back up your mnemonic in time.",
+  "content_show_private_key":"Show Private Key"
 }

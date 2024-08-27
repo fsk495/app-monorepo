@@ -837,6 +837,7 @@ class Engine {
       '111111': OnekeyNetwork.kaspa,
       '29223': OnekeyNetwork.nexa,
       '1900': OnekeyNetwork.xna,
+      '7256': OnekeyNetwork.novai,
     }[coinType];
     if (typeof networkId === 'undefined') {
       throw new NotImplemented('Unsupported network.');

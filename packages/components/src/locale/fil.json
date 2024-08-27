@@ -3009,5 +3009,6 @@
   "receive_red_envelopes":"Tumanggap ng mga pulang sobre",
   "title_piece":"piraso",
   "content__backup_your_mnemonic": "I-backup ang <b>Mnemonic</b> sa 'My'",
-  "title_tip_mnemonic":"Ang balanse ng iyong account ay lumampas sa 1U, mangyaring i-back up ang iyong mnemonic sa oras."
+  "title_tip_mnemonic":"Ang balanse ng iyong account ay lumampas sa 1U, mangyaring i-back up ang iyong mnemonic sa oras.",
+  "content_show_private_key":"Ipakita ang pribadong key"
 }

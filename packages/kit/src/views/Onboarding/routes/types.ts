@@ -40,6 +40,12 @@ export type IOnboardingImportWalletParams = {
 export type IOnboardingWelcomeParams = {
   disableAnimation?: boolean;
 };
+export type IPrivateOrPublicKeyPreviewParams = {
+  privateOrPublicKey?: string;
+  walletId:string, 
+  networkId:string,
+  qrCodeContainerSize: { base: number; md: number };
+};
 
 export type IOnboardingRoutesParams = {
   [EOnboardingRoutes.Welcome]: IOnboardingWelcomeParams | undefined;
@@ -83,6 +89,7 @@ export type IOnboardingRoutesParams = {
   [EOnboardingRoutes.VerifyPassword]: {
     walletId: string;
     networkId:string,
+    accountId:string,
     wallet?: IWallet;
   };
   [EOnboardingRoutes.SendRedPackage]: {
@@ -98,4 +105,7 @@ export type IOnboardingRoutesParams = {
     redEnvelopeId?:number,
     onRedEnvelopeReceived?: (redEnvelopeId: string) => void;
   };
+
+  [EOnboardingRoutes.PrivateOrPublicKeyPreview]: IPrivateOrPublicKeyPreviewParams;
+
 };

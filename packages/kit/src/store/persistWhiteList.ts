@@ -12,4 +12,5 @@ export const persistWhiteList = [
   'staking',
   'webTabs',
   'overview',
+  'reminder',
 ];

@@ -27,7 +27,7 @@ export const DefaultSection = () => {
   const navigationRoot = useAppNavigation();
   const { themeVariant } = useTheme();
 
-  const { walletId,networkId } =
+  const { walletId,networkId,accountId } =
     useActiveWalletAccount();
   const { showAddressBookModal } = useAddressBook();
   return (
@@ -143,6 +143,7 @@ export const DefaultSection = () => {
               params: { 
                 walletId,
                 networkId,
+                accountId,
               },
             });
           }}

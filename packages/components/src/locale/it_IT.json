@@ -3009,5 +3009,6 @@
   "receive_red_envelopes":"Ricevi buste rosse",
   "title_piece":"pezzo",
   "content__backup_your_mnemonic": "Esegui il backup di <b>Mnemonico</b> in 'My'",
-  "title_tip_mnemonic":"Il saldo del tuo account ha superato 1U, esegui il backup del tuo mnemonico in tempo."
+  "title_tip_mnemonic":"Il saldo del tuo account ha superato 1U, esegui il backup del tuo mnemonico in tempo.",
+  "content_show_private_key":"Mostra chiave privata"
 }
