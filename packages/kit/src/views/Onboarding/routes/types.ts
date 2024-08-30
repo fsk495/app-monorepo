@@ -96,13 +96,14 @@ export type IOnboardingRoutesParams = {
     imserver_id?: number;
     peerID?: number;
     peerType?: number;
-    onRedEnvelopeSent?: (chainName: string, redEnvelopeId: string | undefined) => void;
+    onRedEnvelopeSent?: (chainName: string, redEnvelopeId: string | undefined, redEnvelopeType: string) => void;
   };
   [EOnboardingRoutes.ReceiveRedPackage]: {
     imserver_id?: number;
     peerID?: number;
     peerType?: number;
     redEnvelopeId?:number,
+    walletName?: string,
     onRedEnvelopeReceived?: (redEnvelopeId: string) => void;
   };
 

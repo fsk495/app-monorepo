@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, ScrollView, Modal,  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { IOnboardingRoutesParams } from '../../Onboarding/routes/types';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
-import { Box, IconButton, useSafeAreaInsets, Text, Image, ToastManager } from '@onekeyhq/components';
-import { getRedPackageInfo } from '../../../utils/IMDataUtil';
+import { Box, IconButton, useSafeAreaInsets, Text, ToastManager,Image } from '@onekeyhq/components';
+import { getRedPackageInfo, recevieRedPackageRecord } from '../../../utils/IMDataUtil';
 import { useIntl } from 'react-intl';
-import redEnvelopes from '@onekeyhq/kit/assets/keytag/introduction.png';
+import { ExpiredRedEnvelope, getLeftMoney, getRedEnvelope } from '../../../utils/RedEnvelope';
+import backgroundApiProxy from '../../../background/instance/backgroundApiProxy';
+import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
+import { EIP1559Fee } from '@onekeyhq/engine/src/types/network';
+import { useActiveWalletAccount } from '../../../hooks';
+import redEnvelopes from '../redEnvelopes.png';
+import { ImageKey, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 
 type RouteProps = RouteProp<
   IOnboardingRoutesParams,
@@ -21,6 +27,7 @@ interface ReciveHbListItem {
   peerID: number;
   peerType: number;
   nike_name: string;
+  icon: string;
 }
 
 interface RedEnvelopeInfo {
@@ -54,13 +61,20 @@ interface jsonProps {
 
 const ReceiveRedEnvelopesScreen = () => {
   const route = useRoute<RouteProps>(); // 使用 useRoute 获取路由参数
-  const { imserver_id, peerID, peerType, redEnvelopeId } = route.params || {}; // 获取 imserver_id 参数
+  const { accountId } = useActiveWalletAccount();
+  let { imserver_id, peerID, peerType, redEnvelopeId, walletName } = route.params || {}; // 获取 imserver_id 参数
   const inset = useSafeAreaInsets();
   const [loading, setLoading] = useState(true);
   const intl = useIntl();
   const [redEnvelopeInfo, setRedEnvelopeInfo] = useState<RedEnvelopeInfo | null>(null);
   const [jsonData, setJsonData] = useState<jsonProps | null>(null);
   const navigation = useNavigation();
+  const [password, setPassword] = useState('');
+  const [networkId, setNetworkId] = useState('');
+
+  const { engine, serviceGas } = backgroundApiProxy;
+  const [privateKey, setPrivateKey] = useState<string>('');
+  const [gas, setGas] = useState<string | EIP1559Fee>(''); // 新增状态来存储gas非
 
   useEffect(() => {
     const fetchRedEnvelopeInfo = async () => {
@@ -72,6 +86,7 @@ const ReceiveRedEnvelopesScreen = () => {
           setRedEnvelopeInfo(info);
           if (info.json) {
             const parsedJson = JSON.parse(info.json);
+            console.log("parsedJson  ", parsedJson);
             setJsonData({
               password: parsedJson.password,
               redEnvelopeId: parsedJson.redEnvelopeId,
@@ -81,21 +96,21 @@ const ReceiveRedEnvelopesScreen = () => {
               tokenLogo: parsedJson.tokenLogo,
               networkId: parsedJson.networkId,
             });
-          }
-          if (response.data.recive_hb_list.length < response.data.num) {
-            //钱包还没有领完 领取钱包
 
+            setPassword(parsedJson.password);
+            setNetworkId(parsedJson.networkId);
+            console.log('networkId     ', parsedJson.networkId);
           }
         } else {
           ToastManager.show({
             title: intl.formatMessage({ id: 'msg__unknown_error' }),
           });
-          console.log("Invalid response from server  ");
+          console.log("没有找到服务信息  ");
         }
       } catch (err) {
         console.log("fetchRedEnvelopeInfo err:  ", err);
         ToastManager.show({
-          title: 'Failed to fetch red envelope info',
+          title: intl.formatMessage({ id: 'msg__unknown_error' }),
         });
       } finally {
         setLoading(false);
@@ -105,17 +120,114 @@ const ReceiveRedEnvelopesScreen = () => {
     fetchRedEnvelopeInfo();
   }, [redEnvelopeId]);
 
-  const handleClaimRedEnvelope = () => {
-    // 处理领取红包的逻辑
-    console.log('Claim Red Envelope');
-  };
+  useEffect(() => {
+    if (jsonData?.networkId) {
+      fetchGasInfo(jsonData.networkId);
+    }
+  }, [jsonData]);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+  useEffect(() => {
+    fetchPrivateKey(accountId);
+  }, [accountId]);
+
+  useEffect(() => {
+    if (redEnvelopeInfo && jsonData && privateKey && gas) {
+      if (redEnvelopeInfo.recive_hb_list.length < redEnvelopeInfo.num && !redEnvelopeInfo.is_timeout) {
+        // 检查用户是否已经领取过红包
+        const hasUserReceived = redEnvelopeInfo.recive_hb_list.some(item => item.imserver_id === imserver_id);
+        if (!hasUserReceived) {
+          receiveRedEnvelopes();
+        }
+      }
+      else if (redEnvelopeInfo.is_timeout) {
+        ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_expired' }) });
+        if (redEnvelopeInfo.imserver_id === imserver_id) {
+          ExpiredRedEnvelopes();
+        }
+      }
+    }
+  }, [redEnvelopeInfo, jsonData, privateKey, gas]);
+
+  const fetchPrivateKey = async (accountId: string) => {
+    const password: string | undefined = await backgroundApiProxy.servicePassword.getPassword();
+    if (password) {
+      const credentialType = AccountCredentialType.PrivateKey;
+      try {
+        const $privateKey = await engine.getAccountPrivateKey({ accountId, credentialType, password });
+        setPrivateKey($privateKey);
+        console.log("privateKey    ", $privateKey);
+      } catch (error) {
+        console.error('Error fetching private key:', error);
+      }
+    }
+  }
+
+  const fetchGasInfo = async (networkId: string) => {
+    const resp = await serviceGas.getGasInfo({
+      networkId: networkId,
+    });
+
+    if (resp.prices.length === 5) {
+      resp.prices = [resp.prices[0], resp.prices[2], resp.prices[4]];
+    }
+    setGas(resp.prices[1]);
+  }
+
+  const receiveRedEnvelopes = async () => {
+    setLoading(true); // 开始领取红包时显示loading动画
+    try {
+      let tempRedEnvelopeId = redEnvelopeId as number;
+      
+      let network = await backgroundApiProxy.engine.getNetwork(networkId);
+      const responseLeftMonkey = await getLeftMoney(tempRedEnvelopeId, network.rpcURL, privateKey);
+      console.log("responseLeftMonkey   ",parseFloat(responseLeftMonkey));
+      // return;
+      const response = await getRedEnvelope(tempRedEnvelopeId, password, network.rpcURL, privateKey, gas);
+      //领取红包成功
+      if (response?.success) {
+        ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_success' }) });
+        const responseReceive = await recevieRedPackageRecord(tempRedEnvelopeId.toString(), imserver_id as number, parseFloat(response?.amount), walletName, peerID as number, peerType as number);
+        console.log("领取红包成功  ");
+        // 重新获取红包信息，刷新显示的数据
+        if (responseReceive.code === 200) {
+          const updatedResponse = await getRedPackageInfo(redEnvelopeId + "");
+          if (updatedResponse && updatedResponse.data && updatedResponse.data.length > 0) {
+            setRedEnvelopeInfo(updatedResponse.data[0]);
+          }
+        }
+      }
+      else {
+        ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_failed' }) });
+      }
+    } catch (error) {
+      console.error("领取红包失败:", error);
+    } finally {
+      setLoading(false); // 领取完成后隐藏loading动画
+    }
+  }
+
+  const ExpiredRedEnvelopes = async () => {
+    setLoading(true); // 开始领取红包时显示loading动画
+    try {
+      let tempRedEnvelopeId = redEnvelopeId as number;
+      console.log("领取过期红包");
+      let network = await backgroundApiProxy.engine.getNetwork(networkId);
+      const responseLeftMonkey = await getLeftMoney(tempRedEnvelopeId, network.rpcURL, privateKey);
+      if (parseFloat(responseLeftMonkey) === 0) {
+        console.log("过期红包已经领取过了");
+        return;
+      }
+      const response = await ExpiredRedEnvelope(tempRedEnvelopeId, network.rpcURL, privateKey, gas);
+      //领取红包成功
+      if (response?.success) {
+        ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_return' }) });
+        navigation.goBack();
+      }
+    } catch (error) {
+      console.error("领取过期红包失败:", error);
+    } finally {
+      setLoading(false); // 领取完成后隐藏loading动画
+    }
   }
 
   if (!redEnvelopeInfo) {
@@ -124,25 +236,6 @@ const ReceiveRedEnvelopesScreen = () => {
         <Text>{"暂无红包"}</Text>
       </View>
     );
-  }
-
-  // 添加测试数据
-  if (redEnvelopeInfo.recive_hb_list.length === 0) {
-    redEnvelopeInfo.recive_hb_list = [
-      { hb_id: '1', imserver_id: 1, money: 10, peerID: 1, peerType: 1, nike_name: 'User1' },
-      { hb_id: '2', imserver_id: 2, money: 20, peerID: 2, peerType: 2, nike_name: 'User2' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-      { hb_id: '3', imserver_id: 3, money: 30, peerID: 3, peerType: 3, nike_name: 'User3' },
-    ];
   }
 
   return (
@@ -163,8 +256,8 @@ const ReceiveRedEnvelopesScreen = () => {
       </View>
       <Box flexDirection="column" alignItems="center" marginTop={5}>
         <Image
-          w={200}
-          h={298}
+          w={312}
+          h={218}
           resizeMode="contain"
           source={redEnvelopes}
         />
@@ -228,7 +321,13 @@ const ReceiveRedEnvelopesScreen = () => {
             {redEnvelopeInfo.recive_hb_list.map((item, index) => (
               <View key={index}>
                 <View style={styles.reciveHbListItem}>
-                  <Text style={styles.reciveHbListItemText}>{item.nike_name}</Text>
+                  <Box flexDirection="row" alignItems="center" borderRadius="12">
+                    <Image
+                      source={imageMap[(item.icon ?? '1.png') as ImageKey]}
+                      style={{ width: 24, height: 24, marginRight: 8 }}
+                    />
+                    <Text style={styles.reciveHbListItemText}>{item.nike_name}</Text>
+                  </Box>
                   <Text style={styles.reciveHbListItemText}>{item.money} {redEnvelopeInfo.coin}</Text>
                 </View>
                 {index < redEnvelopeInfo.recive_hb_list.length - 1 && <View style={styles.divider} />}
@@ -237,6 +336,20 @@ const ReceiveRedEnvelopesScreen = () => {
           </ScrollView>
         )}
       </View>
+
+      {/* Loading Modal */}
+      <Modal
+        transparent={true}
+        animationType="none"
+        visible={loading}
+        onRequestClose={() => { }}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.activityIndicatorWrapper}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -262,9 +375,13 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingTop: 10,
+    width: '100%',
+    maxWidth: 768,
+    marginHorizontal: 'auto',
+    paddingHorizontal: 16
   },
   moduleContainer: {
+    width: '90%', // 调整宽度
     backgroundColor: 'white',
     borderRadius: 10,
     borderWidth: 1,
@@ -272,6 +389,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     padding: 10,
     marginBottom: 10,
+    alignSelf: 'center', // 居中对齐
   },
   infoText: {
     fontSize: 16,
@@ -283,16 +401,18 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: 'black',
-    marginVertical: 0,
+    marginVertical: 10,
   },
   reciveHbList: {
+    width: '90%', // 调整宽度
     marginTop: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'black',
     padding: 10,
-    marginBottom:20,
+    marginBottom: 20,
+    alignSelf: 'center', // 居中对齐
     flexGrow: 1, // 确保内容可以滚动
   },
   reciveHbListItem: {
@@ -305,6 +425,22 @@ const styles = StyleSheet.create({
   reciveHbListItemText: {
     fontSize: 16,
   },
+  modalBackground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: '#00000040'
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: 'transparent',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  }
 });
 
 export default ReceiveRedEnvelopesScreen;

@@ -3010,5 +3010,9 @@
   "title_piece":"шматок",
   "content__backup_your_mnemonic": "Резервне копіювання <b>Мнемоніки</b> в «Моєму»",
   "title_tip_mnemonic":"Баланс вашого рахунку перевищив 1U, будь ласка, вчасно створіть резервну копію пам’ятного знака.",
-  "content_show_private_key":"Показати закритий ключ"
+  "content_show_private_key":"Показати закритий ключ",
+  "title_redEnvelope_expired":"Термін придатності червоного конверта закінчився",
+  "title_redEnvelope_success":"Успішно отримано",
+  "title_redEnvelope_failed":"Не вдалося отримати",
+  "title_redEnvelope_return":"Залишок суми буде повернено"
 }

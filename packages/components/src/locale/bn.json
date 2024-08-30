@@ -3010,5 +3010,9 @@
   "title_piece":"টুকরা",
   "content__backup_your_mnemonic": "'মাই' এ <b>স্মরণীয়</b> ব্যাকআপ",
   "title_tip_mnemonic":"আপনার অ্যাকাউন্টের ব্যালেন্স 1U ছাড়িয়ে গেছে, অনুগ্রহ করে সময়মতো আপনার স্মৃতির ব্যাক আপ নিন।",
-  "content_show_private_key":"ব্যক্তিগত কী দেখান"
+  "content_show_private_key":"ব্যক্তিগত কী দেখান",
+  "title_redEnvelope_expired":"লাল খামের মেয়াদ শেষ",
+  "title_redEnvelope_success":"সফলভাবে প্রাপ্ত",
+  "title_redEnvelope_failed":"প্রাপ্তি ব্যর্থ হয়েছে",
+  "title_redEnvelope_return":"বাকি টাকা ফেরত দেওয়া হবে"
 }

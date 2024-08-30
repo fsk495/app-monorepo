@@ -12,6 +12,7 @@ import {
   Switch,
   Typography,
   useTheme,
+  Image,
 } from '@onekeyhq/components';
 import { isCoinTypeCompatibleWithImpl } from '@onekeyhq/engine/src/managers/impl';
 import type { AccountDynamicItem } from '@onekeyhq/engine/src/managers/notification';
@@ -31,6 +32,7 @@ import { ListEmptyComponent } from './Empty';
 import { useEnabledAccountDynamicAccounts } from './hooks';
 
 import type { WalletData } from './hooks';
+import { ImageKey, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 
 const Item: FC<{
   account: Account;
@@ -153,7 +155,12 @@ const Section: FC<
         justifyContent="center"
         alignItems="center"
       >
-        {avatar?.emoji}
+        {/* {avatar?.emoji} */}
+        <Image
+          source={imageMap[avatar?.emoji as ImageKey]}
+          w={20}
+          h={20}
+        />
       </Box>
     );
   }, [type, avatar]);

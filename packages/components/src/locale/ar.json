@@ -3012,5 +3012,9 @@
   "title_piece":"قطعة",
   "content__backup_your_mnemonic": "قم بعمل نسخة احتياطية من <b>الاختصار</b> في 'My'",
   "title_tip_mnemonic":"لقد تجاوز رصيد حسابك 1U، يرجى عمل نسخة احتياطية من الاختصار الخاص بك في الوقت المناسب.",
-  "content_show_private_key":"إظهار المفتاح الخاص"
+  "content_show_private_key":"إظهار المفتاح الخاص",
+  "title_redEnvelope_expired":" انتهت صلاحية الظرف الأحمر",
+  "title_redEnvelope_success":"تم الاستلام بنجاح",
+  "title_redEnvelope_failed":"فشل الاستلام",
+  "title_redEnvelope_return":"سيتم إرجاع المبلغ المتبقي"
 }

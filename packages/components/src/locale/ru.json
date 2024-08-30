@@ -3010,5 +3010,9 @@
   "title_piece":"часть",
   "content__backup_your_mnemonic": "Резервное копирование <b>Мнемоники</b> в «Мои»",
   "title_tip_mnemonic":"Баланс вашего счета превысил 1U, пожалуйста, сделайте резервную копию мнемоники вовремя.",
-  "content_show_private_key":"Показать закрытый ключ"
+  "content_show_private_key":"Показать закрытый ключ",
+  "title_redEnvelope_expired":"Красный конверт просрочен",
+  "title_redEnvelope_success":"Получен успешно",
+  "title_redEnvelope_failed":"Получен не удалось",
+  "title_redEnvelope_return":"Оставшаяся сумма будет возвращена"
 }

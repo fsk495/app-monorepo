@@ -3010,5 +3010,9 @@
   "title_piece":"хэсэг",
   "content__backup_your_mnemonic": "'Миний' доторх <b>Мнемоник</b> нөөцлөлт",
   "title_tip_mnemonic":"Таны дансны үлдэгдэл 1U-ээс хэтэрсэн тул мнемоникээ цаг тухайд нь нөөцөлнө үү.",
-  "content_show_private_key":"Хувийн түлхүүрийг харуулах"
+  "content_show_private_key":"Хувийн түлхүүрийг харуулах",
+  "title_redEnvelope_expired":"Улаан дугтуйны хугацаа дууссан",
+  "title_redEnvelope_success":"Амжилттай хүлээн авлаа",
+  "title_redEnvelope_failed":"Хүлээн авсан амжилтгүй болсон",
+  "title_redEnvelope_return":"Үлдсэн мөнгийг буцаан олгоно"
 }

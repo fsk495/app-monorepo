@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/core';
 import { useNavigation } from '@react-navigation/native';
 import { chunk } from 'lodash';
 
-import { Box, Center, Modal, Pressable, Text } from '@onekeyhq/components';
+import { Box, Center, Modal, Pressable, Text, Image } from '@onekeyhq/components';
 import RecyclerListView, {
   DataProvider,
   LayoutProvider,
@@ -13,7 +13,7 @@ import RecyclerListView, {
 import WalletAvatar from '@onekeyhq/kit/src/components/WalletSelector/WalletAvatar';
 import type { ManagerWalletRoutesParams } from '@onekeyhq/kit/src/routes/Root/Modal/ManagerWallet';
 import type { EmojiTypes } from '@onekeyhq/shared/src/utils/emojiUtils';
-import { colors, emojiList } from '@onekeyhq/shared/src/utils/emojiUtils';
+import { colors, randomList, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 
 import type { ManagerWalletModalRoutes } from '../../../routes/routesEnum';
 import type { RouteProp } from '@react-navigation/core';
@@ -89,7 +89,7 @@ const ModifyWalletEmojiViewModal: FC = () => {
   const rowItems = Math.floor(containerWidth / itemWidth);
 
   const dataProvider = useMemo(() => {
-    const emojis: EmojiTypes[][] = chunk(emojiList, rowItems);
+    const emojis: EmojiTypes[][] = chunk(randomList, rowItems);
     return new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(emojis);
   }, [rowItems]);
 
@@ -104,7 +104,6 @@ const ModifyWalletEmojiViewModal: FC = () => {
       ),
     [containerWidth, itemWidth],
   );
-
   const renderItem = useCallback(
     (type, dataArray) => {
       const emojisArray: EmojiTypes[][] = chunk(dataArray, rowItems);
@@ -133,8 +132,13 @@ const ModifyWalletEmojiViewModal: FC = () => {
                     justifyContent="center"
                     width={`${itemWidth}px`}
                     height={`${itemWidth}px`}
+                    borderRadius="12"
                   >
-                    <Text typography="DisplayXLarge">{item}</Text>
+                    <Image
+                      source={imageMap[item]}
+                      w={`${itemWidth}px`}
+                      h={`${itemWidth}px`}
+                    />
                   </Box>
                 </Pressable>
               ))}

@@ -3010,5 +3010,9 @@
   "title_piece":"Stück",
   "content__backup_your_mnemonic": "<b>Mnemonik</b> in „Mein“ sichern",
   "title_tip_mnemonic":"Ihr Kontostand hat 1U überschritten. Bitte sichern Sie Ihre Mnemonik rechtzeitig.",
-  "content_show_private_key":"Privaten Schlüssel anzeigen"
+  "content_show_private_key":"Privaten Schlüssel anzeigen",
+  "title_redEnvelope_expired":"Roter Umschlag abgelaufen",
+  "title_redEnvelope_success":"Erfolgreich empfangen",
+  "title_redEnvelope_failed":"Empfang fehlgeschlagen",
+  "title_redEnvelope_return":"Der Restbetrag wird zurückerstattet"
 }

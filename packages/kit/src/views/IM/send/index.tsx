@@ -2,8 +2,7 @@ import { useIntl } from 'react-intl';
 import { Box, ScrollView, useSafeAreaInsets, Text, IconButton, Button, Spinner, Image, ToastManager } from '@onekeyhq/components';
 import { useState, useEffect } from 'react';
 import { useActiveWalletAccount, useManageNetworks, useNavigation } from '../../../hooks';
-import NetworkSelector from './NetworkSelector';
-import CurrenciesSelector from './CurrenciesSelector';
+
 import { TextInput, View, StyleSheet } from 'react-native';
 import backgroundApiProxy from '../../../background/instance/backgroundApiProxy';
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
@@ -15,7 +14,9 @@ import { type RouteProp, useRoute } from '@react-navigation/native';
 import { IOnboardingRoutesParams } from '../../Onboarding/routes/types';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
 
-import redEnvelopes from '@onekeyhq/kit/assets/keytag/introduction.png';
+import redEnvelopes from '../redEnvelopes.png';
+import NetworkSelector from '../send/NetworkSelector';
+import CurrenciesSelector from '../send/CurrenciesSelector';
 
 interface NetworkCurrenciesMap {
   [key: string]: { symbol: string, name: string, logoURI: string, address: string | undefined }[];
@@ -45,7 +46,7 @@ const SendRedEnvelopesScreen = () => {
   const [privateKey, setPrivateKey] = useState<string>('');
   const [networkCurrenciesMap, setNetworkCurrenciesMap] = useState<NetworkCurrenciesMap>({});
   const [amount, setAmount] = useState<string>(''); // 新增状态来存储输入的金额
-  const [persons, setPersons] = useState<string>('1'); // 新增状态来存储红包的个数，默认为1
+  const [persons, setPersons] = useState<string>(''); // 新增状态来存储红包的个数，默认为1
   const [gas, setGas] = useState<string | EIP1559Fee>(''); // 新增状态来存储gas非
   const [loading, setLoading] = useState(false); // 新增状态来控制 loading
 
@@ -57,21 +58,20 @@ const SendRedEnvelopesScreen = () => {
     const address = selectedCurrency ? selectedCurrency.address : undefined;
     if (network) {
       console.log('发送红包', { network: selectedNetwork, currency: selectedCurrencies, amount });
+      if (parseFloat(amount) <= 0 || amount === "") {
+        console.log(" 不能发送红包 ")
+        return;
+      }
       try {
-        if (parseFloat(persons) < 1) {
-          return;
-        }
         if (peerID === undefined || peerType === undefined) {
           return;
         }
+        
         setLoading(true); // 显示 loading
-
         const personsInt = Math.floor(parseFloat(persons));
         const result = await createRedEnvelope(passwordNum + "", amount, personsInt, network.rpcURL, privateKey, gas);
         console.log("result  ", result);
         if (result.success) {
-          console.log("result.password   ", result.password);
-          console.log("result.redEnvelopeId   ", result.redEnvelopeId);
           let redEnvelopeInfo = {
             password: result.password,
             redEnvelopeId: result.redEnvelopeId,
@@ -97,13 +97,12 @@ const SendRedEnvelopesScreen = () => {
           console.log("recordResult   ", recordResult);
           if (recordResult.code == 200) {
             if (route.params.onRedEnvelopeSent) {
-              route.params.onRedEnvelopeSent(network.name, result.redEnvelopeId);
+              route.params.onRedEnvelopeSent(network.name, result.redEnvelopeId, '测试手气红包');
             }
             navigation.goBack();
           }
         }
-        else
-        {
+        else {
           ToastManager.show({
             title: result.error,
           });
@@ -170,7 +169,7 @@ const SendRedEnvelopesScreen = () => {
     fetchPrivateKey();
     fetchTokens();
   }, [selectedNetwork, accountId, engine]);
-  console.log("redEnvelopes  ",redEnvelopes)
+  console.log("redEnvelopes  图片 ", redEnvelopes)
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -198,18 +197,18 @@ const SendRedEnvelopesScreen = () => {
       <ScrollView style={styles.scrollView}>
         <Box style={styles.box}>
           <View style={styles.backgroundBox}>
-          <NetworkSelector
+            <NetworkSelector
               selectedNetwork={selectedNetwork}
               onNetworkChange={handleNetworkChange}
               networks={evmNetworks}
-              // backgroundColor="#E7F6F1"
+            // backgroundColor="#E7F6F1"
             />
             <Box style={styles.divider} />
             <CurrenciesSelector
               selectedCurrencies={selectedCurrencies}
               onCurrenciesChange={setSelectedCurrencies}
               currencies={networkCurrenciesMap[selectedNetwork] || []}
-              // backgroundColor="#E7F6F1"
+            // backgroundColor="#E7F6F1"
             />
             <Box style={styles.divider} />
             <RedEnvelopeCountSelector count={persons} setCount={setPersons} peerType={peerType} />
@@ -266,8 +265,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
     // padding: 16,
-    paddingHorizontal:16,
-    paddingTop:16
+    paddingHorizontal: 16,
+    paddingTop: 16
   },
   divider: {
     height: 1,
@@ -287,11 +286,20 @@ const RedEnvelopeCountSelector = ({ count, setCount, peerType }: { count: string
   const intl = useIntl();
 
   const handleCountChange = (value: string) => {
-    const numericValue = parseFloat(value);
-    if (numericValue >= 1) {
-      setCount(Math.floor(numericValue).toString());
+    // 使用正则表达式确保只能输入正整数
+    const regex = /^\d+$/;
+    if (regex.test(value) || value === '') {
+      setCount(value);
     }
   };
+
+  useEffect(() => {
+    if (peerType === 2 || peerType === undefined) {
+      setCount('1');
+    } else if (!count) {
+      setCount('1');
+    }
+  }, [peerType, count, setCount]);
 
   return (
     <Box
@@ -307,7 +315,7 @@ const RedEnvelopeCountSelector = ({ count, setCount, peerType }: { count: string
       <Box flexDirection="row" alignItems="center">
         <TextInput
           placeholder="1"
-          value={count}
+          value={peerType === 2 || peerType === undefined ? '1' : count}
           onChangeText={handleCountChange}
           editable={!(peerType === 2 || peerType === undefined)}
           keyboardType="numeric"
@@ -324,7 +332,11 @@ const TokenAmountSelector = ({ amount, setAmount }: { amount: string, setAmount:
   const intl = useIntl();
 
   const handleAmountChange = (value: string) => {
-    setAmount(value);
+    // 使用正则表达式确保只能输入正数且只能输入一位小数点
+    const regex = /^\d*\.?\d*$/;
+    if (regex.test(value)) {
+      setAmount(value);
+    }
   };
 
   return (

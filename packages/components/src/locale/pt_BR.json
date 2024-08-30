@@ -3010,5 +3010,9 @@
   "title_piece":"peça",
   "content__backup_your_mnemonic": "Faça backup do <b>Mnemônico</b> em 'Meu'",
   "title_tip_mnemonic":"O saldo da sua conta excedeu 1U, faça backup do seu mnemônico a tempo.",
-  "content_show_private_key":"Mostrar chave privada"
+  "content_show_private_key":"Mostrar chave privada",
+  "title_redEnvelope_expired":"Envelope vermelho expirado",
+  "title_redEnvelope_success":"Recebido com sucesso",
+  "title_redEnvelope_failed":"Falha no recebimento",
+  "title_redEnvelope_return":"O valor restante será devolvido"
 }

@@ -3010,5 +3010,13 @@
   "title_piece":"個",
   "content__backup_your_mnemonic": "在 '我的' 備份<b>助記詞</b>",
   "title_tip_mnemonic":"您的帳戶金額已超過1U，請及時備份助記詞。",
-  "content_show_private_key":"顯示私鑰"
+  "content_show_private_key":"顯示私鑰",
+  "title_redEnvelope_expired":"紅包已過期",
+  "title_redEnvelope_success":"接收成功",
+  "title_redEnvelope_failed":"接收失敗",
+  "title_redEnvelope_return":"剩餘金額將被退回"
+  
+
+
+
 }

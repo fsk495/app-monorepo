@@ -9,7 +9,7 @@ export const tabRoutesOrders = [
   TabRoutes.NFT,
   TabRoutes.Discover,
   TabRoutes.Me,
-  // TabRoutes.IM,
+  TabRoutes.IM,
 ];
 // if (process.env.NODE_ENV !== 'production') {
 //   tabRoutesOrders.push(TabRoutes.Developer);
@@ -74,7 +74,8 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     name: TabRoutes.IM,
     tabBarIcon: (focused) => (focused ? 'IMSoild' : 'IMOutline'),
     translationId: 'title__im',
-    hideOnProduction: true,
+    hideDesktopNavHeader: true,
+    hideMobileNavHeader: true,
   },
 };
 

@@ -3010,5 +3010,9 @@
   "title_piece":"mảnh",
   "content__backup_your_mnemonic": "Sao lưu <b>Mnemonic</b> trong 'My'",
   "title_tip_mnemonic":"Số dư tài khoản của bạn đã vượt quá 1U, vui lòng sao lưu mã ghi nhớ của bạn kịp thời.",
-  "content_show_private_key":"Hiển thị khóa riêng tư"
+  "content_show_private_key":"Hiển thị khóa riêng tư",
+  "title_redEnvelope_expired":"Phong bì đỏ đã hết hạn",
+  "title_redEnvelope_success":"Đã nhận thành công",
+  "title_redEnvelope_failed":"Đã nhận không thành công",
+  "title_redEnvelope_return":"Số tiền còn lại sẽ được trả lại"
 }

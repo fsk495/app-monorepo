@@ -3010,5 +3010,9 @@
   "title_piece":"bagian",
   "content__backup_your_mnemonic": "Cadangkan <b>Mnemonic</b> di 'My'",
   "title_tip_mnemonic":"Saldo akun Anda telah melampaui 1U, harap cadangkan mnemonic Anda tepat waktu.",
-  "content_show_private_key":"Tampilkan kunci pribadi"
+  "content_show_private_key":"Tampilkan kunci pribadi",
+  "title_redEnvelope_expired":"Amplop merah kedaluwarsa",
+  "title_redEnvelope_success":"Berhasil diterima",
+  "title_redEnvelope_failed":"Gagal diterima",
+  "title_redEnvelope_return":"Sisanya akan dikembalikan"
 }

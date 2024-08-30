@@ -12,8 +12,8 @@ import type { IWallet } from '@onekeyhq/engine/src/types';
 import { WALLET_TYPE_HW } from '@onekeyhq/engine/src/types/wallet';
 import { getDeviceTypeByDeviceId } from '@onekeyhq/kit/src/utils/hardware';
 import { isPassphraseWallet } from '@onekeyhq/shared/src/engine/engineUtils';
-import type { Avatar } from '@onekeyhq/shared/src/utils/emojiUtils';
-import { defaultAvatar } from '@onekeyhq/shared/src/utils/emojiUtils';
+import type { Avatar, ImageKey } from '@onekeyhq/shared/src/utils/emojiUtils';
+import { defaultAvatar,imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 import type { IOneKeyDeviceType } from '@onekeyhq/shared/types';
 
 import type {
@@ -140,9 +140,40 @@ const WalletImage: FC<Partial<WalletAvatarProps>> = ({
     sm: 'DisplayMedium',
     xs: 'Body1',
   };
+  const sizeMap: {
+    [size: string]: {
+      width: string;
+      height: string;
+    };
+  } = {
+    'xl': {
+      width: '20px',
+      height: '30px',
+    },
+    'lg': {
+      width: '20px',
+      height: '30px',
+    },
+    'sm': {
+      width: '14px',
+      height: '21px',
+    },
+    'xs': {
+      width: '12px',
+      height: '18px',
+    },
+  };
   if (walletImage === 'hd') {
+    let emoji = avatar?.emoji as ImageKey;
     return (
-      <Text typography={textFontSizeMap[size as string]}>{avatar?.emoji}</Text>
+      // <Text typography={textFontSizeMap[size as string]}>{avatar?.emoji}</Text>
+      <Image
+        source={imageMap[emoji]}
+        w={sizeMap[size as string]?.width}
+        h={sizeMap[size as string]?.height}
+        borderRadius={parseFloat(sizeMap[size as string]?.width) / 2} // 设置为宽度的一半
+        resizeMode="cover" // 确保图像内容适应圆形
+      />
     );
   }
 

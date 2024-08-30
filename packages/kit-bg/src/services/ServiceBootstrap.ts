@@ -119,8 +119,8 @@ export default class ServiceBootstrap extends ServiceBase {
     serviceOnboarding.checkOnboardingStatus();
     serviceCloudBackup.initCloudBackup();
 
-    this.fetchAppConfig();
-    this.syncUserConfig();
+    // this.fetchAppConfig();
+    // this.syncUserConfig();
     this.backgroundApi.walletConnect.initWeb3WalletV2(1000);
   }
 

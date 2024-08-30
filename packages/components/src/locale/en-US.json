@@ -3012,5 +3012,9 @@
   "title_piece":"piece",
   "content__backup_your_mnemonic": "Backup <b>Mnemonic</b> in 'My'",
   "title_tip_mnemonic":"Your account balance has exceeded 1U, please back up your mnemonic in time.",
-  "content_show_private_key":"Show Private Key"
+  "content_show_private_key":"Show Private Key",
+  "title_redEnvelope_expired":"Red envelope expired",
+  "title_redEnvelope_success":"Received successfully",
+  "title_redEnvelope_failed":"Received failed",
+  "title_redEnvelope_return":"The remaining amount will be returned"
 }

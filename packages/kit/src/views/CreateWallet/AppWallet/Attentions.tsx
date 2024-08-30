@@ -10,7 +10,9 @@ import {
   Modal,
   Typography,
   useSafeAreaInsets,
+  Image,
 } from '@onekeyhq/components';
+import { ImageKey, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 
 type AttentionsProps = {
   navigateMode?: boolean;
@@ -58,9 +60,14 @@ export const Attentions: FC<AttentionsProps> = ({
             </Typography.DisplayLarge>
           </Center>
           {List.map((item) => (
-            <Box flexDirection="row" mb={4} key={item.desc}>
+            <Box flexDirection="row" mb={4} key={item.desc} borderRadius="12">
               <Typography.DisplayLarge mt={-1} mr={4}>
-                {item.emoji}
+                {/* {item.emoji} */}
+                <Image
+                  source={imageMap[item.emoji as ImageKey]}
+                  w={20}
+                  h={20}
+                />  
               </Typography.DisplayLarge>
               <Typography.Body1 flex={1}>{item.desc}</Typography.Body1>
             </Box>
