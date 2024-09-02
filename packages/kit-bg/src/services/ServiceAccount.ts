@@ -423,6 +423,7 @@ class ServiceAccount extends ServiceBase {
     dispatchActionDelay,
     postCreatedDelay,
     isAutoAddAllNetworkAccounts,
+    name,
   }: {
     password: string;
     mnemonic?: string;
@@ -430,6 +431,7 @@ class ServiceAccount extends ServiceBase {
     dispatchActionDelay?: number;
     postCreatedDelay?: number;
     isAutoAddAllNetworkAccounts?: boolean;
+    name?: string
   }) {
     const { dispatch, engine, appSelector, serviceAccount } =
       this.backgroundApi;
@@ -445,6 +447,7 @@ class ServiceAccount extends ServiceBase {
     const wallet = await engine.createHDWallet({
       password,
       mnemonic,
+      name,
       avatar: avatar ?? randomAvatar(),
       autoAddAccountNetworkId: networkId,
       isAutoAddAllNetworkAccounts,

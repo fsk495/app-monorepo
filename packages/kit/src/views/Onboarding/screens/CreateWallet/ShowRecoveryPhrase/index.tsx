@@ -46,8 +46,8 @@ const ShowRecoveryPhrase = () => {
       secondaryContent={
         <PhraseSheet
           mnemonic={mnemonic}
-          walletId={walletId}
-          networkId={networkId}
+          walletId={walletId as string}
+          networkId={networkId as string}
           onPressSavedPhrase={onPressSavedPhrase}
         />
       }

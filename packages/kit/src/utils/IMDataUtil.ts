@@ -22,8 +22,10 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
                 const credentialType = AccountCredentialType.PrivateKey;
                 const $privateKey = await backgroundApiProxy.engine.getAccountPrivateKey({ accountId, credentialType, password });
                 const wallet = new ethers.Wallet($privateKey);
-                console.log("wallet   ", wallet);
                 const seed = wallet.privateKey.slice(2);
+                const tempAccount = await backgroundApiProxy.engine.getAccount(accountId,networkId);
+                // console.log("getAccount   ",acc111)
+                walletName = tempAccount.name;
                 mnemonic = bip39.entropyToMnemonic(seed);
             }
             else {

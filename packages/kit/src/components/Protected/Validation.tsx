@@ -22,10 +22,10 @@ import { useFormOnChangeDebounced } from '../../hooks/useFormOnChangeDebounced';
 import { hasHardwareSupported } from '../../utils/localAuthentication';
 import LocalAuthenticationButton from '../LocalAuthenticationButton';
 
-type FieldValues = { password: string };
+type FieldValues = { password: string, nickname: string };
 
 type ValidationProps = {
-  onOk?: (text: string, isLocalAuthentication?: boolean) => void;
+  onOk?: (text: string, nickname: string, isLocalAuthentication?: boolean) => void;
   hideTitle?: boolean;
   placeCenter?: boolean;
   title?: string;
@@ -47,7 +47,11 @@ const Validation: FC<ValidationProps> = ({
   const useFormReturn = useForm<FieldValues>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
-    defaultValues: { password: '' },
+    defaultValues: {
+      password: '',
+      nickname: '',
+    },
+
   });
   const { control, handleSubmit, setError } = useFormReturn;
   const { formValues } = useFormOnChangeDebounced({
@@ -66,7 +70,7 @@ const Validation: FC<ValidationProps> = ({
       encodedPassword,
     );
     if (isOk) {
-      onOk?.(encodedPassword, false);
+      onOk?.(encodedPassword, values.nickname, false);
     } else {
       setError('password', {
         message: intl.formatMessage({ id: 'msg__wrong_password' }),
@@ -83,8 +87,8 @@ const Validation: FC<ValidationProps> = ({
   );
 
   const onLocalAuthenticationOk = useCallback(
-    (text: string) => {
-      onOk?.(text, true);
+    (text: string,nickname?:string) => {
+      onOk?.(text, nickname as string, true);
     },
     [onOk],
   );
@@ -125,6 +129,36 @@ const Validation: FC<ValidationProps> = ({
         ) : null}
 
         <Form>
+          <Form.Item
+            name="nickname"
+            defaultValue=""
+            control={control}
+            rules={{
+              minLength: {
+                value: 5,
+                message: intl.formatMessage(
+                  {
+                    id: 'form__rule_at_least_int_digits',
+                  },
+                  { 0: '5' },
+                ),
+              },
+              maxLength: {
+                value: 24,
+                message: intl.formatMessage(
+                  {
+                    id: 'form__account_name_invalid_characters_limit',
+                  },
+                  { 0: '24' },
+                ),
+              },
+            }}
+          >
+            <Form.Input
+              autoFocus
+              placeholder={'钱包昵称'}
+            />
+          </Form.Item>
           <Form.Item
             name="password"
             defaultValue=""

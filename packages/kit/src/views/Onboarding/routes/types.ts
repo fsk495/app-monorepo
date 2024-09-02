@@ -12,8 +12,8 @@ export type IOnboardingRecoveryPhraseParams = {
   password: string;
   withEnableAuthentication?: boolean;
   mnemonic: string;
-  walletId:string,
-  networkId:string,
+  walletId?:string,
+  networkId?:string,
   fromVerifyPassword?: boolean,
 };
 export type IOnboardingBehindTheSceneParams =
@@ -22,6 +22,7 @@ export type IOnboardingBehindTheSceneParams =
       device: SearchDevice;
       features: IOneKeyDeviceFeatures;
     };
+    name?:string,
     entry?: 'onboarding' | 'walletSelector';
   };
 export type IOnboardingSetPasswordParams = {

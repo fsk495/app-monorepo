@@ -94,6 +94,7 @@ const AddImportedAccountDone = () => {
   const navigation = useNavigation();
   const { privatekey, name, networkId, template, onSuccess, onFailure } =
     route.params ?? {};
+    console.log("111     ",name);
   useEffect(() => {
     navigation.setOptions({ gestureEnabled: false });
   }, [navigation]);
@@ -104,11 +105,11 @@ const AddImportedAccountDone = () => {
         skipSavePassword
         field={ValidationFields.Account}
       >
-        {(password, { withEnableAuthentication }) => (
+        {(password, { withEnableAuthentication },nickname) => (
           <Done
             withEnableAuthentication={withEnableAuthentication}
             privatekey={privatekey}
-            name={name}
+            name={nickname as string}
             template={template}
             networkId={networkId}
             password={password}

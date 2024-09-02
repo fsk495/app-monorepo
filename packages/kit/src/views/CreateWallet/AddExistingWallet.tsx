@@ -785,6 +785,7 @@ function OnboardingAddExistingWallet({
         },
       );
       forceVisibleUnfocused?.();
+      console.log(" 是否走了这一步    add  1 ",p)
       navigation.navigate(RootRoutes.Modal, {
         screen: ModalRoutes.CreateWallet,
         params: {
@@ -862,6 +863,7 @@ const AddExistingWallet = () => {
 
   const onAddImportedAuth = useCallback(
     (p: IAddImportedAccountDoneModalParams) => {
+      console.log(" 是否走了这样  onAddImportedAuth ")
       navigation.navigate(
         CreateWalletModalRoutes.AddImportedAccountDoneModal,
         p,

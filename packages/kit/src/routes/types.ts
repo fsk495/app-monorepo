@@ -104,10 +104,10 @@ export type TabRoutesParams = {
     | undefined;
   [TabRoutes.Developer]: NavigatorScreenParams<HomeRoutesParams> | undefined;
   [TabRoutes.Discover]: NavigatorScreenParams<HomeRoutesParams> | undefined;
+  [TabRoutes.IM]: NavigatorScreenParams<HomeRoutesParams> | undefined;
   [TabRoutes.Me]: NavigatorScreenParams<HomeRoutesParams> | undefined;
   [TabRoutes.Market]: NavigatorScreenParams<HomeRoutesParams> | undefined;
   [TabRoutes.NFT]: NavigatorScreenParams<HomeRoutesParams> | undefined;
-  [TabRoutes.IM]: NavigatorScreenParams<HomeRoutesParams> | undefined;
 };
 /** Tab */
 export type MainRoutesParams = {

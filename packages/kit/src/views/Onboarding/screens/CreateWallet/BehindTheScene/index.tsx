@@ -74,11 +74,11 @@ function BehindTheSceneCreatingWallet({
     withEnableAuthentication,
     isHardwareCreating,
     entry,
+    name,
   } = routeParams;
-
+  console.log("BehindTheSceneCreatingWallet  name  ",name);
   const context = useOnboardingContext();
   const forceVisibleUnfocused = context?.forceVisibleUnfocused;
-
   const startCreatingHardwareWallet = useCallback(async () => {
     try {
       const device: SearchDevice | undefined = isHardwareCreating?.device;
@@ -179,6 +179,7 @@ function BehindTheSceneCreatingWallet({
       await backgroundApiProxy.serviceAccount.createHDWallet({
         password,
         mnemonic,
+        name,
         dispatchActionDelay: 300, // should dispatchAction before postCreated
         postCreatedDelay: 600,
       });

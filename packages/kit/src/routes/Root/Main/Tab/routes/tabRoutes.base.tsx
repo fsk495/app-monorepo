@@ -8,8 +8,8 @@ export const tabRoutesOrders = [
   TabRoutes.Swap,
   TabRoutes.NFT,
   TabRoutes.Discover,
-  TabRoutes.Me,
   TabRoutes.IM,
+  TabRoutes.Me,
 ];
 // if (process.env.NODE_ENV !== 'production') {
 //   tabRoutesOrders.push(TabRoutes.Developer);
@@ -58,6 +58,13 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     hideDesktopNavHeader: true,
     hideMobileNavHeader: true,
   },
+  [TabRoutes.IM]: {
+    name: TabRoutes.IM,
+    tabBarIcon: (focused) => (focused ? 'IMSoild' : 'IMOutline'),
+    translationId: 'title__im',
+    hideDesktopNavHeader: true,
+    hideMobileNavHeader: true,
+  },
   [TabRoutes.Me]: {
     name: TabRoutes.Me,
     tabBarIcon: (focused) => (focused ? 'Bars4Solid' : 'Bars4Outline'),
@@ -69,13 +76,6 @@ export const tabRoutesConfigBaseMap: Record<TabRoutes, TabRouteConfigBase> = {
     tabBarIcon: (focused) => (focused ? 'ChipOutline' : 'ChipOutline'),
     translationId: 'form__dev_mode',
     hideOnProduction: true,
-  },
-  [TabRoutes.IM]: {
-    name: TabRoutes.IM,
-    tabBarIcon: (focused) => (focused ? 'IMSoild' : 'IMOutline'),
-    translationId: 'title__im',
-    hideDesktopNavHeader: true,
-    hideMobileNavHeader: true,
   },
 };
 

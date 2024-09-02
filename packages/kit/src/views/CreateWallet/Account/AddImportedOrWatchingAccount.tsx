@@ -146,6 +146,7 @@ const AddImportedOrWatchingAccount = () => {
       const template = values.template || defaultDerivationValue || undefined;
 
       if (importType === UserInputCategory.IMPORTED) {
+        console.log(" 是否走了这一步  1111  ");
         navigation.navigate(
           CreateWalletModalRoutes.AddImportedAccountDoneModal,
           {

@@ -12,7 +12,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { AppStatusActiveListener } from '../AppStatusActiveListener';
 
 type LocalAuthenticationButtonProps = {
-  onOk?: (password: string) => void;
+  onOk?: (password: string, nickname?: string) => void;
   onNg?: () => void;
 };
 

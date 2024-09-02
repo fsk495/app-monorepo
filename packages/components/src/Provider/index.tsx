@@ -172,10 +172,10 @@ const Provider: FC<UIProviderProps> = ({
               // This code is a temporary solution to a problem with the NativeBase library, specifically with the selection color of input fields in the ios and android operating systems. https://github.com/GeekyAnts/NativeBase/issues/5420
               _focus: {
                 _ios: {
-                  selectionColor: 'unset',
+                  selectionColor: '#ff00ff',
                 },
                 _android: {
-                  selectionColor: 'unset',
+                  selectionColor: '#ff00ff',
                 },
               },
             },

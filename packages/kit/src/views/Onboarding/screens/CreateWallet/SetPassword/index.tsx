@@ -78,10 +78,12 @@ function RedirectToRecoveryPhrase({
   password,
   withEnableAuthentication,
   importedMnemonic,
+  nickname, // 传递昵称
 }: {
   password: string;
   withEnableAuthentication?: boolean;
   importedMnemonic?: string;
+  nickname?: string; // 添加昵称 prop
 }) {
   const navigation = useNavigation<NavigationProps>();
 
@@ -94,6 +96,7 @@ function RedirectToRecoveryPhrase({
               navigation.replace(EOnboardingRoutes.BehindTheScene, {
                 password,
                 mnemonic,
+                name: nickname, // 传递昵称
                 withEnableAuthentication,
               });
             }}
@@ -108,6 +111,7 @@ function RedirectToRecoveryPhrase({
       navigation.replace(EOnboardingRoutes.BehindTheScene, {
         password,
         mnemonic,
+        name: nickname, // 传递昵称
         withEnableAuthentication,
       });
     }
@@ -174,11 +178,12 @@ const SetPassword = () => {
         skipSavePassword
         field={ValidationFields.Wallet}
       >
-        {(password, { withEnableAuthentication }) => (
+        {(password, { withEnableAuthentication }, nickname) => (
           <RedirectToRecoveryPhraseMemo
             password={password}
             withEnableAuthentication={withEnableAuthentication}
             importedMnemonic={mnemonic}
+            nickname={nickname} // 传递昵称
           />
         )}
       </Protected>

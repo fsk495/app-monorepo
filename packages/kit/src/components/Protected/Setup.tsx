@@ -22,11 +22,12 @@ type FieldValues = {
   password: string;
   confirmPassword: string;
   withEnableAuthentication: boolean;
+  nickname: string;
 };
 
 type SetupProps = {
   skipSavePassword?: boolean;
-  onOk?: (text: string, withEnableAuthentication?: boolean) => void;
+  onOk?: (text: string, nickname: string, withEnableAuthentication?: boolean) => void;
   hideTitle?: boolean;
   isAutoHeight?: boolean;
 };
@@ -48,6 +49,7 @@ const Setup: FC<SetupProps> = ({
     defaultValues: {
       password: '',
       confirmPassword: '',
+      nickname: '',
     },
   });
   const { control, handleSubmit, getValues } = useFormReturn;
@@ -57,8 +59,8 @@ const Setup: FC<SetupProps> = ({
     clearErrorIfEmpty: true,
   });
   const submitDisabled = useMemo(
-    () => !formValues?.password || !formValues?.confirmPassword,
-    [formValues?.confirmPassword, formValues?.password],
+    () => !formValues?.password || !formValues?.confirmPassword || !formValues?.nickname,
+    [formValues?.confirmPassword, formValues?.password, formValues?.nickname],
   );
   const onSubmit = useCallback(
     async (values: FieldValues) => {
@@ -82,15 +84,15 @@ const Setup: FC<SetupProps> = ({
       if (boardingCompleted && !skipSavePassword) {
         await backgroundApiProxy.serviceApp.updatePassword('', encodedPassword);
       }
-      onOk?.(encodedPassword, values.withEnableAuthentication);
+      onOk?.(encodedPassword, values.nickname, values.withEnableAuthentication);
     },
     [boardingCompleted, skipSavePassword, onOk, intl],
   );
   const text =
     authenticationType === 'FACIAL'
       ? intl.formatMessage({
-          id: 'content__face_id',
-        })
+        id: 'content__face_id',
+      })
       : intl.formatMessage({ id: 'content__touch_id' });
 
   return (
@@ -118,6 +120,36 @@ const Setup: FC<SetupProps> = ({
 
       <Form>
         <Form.Item
+          name="nickname"
+          defaultValue=""
+          control={control}
+          rules={{
+            minLength: {
+              value: 5,
+              message: intl.formatMessage(
+                {
+                  id: 'form__rule_at_least_int_digits',
+                },
+                { 0: '5' },
+              ),
+            },
+            maxLength: {
+              value: 24,
+              message: intl.formatMessage(
+                {
+                  id: 'form__account_name_invalid_characters_limit',
+                },
+                { 0: '24' },
+              ),
+            },
+          }}
+        >
+          <Form.Input
+            autoFocus
+            placeholder={'钱包昵称'}
+          />
+        </Form.Item>
+        <Form.Item
           name="password"
           defaultValue=""
           control={control}
@@ -139,14 +171,13 @@ const Setup: FC<SetupProps> = ({
               if (!confirmPassword || !value) return undefined;
               return confirmPassword !== value
                 ? intl.formatMessage({
-                    id: 'msg__password_needs_to_be_the_same',
-                  })
+                  id: 'msg__password_needs_to_be_the_same',
+                })
                 : undefined;
             },
           }}
         >
           <Form.PasswordInput
-            autoFocus
             // press enter key to submit
             onSubmitEditing={handleSubmit(onSubmit)}
             placeholder={intl.formatMessage(
@@ -173,8 +204,8 @@ const Setup: FC<SetupProps> = ({
               if (!password || !value) return undefined;
               return password !== value
                 ? intl.formatMessage({
-                    id: 'msg__password_needs_to_be_the_same',
-                  })
+                  id: 'msg__password_needs_to_be_the_same',
+                })
                 : undefined;
             },
           }}

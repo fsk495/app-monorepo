@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { FC, ReactNode } from 'react';
 import { memo, useCallback, useEffect, useState } from 'react';
 
@@ -35,7 +34,7 @@ type ProtectedProps = {
   /** walletId for current flow, null means createWallet flow */
   walletId: string | null;
   field?: ValidationFields;
-  children: (password: string, options: ProtectedOptions) => ReactNode;
+  children: (password: string, options: ProtectedOptions, nickname?: string) => ReactNode;
   hideTitle?: boolean;
   isAutoHeight?: boolean;
   placeCenter?: boolean;
@@ -66,6 +65,7 @@ const Protected: FC<ProtectedProps> = ({
   const { engine, serviceHardware, serviceApp } = backgroundApiProxy;
   const [deviceFeatures, setDeviceFeatures] = useState<IOneKeyDeviceFeatures>();
   const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
   const [withEnableAuthentication, setWithEnableAuthentication] =
     useState<boolean>();
   const [isLocalAuthentication, setLocalAuthentication] = useState<boolean>();
@@ -79,13 +79,15 @@ const Protected: FC<ProtectedProps> = ({
     boolean | undefined
   >(undefined);
 
-  const onValidationOk = useCallback((text: string, value?: boolean) => {
+  const onValidationOk = useCallback((text: string, nickname: string, value?: boolean) => {
     setLocalAuthentication(value);
+    setNickname(nickname);
     setPassword(text);
-  }, []);
+  }, [children]);
 
-  const onSetupOk = useCallback((text: string, value?: boolean) => {
+  const onSetupOk = useCallback((text: string, nickname: string, value?: boolean) => {
     setWithEnableAuthentication(value);
+    setNickname(nickname);
     setPassword(text);
   }, []);
 
@@ -191,7 +193,7 @@ const Protected: FC<ProtectedProps> = ({
         {children(password, {
           withEnableAuthentication,
           isLocalAuthentication,
-        })}
+        },nickname)}
       </Box>
     );
   }
@@ -202,7 +204,7 @@ const Protected: FC<ProtectedProps> = ({
         {children(password, {
           withEnableAuthentication,
           isLocalAuthentication,
-        })}
+        },nickname)}
       </Box>
     );
   }
@@ -215,7 +217,7 @@ const Protected: FC<ProtectedProps> = ({
             withEnableAuthentication,
             isLocalAuthentication,
             deviceFeatures,
-          })}
+          },nickname)}
         </Box>
       );
     }

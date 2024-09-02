@@ -13,7 +13,7 @@ import Validation from './Validation';
 
 type SessionProps = {
   field?: ValidationFields;
-  onOk?: (text: string, isLocalAuthentication?: boolean) => void;
+  onOk?: (text: string, nickname: string, isLocalAuthentication?: boolean) => void;
   hideTitle?: boolean;
   placeCenter?: boolean;
   title?: string;
@@ -28,11 +28,8 @@ const Session: FC<SessionProps> = ({
   title,
   subTitle,
 }) => {
-  const [loaded, setLoaded] = useState(false);
   const [verifiedPwd, setVerifiedPwd] = useState(false);
-  const [hasvPw, setHasPw] = useState<boolean | undefined>();
   const validationSetting = useAppSelector((s) => s.settings.validationSetting);
-  const { handOperatedLock } = useAppSelector((s) => s.data);
   const isAlwaysNeedInputPassword = useMemo(() => {
     const value = field ? !!validationSetting?.[field] : false;
     if (field && field === ValidationFields.Secret) {
@@ -41,28 +38,9 @@ const Session: FC<SessionProps> = ({
     }
     return value;
   }, [validationSetting, field]);
-  useEffect(() => {
-    async function loadCachePassword() {
-      const data = await backgroundApiProxy.servicePassword.getPassword();
-      if (data) {
-        setVerifiedPwd(true);
-        if (platformEnv.isNative) {
-          setTimeout(() => onOk?.(data, false), 500);
-        } else {
-          onOk?.(data, false);
-        }
-      }
-      setHasPw(!!data);
-      setLoaded(true);
-    }
-    if (!isAlwaysNeedInputPassword) {
-      loadCachePassword();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handOperatedLock]);
 
   const onSubmit = useCallback(
-    async (text: string, isLocalAuthentication?: boolean) => {
+    async (text: string, nickname: string, isLocalAuthentication?: boolean) => {
       setVerifiedPwd(true);
       const key =
         await backgroundApiProxy.servicePassword.getBgSensitiveTextEncodeKey();
@@ -72,35 +50,24 @@ const Session: FC<SessionProps> = ({
           key,
         }),
       );
-      onOk?.(text, isLocalAuthentication);
+      onOk?.(text,nickname, isLocalAuthentication);
     },
     [onOk],
   );
-
+  console.log(" hideTitle     ",hideTitle);
+  console.log(" title     ",title);
+  console.log(" subTitle     ",subTitle);
+  console.log(" placeCenter     ",placeCenter);
   if (!verifiedPwd) {
-    if (isAlwaysNeedInputPassword) {
-      return (
-        <Validation
-          onOk={onSubmit}
-          hideTitle={hideTitle}
-          placeCenter={placeCenter}
-          title={title}
-          subTitle={subTitle}
-        />
-      );
-    }
-
-    if (loaded && !hasvPw) {
-      return (
-        <Validation
-          onOk={onSubmit}
-          hideTitle={hideTitle}
-          placeCenter={placeCenter}
-          title={title}
-          subTitle={subTitle}
-        />
-      );
-    }
+    return (
+      <Validation
+        onOk={onSubmit}
+        hideTitle={hideTitle}
+        placeCenter={placeCenter}
+        title={title}
+        subTitle={subTitle}
+      />
+    );
   }
 
   return (

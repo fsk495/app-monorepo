@@ -10,16 +10,17 @@ import useAppNavigation from '../../hooks/useAppNavigation';
 import { Box, ToastManager, Typography, IconButton } from '@onekeyhq/components';
 import { useIntl } from 'react-intl';
 import { Wallet } from '@onekeyhq/engine/src/types/wallet';
+import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
+import backgroundApiProxy from '../../background/instance/backgroundApiProxy';
 
 const ImScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const webViewRef = useRef<WebView>(null);
   const intl = useIntl()
 
-  const { walletId, accountAddress, networkId,accountId } = useActiveWalletAccount();
+  const { walletId, accountAddress, networkId, accountId } = useActiveWalletAccount();
   const sectionData = useWalletSelectorSectionData();
   const navigationRoot = useAppNavigation();
-
   const [imserver_id, SetImserver_id] = useState<number>(0);
   const [imserver_token, SetImserver_token] = useState<string>('');
   const [imserver_url, SetImserver_url] = useState<string>('');
@@ -57,8 +58,6 @@ const ImScreen: React.FC = () => {
       let tempWallet: Wallet | undefined;
       sectionData.forEach(section => {
         section.data.forEach(item => {
-          console.log("item.wallet   ",item.wallet);
-          console.log("walletId   ",walletId);
           if (item.wallet && item.wallet.id === walletId) {
             tempWallet = item.wallet;
           }
@@ -66,12 +65,23 @@ const ImScreen: React.FC = () => {
       });
       if (tempWallet) {
         try {
+          
           const result = await saveIMData(accountAddress, networkId,accountId,tempWallet);
           console.log('API Response 1111 :', result.data);
-          SetWalletName(tempWallet.name);
+          let walletName = '';
+          if (isImportedWallet({ walletId }))
+          {
+            const tempAccount = await backgroundApiProxy.engine.getAccount(accountId, networkId);
+            walletName = tempAccount.name;
+          }
+          else
+          {
+            walletName = tempWallet.name;
+          }
+          SetWalletName(walletName);
           SetImserver_id(result.data.imserver_id);
           SetImserver_token(result.data.imserver_token);
-          SetIm_id(result.data.id);
+          SetIm_id(walletName);
         } catch (error) {
           console.error('Error saving IM data:', error);
         }

@@ -5,7 +5,7 @@ import { useAppSelector, useLocalAuthentication } from '../../hooks';
 import LocalAuthenticationButton from './LocalAuthenticationButton';
 
 type LocalAuthenticationButtonProps = {
-  onOk?: (password: string) => void;
+  onOk?: (password: string, nickname?: string) => void;
   onNg?: () => void;
 };
 
