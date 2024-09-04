@@ -1,5 +1,15 @@
 import { useIntl } from 'react-intl';
-import { Box, ScrollView, useSafeAreaInsets, Text, IconButton, Button, Spinner, Image, ToastManager } from '@onekeyhq/components';
+import { 
+  Box, 
+  ScrollView, 
+  useSafeAreaInsets, 
+  Text, 
+  IconButton, 
+  Button, 
+  Spinner, 
+  Image, 
+  ToastManager, 
+} from '@onekeyhq/components';
 import { useState, useEffect } from 'react';
 import { useActiveWalletAccount, useManageNetworks, useNavigation } from '../../../hooks';
 
