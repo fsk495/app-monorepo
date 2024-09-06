@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"লাল খামের মেয়াদ শেষ",
   "title_redEnvelope_success":"সফলভাবে প্রাপ্ত",
   "title_redEnvelope_failed":"প্রাপ্তি ব্যর্থ হয়েছে",
-  "title_redEnvelope_return":"বাকি টাকা ফেরত দেওয়া হবে"
+  "title_redEnvelope_return":"বাকি টাকা ফেরত দেওয়া হবে",
+  "title_wallet_nickname":"ওয়ালেট ডাকনাম"
 }

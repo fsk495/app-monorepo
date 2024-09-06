@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Envelope vermelho expirado",
   "title_redEnvelope_success":"Recebido com sucesso",
   "title_redEnvelope_failed":"Falha no recebimento",
-  "title_redEnvelope_return":"O valor restante será devolvido"
+  "title_redEnvelope_return":"O valor restante será devolvido",
+  "title_wallet_nickname":"Apelido da carteira"
 }

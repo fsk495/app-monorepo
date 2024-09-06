@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Улаан дугтуйны хугацаа дууссан",
   "title_redEnvelope_success":"Амжилттай хүлээн авлаа",
   "title_redEnvelope_failed":"Хүлээн авсан амжилтгүй болсон",
-  "title_redEnvelope_return":"Үлдсэн мөнгийг буцаан олгоно"
+  "title_redEnvelope_return":"Үлдсэн мөнгийг буцаан олгоно",
+  "title_wallet_nickname":"Түрийвчний хоч"
 }

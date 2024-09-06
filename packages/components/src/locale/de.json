@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Roter Umschlag abgelaufen",
   "title_redEnvelope_success":"Erfolgreich empfangen",
   "title_redEnvelope_failed":"Empfang fehlgeschlagen",
-  "title_redEnvelope_return":"Der Restbetrag wird zurückerstattet"
+  "title_redEnvelope_return":"Der Restbetrag wird zurückerstattet",
+  "title_wallet_nickname":"Spitzname der Brieftasche"
 }

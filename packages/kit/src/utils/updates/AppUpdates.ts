@@ -30,6 +30,11 @@ import { getDefaultLocale } from '../locale';
 import { getChangeLog, getPreReleaseInfo, getReleaseInfo } from './server';
 
 import type { PackageInfo, PackagesInfo, VersionInfo } from './type';
+import RNFS from '@onekeyhq/shared/src/modules3rdParty/react-native-fs/index.native';
+import axios from 'axios';
+import { setVersion } from '../../store/reducers/versionSlice';
+import RNRestart from 'react-native-restart';
+import { NativeModules } from 'react-native';
 
 class AppUpdates {
   addedListener = false;
@@ -377,6 +382,85 @@ class AppUpdates {
         }),
       );
     });
+  }
+
+  async checkForUpdatesTemp(currentVersion: string) {
+    try {
+      const response = await axios.get('http://8.217.55.46:5244/d/home/alist/home/version.json?sign=MKXImNgumw3zH0jVExGfkGDAQxtcwloEWd82YFoeyoA=:0'); // 替换为你的版本信息URL
+      const latestVersionInfo = response.data;
+      console.info("获取的最新版本", latestVersionInfo.version);
+
+      if (semver.valid(latestVersionInfo.version) && semver.valid(currentVersion) && semver.gt(latestVersionInfo.version, currentVersion)) {
+        ToastManager.show({ title: '发现新版本，准备更新' });
+        await this.downloadAndUpdate(latestVersionInfo);
+      } else {
+        ToastManager.show({ title: `当前已是最新版本:${currentVersion}` });
+      }
+    } catch (err) {
+      console.error('检查更新失败', err);
+      ToastManager.show({ title: `检查更新失败: ${err}` });
+    }
+  }
+
+  downloadAndUpdate = async (versionInfo: { android: string; ios: string; version: string }) => {
+    try {
+      const downloadDest = `${RNFS.DocumentDirectoryPath}/index.android.bundle`;
+      let downloadUrl;
+
+      if (platformEnv.isNativeAndroid) {
+        downloadUrl = versionInfo.android;
+      } else if (platformEnv.isNativeIOS) {
+        downloadUrl = versionInfo.ios;
+      } else {
+        ToastManager.show({ title: '当前平台不支持自动更新' });
+        return;
+      }
+
+      const download = RNFS.downloadFile({
+        fromUrl: downloadUrl,
+        toFile: downloadDest,
+      });
+      const { statusCode } = await download.promise;
+      if (statusCode === 200) {
+        await this.replaceBundle();
+        backgroundApiProxy.dispatch(setVersion(versionInfo.version));
+        this.restartApp();
+      } else {
+        console.error('下载失败');
+        ToastManager.show({ title: '下载更新失败' });
+      }
+    } catch (error) {
+      ToastManager.show({ title: '没有发现下载文件' });
+      console.error('下载错误:', error);
+    }
+  }
+
+  private async replaceBundle() {
+    try {
+      const oldBundlePath = `${RNFS.DocumentDirectoryPath}/old_index.android.bundle`;
+      const backupPath = `${RNFS.DocumentDirectoryPath}/backup_index.android.bundle`;
+
+      // 检查旧版 bundle 文件是否存在
+      const oldBundleExists = await RNFS.exists(oldBundlePath);
+      if (oldBundleExists) {
+        // 如果旧版 bundle 文件存在，将其备份
+        await RNFS.moveFile(oldBundlePath, backupPath);
+        console.info('Old bundle file backed up to backup_index.android.bundle');
+      }
+
+      // 将新下载的 bundle 文件重命名为 index.android.bundle
+      await RNFS.moveFile(`${RNFS.DocumentDirectoryPath}/index.android.bundle`, oldBundlePath);
+      console.info('New bundle file renamed to index.android.bundle');
+    } catch (error) {
+      console.error('Failed to replace bundle file', error);
+    }
+  }
+
+  private restartApp = () => {
+    ToastManager.show({ title: '更新完成，即将重启' });
+    setTimeout(() => {
+      RNRestart.Restart();
+    }, 2000); 
   }
 }
 const appUpdates = new AppUpdates();

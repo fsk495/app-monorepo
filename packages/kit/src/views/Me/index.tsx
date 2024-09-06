@@ -34,7 +34,7 @@ export const Me = (options: any) => {
           <SecuritySection />
           <PushSection />
           <AdvancedSection />
-          {/* <AboutSection /> */}
+          <AboutSection />
           <HardwareBridgeSection />
           {/* <FooterAction /> */}
           {devModeEnable ? <DevSettingSection /> : null}

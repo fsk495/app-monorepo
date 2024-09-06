@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"赤い封筒の有効期限が切れました",
   "title_redEnvelope_success":"正常に受信されました",
   "title_redEnvelope_failed":"受信に失敗しました",
-  "title_redEnvelope_return":"残額は返金されます"
+  "title_redEnvelope_return":"残額は返金されます",
+  "title_wallet_nickname":"ウォレットニックネーム"
 }

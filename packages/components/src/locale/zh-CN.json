@@ -3013,5 +3013,6 @@
   "title_redEnvelope_expired":"红包过期",
   "title_redEnvelope_success":"领取成功",
   "title_redEnvelope_failed":"领取失败",
-  "title_redEnvelope_return":"剩余金额将被退回"
+  "title_redEnvelope_return":"剩余金额将被退回",
+  "title_wallet_nickname":"钱包昵称"
 }

@@ -3016,5 +3016,6 @@
   "title_redEnvelope_expired":"Red envelope expired",
   "title_redEnvelope_success":"Received successfully",
   "title_redEnvelope_failed":"Received failed",
-  "title_redEnvelope_return":"The remaining amount will be returned"
+  "title_redEnvelope_return":"The remaining amount will be returned",
+  "title_wallet_nickname":"Wallet Nickname"
 }

@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Красный конверт просрочен",
   "title_redEnvelope_success":"Получен успешно",
   "title_redEnvelope_failed":"Получен не удалось",
-  "title_redEnvelope_return":"Оставшаяся сумма будет возвращена"
+  "title_redEnvelope_return":"Оставшаяся сумма будет возвращена",
+  "title_wallet_nickname":"Имя кошелька"
 }

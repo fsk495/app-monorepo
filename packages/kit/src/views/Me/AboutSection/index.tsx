@@ -25,11 +25,16 @@ import {
 
 import AppRateSectionItem from './AppRateSectionItem';
 import AutoUpdateSectionItem from './AutoUpdateSectionItem';
+import { useSelector } from 'react-redux';
+import { IAppState } from '../../../store';
 
 export const AboutSection = () => {
   const intl = useIntl();
 
   const { dispatch } = backgroundApiProxy;
+
+  const currentVersion = useSelector((state: IAppState) => state.version.version) || '4.23.0'; // 默认版本号
+  
   const { themeVariant } = useTheme();
   const userAgreementUrl = useHelpLink({ path: 'articles/360002014776' });
   const privacyPolicyUrl = useHelpLink({ path: 'articles/360002003315' });
@@ -116,12 +121,13 @@ export const AboutSection = () => {
             typography={{ sm: 'Body1Strong', md: 'Body2Strong' }}
             color="text-subdued"
           >
-            {settings.version}
-            {settings.buildNumber ? `-${settings.buildNumber}` : ''}
+            {currentVersion}
+            {/* {settings.version}
+            {settings.buildNumber ? `-${settings.buildNumber}` : ''} */}
           </Text>
         </Pressable>
-        <AutoUpdateSectionItem />
-        <AppRateSectionItem />
+        {/* <AutoUpdateSectionItem /> */}
+        {/* <AppRateSectionItem /> */}
         {/* <Pressable
           display="flex"
           flexDirection="row"
@@ -190,7 +196,7 @@ export const AboutSection = () => {
             <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
           </Box>
         </Pressable> */}
-        <Pressable
+        {/* <Pressable
           display="flex"
           flexDirection="row"
           alignItems="center"
@@ -274,7 +280,7 @@ export const AboutSection = () => {
             color="icon-subdued"
             size={20}
           />
-        </Pressable>
+        </Pressable> */}
       </Box>
     </Box>
   );

@@ -135,12 +135,12 @@ const Validation: FC<ValidationProps> = ({
             control={control}
             rules={{
               minLength: {
-                value: 5,
+                value: 1,
                 message: intl.formatMessage(
                   {
                     id: 'form__rule_at_least_int_digits',
                   },
-                  { 0: '5' },
+                  { 0: '1' },
                 ),
               },
               maxLength: {
@@ -156,7 +156,7 @@ const Validation: FC<ValidationProps> = ({
           >
             <Form.Input
               autoFocus
-              placeholder={'钱包昵称'}
+              placeholder={intl.formatMessage({ id: 'title_wallet_nickname' })}
             />
           </Form.Item>
           <Form.Item

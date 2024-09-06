@@ -27,6 +27,7 @@ import expo.modules.ReactNativeHostWrapper;
 import so.onekey.app.wallet.utils.Utils;
 
 import io.csie.kudo.reactnative.v8.executor.V8ExecutorFactory;
+import com.reactnativeupdates.ReactNativeUpdatesPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
@@ -43,7 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
         List<ReactPackage> packages = new PackageList(this).getPackages();
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
-        packages.add(new MainReactNativePackage());
+        packages.add(new MainReactNativePackage(),new ReactNativeUpdatesPackage());
         return packages;
       }
 

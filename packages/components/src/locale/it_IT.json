@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Busta rossa scaduta",
   "title_redEnvelope_success":"Ricevuta con successo",
   "title_redEnvelope_failed":"Ricevuta non riuscita",
-  "title_redEnvelope_return":"L'importo rimanente verrà restituito"
+  "title_redEnvelope_return":"L'importo rimanente verrà restituito",
+  "title_wallet_nickname":"Soprannome del portafoglio"
 }

@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"Enveloppe rouge expirée",
   "title_redEnvelope_success":"Reçu avec succès",
   "title_redEnvelope_failed":"Reçu échoué",
-  "title_redEnvelope_return":"Le montant restant sera remboursé"
+  "title_redEnvelope_return":"Le montant restant sera remboursé",
+  "title_wallet_nickname":"Surnom du portefeuille"
 }

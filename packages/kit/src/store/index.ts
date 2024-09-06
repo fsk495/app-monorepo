@@ -52,6 +52,7 @@ import swapReducer from './reducers/swap';
 import swapTransactionsReducer from './reducers/swapTransactions';
 import tokensReducer from './reducers/tokens';
 import reminderReducer from './reducers/reminderSlice';
+import versionReducer from './reducers/versionSlice';
 
 
 import type {
@@ -87,6 +88,7 @@ const allReducers = combineReducers({
   httpServer: httpServerReducer,
   limitOrder: limitOrderReducer,
   reminder: reminderReducer,
+  version: versionReducer,
 });
 
 function rootReducer(reducers: Reducer, initialState = {}): any {

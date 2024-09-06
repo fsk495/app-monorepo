@@ -3014,5 +3014,6 @@
   "title_redEnvelope_expired":"빨간 봉투 만료",
   "title_redEnvelope_success":"성공적으로 수신",
   "title_redEnvelope_failed":"수신 실패",
-  "title_redEnvelope_return":"나머지 금액은 반환됩니다."
+  "title_redEnvelope_return":"나머지 금액은 반환됩니다.",
+  "title_wallet_nickname":"지갑 별명"
 }

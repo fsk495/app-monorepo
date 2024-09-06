@@ -13,4 +13,5 @@ export const persistWhiteList = [
   'webTabs',
   'overview',
   'reminder',
+  'version'
 ];
