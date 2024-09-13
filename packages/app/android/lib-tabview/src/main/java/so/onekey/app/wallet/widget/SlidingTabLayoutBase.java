@@ -150,7 +150,7 @@ public abstract class SlidingTabLayoutBase extends HorizontalScrollView {
         } else if (height.equals(ViewGroup.LayoutParams.WRAP_CONTENT + "")) {
         } else {
             int[] systemAttrs = {android.R.attr.layout_height};
-            TypedArray a = context.obtainStyledAttributes(attrs, systemAttrs);
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SlidingTabLayout);
             mHeight = a.getDimensionPixelSize(0, ViewGroup.LayoutParams.WRAP_CONTENT);
             a.recycle();
         }

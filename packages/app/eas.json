@@ -17,7 +17,8 @@
         "env": {
           "PLATFORM": "ios"
         }
-      }
+      },
+      "channel": "base"
     },
     "development": {
       "extends": "base",
@@ -39,7 +40,8 @@
         "enterpriseProvisioning": "adhoc",
         "buildConfiguration": "Debug",
         "credentialsSource": "local"
-      }
+      },
+      "channel": "development"
     },
     "production-store": {
       "extends": "base",
@@ -58,7 +60,8 @@
         "enterpriseProvisioning": "universal",
         "buildConfiguration": "Release",
         "credentialsSource": "local"
-      }
+      },
+      "channel": "production-store"
     },
     "production": {
       "extends": "base",
@@ -78,7 +81,8 @@
         "buildConfiguration": "Release",
         "distribution": "internal",
         "credentialsSource": "local"
-      }
+      },
+      "channel": "production"
     },
     "production-huawei": {
       "extends": "base",
@@ -92,7 +96,8 @@
         "env": {
           "ANDROID_CHANNEL": "huawei"
         }
-      }
+      },
+      "channel": "production-huawei"
     }
   },
   "submit": {

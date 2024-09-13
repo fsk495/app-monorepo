@@ -28,7 +28,7 @@ function MainScreen() {
   useEffect(() => {
     const loadFile = async()=>{
       console.log("开始更新    ",currentVersion);
-      await appUpdates.checkForUpdatesTemp(currentVersion);
+      // await appUpdates.checkForUpdatesTemp(currentVersion);
     }
     loadFile();
     // if (reduxReady) {

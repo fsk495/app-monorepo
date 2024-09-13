@@ -42,6 +42,7 @@ type ProtectedProps = {
   subTitle?: string;
   networkId?: string;
   checkIsNeedPassword?: () => Promise<boolean>;
+  requireNickname?: boolean;
 };
 
 // Protected
@@ -57,6 +58,7 @@ const Protected: FC<ProtectedProps> = ({
   subTitle,
   networkId,
   checkIsNeedPassword,
+  requireNickname = false
 }) => {
   const navigation = useNavigation();
   const walletDetail = useGetWalletDetail(walletId);
@@ -107,7 +109,7 @@ const Protected: FC<ProtectedProps> = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      serviceApp.checkUpdateStatus();
+      // serviceApp.checkUpdateStatus();
     }, 1000);
 
     return () => {
@@ -250,6 +252,7 @@ const Protected: FC<ProtectedProps> = ({
         placeCenter={placeCenter}
         title={title}
         subTitle={subTitle}
+        requireNickname={requireNickname}
       />
     );
   }

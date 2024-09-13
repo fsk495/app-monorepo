@@ -20,8 +20,9 @@
     "noUnusedLocals": false,
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
-    "types": ["chrome", "jest"],
-    "typeRoots": ["node_modules/@types", "./@types"]
+    "types": ["chrome", "jest","node"],
+    "typeRoots": ["node_modules/@types", "./@types"],
+    // "expo-updates": ["./node_modules/expo-updates/build/index.js"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],

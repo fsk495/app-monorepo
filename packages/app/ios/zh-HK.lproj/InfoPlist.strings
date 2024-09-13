@@ -9,7 +9,7 @@
 "NFCReaderUsageDescription" = "使用 NFC 將 NDEF 消息讀入應用程序";
 "NSBluetoothAlwaysUsageDescription" = "使用藍牙連接 NPay 硬件設備";
 "NSBluetoothPeripheralUsageDescription" = "使用藍牙外設連接 NPay 硬件設備";
-"NSCameraUsageDescription" = "使用相機掃描二維碼";
+"NSCameraUsageDescription" = "需要存取你的相機";
 "NSFaceIDUsageDescription" = "使用 Face ID 驗證和解鎖您的錢包";
 "NSMicrophoneUsageDescription" = "使用麥克風錄製視頻";
 "NSPhotoLibraryAddUsageDescription" = "使用圖片庫保存二維碼圖片";

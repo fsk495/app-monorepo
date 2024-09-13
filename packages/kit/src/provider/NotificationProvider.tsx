@@ -85,7 +85,7 @@ const NotificationProvider: FC<{
     },
     [serviceNotification],
   );
-
+  console.log("第六步  ");
   // checkPermission and init
   useEffect(() => {
     serviceNotification.clearBadge();

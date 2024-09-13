@@ -50,18 +50,18 @@ const ForcedUpdate: FC = () => {
 
   useEffect(() => {
     (async () => {
-      const { forceUpdateVersion, version } = versionInfo.package;
-      let changeLogs = await appUpdates.getChangeLog(
-        currentVersion,
-        forceUpdateVersion ?? version,
-      );
-      if (!changeLogs) {
-        changeLogs = await appUpdates.getChangeLog(currentVersion, version);
-      }
-      if (!changeLogs) {
-        changeLogs = intl.formatMessage({ id: 'title__major_update' });
-      }
-      setChangeLog(changeLogs);
+      // const { forceUpdateVersion, version } = versionInfo.package;
+      // let changeLogs = await appUpdates.getChangeLog(
+      //   currentVersion,
+      //   forceUpdateVersion ?? version,
+      // );
+      // if (!changeLogs) {
+      //   changeLogs = await appUpdates.getChangeLog(currentVersion, version);
+      // }
+      // if (!changeLogs) {
+      //   changeLogs = intl.formatMessage({ id: 'title__major_update' });
+      // }
+      // setChangeLog(changeLogs);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

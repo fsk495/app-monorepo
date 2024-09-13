@@ -20,6 +20,7 @@ import com.facebook.soloader.SoLoader;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import android.util.Log;
 
 import cn.jiguang.plugins.push.JPushModule;
 import expo.modules.ApplicationLifecycleDispatcher;
@@ -27,52 +28,77 @@ import expo.modules.ReactNativeHostWrapper;
 import so.onekey.app.wallet.utils.Utils;
 
 import io.csie.kudo.reactnative.v8.executor.V8ExecutorFactory;
-import com.reactnativeupdates.ReactNativeUpdatesPackage;
+// import so.onekey.app.wallet.hotupdate.FileConstants; // 添加 FileConstants 导入
+// import so.onekey.app.wallet.hotupdate.FileConstantsPackage; // 添加 FileConstantsPackage 导入
+import so.onekey.app.wallet.hotupdate.RNDynamicBundleModule;
+import so.onekey.app.wallet.hotupdate.RNDynamicBundlePackage;
+import java.io.File;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+
 
 public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHostWrapper(
-    this,
-    new DefaultReactNativeHost(this) {
-      @Override
-      public boolean getUseDeveloperSupport() {
-        return BuildConfig.DEBUG;
-      }
+      this,
+      new DefaultReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+          return BuildConfig.DEBUG;
+        }
 
-      @Override
-      protected List<ReactPackage> getPackages() {
-        @SuppressWarnings("UnnecessaryLocalVariable")
-        List<ReactPackage> packages = new PackageList(this).getPackages();
-        // Packages that cannot be autolinked yet can be added manually here, for example:
-        // packages.add(new MyReactNativePackage());
-        packages.add(new MainReactNativePackage(),new ReactNativeUpdatesPackage());
-        return packages;
-      }
+        @Override
+        protected List<ReactPackage> getPackages() {
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
+          // Packages that cannot be autolinked yet can be added manually here, for
+          // example:
+          // packages.add(new MyReactNativePackage());
+          packages.add(new MainReactNativePackage());
+          packages.add(new RNDynamicBundlePackage());
+          // packages.add(new FileConstantsPackage()); // 添加 FileConstantsPackage
+          return packages;
+        }
 
-      @Override
-      protected String getJSMainModuleName() {
-        return "index";
-      }
+        @Override
+        protected String getJSMainModuleName() {
+          return "index";
+        }
 
-      @Override
-      protected boolean isNewArchEnabled() {
-        return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
-      }
+        @Override
+        protected boolean isNewArchEnabled() {
+          return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
+        }
 
-      @Override
-      protected Boolean isHermesEnabled() {
-        return BuildConfig.IS_HERMES_ENABLED;
-      }
+        @Override
+        protected Boolean isHermesEnabled() {
+          return BuildConfig.IS_HERMES_ENABLED;
+        }
 
-      @Override
-      protected JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
-        return new V8ExecutorFactory(
-                getApplicationContext(),
-                getPackageName(),
-                AndroidInfoHelpers.getFriendlyDeviceName(),
-                getUseDeveloperSupport());
-      }
-    }
-  );
+        @Override
+        protected JavaScriptExecutorFactory getJavaScriptExecutorFactory() {
+          return new V8ExecutorFactory(
+              getApplicationContext(),
+              getPackageName(),
+              AndroidInfoHelpers.getFriendlyDeviceName(),
+              getUseDeveloperSupport());
+        }
+
+        @Override
+        protected String getJSBundleFile() {
+          // 获取本地热更新文件的路径
+          // String dir = FileConstants.getJsBundleLocalPath(getApplication().getExternalCacheDir().getAbsolutePath());
+          // File file = new File(dir);
+          // // 如果不存在，则返回默认的 JavaScript 代码路径
+          // String defaultBundlePath = super.getJSBundleFile();
+          // // 检查本地热更新文件是否存在
+          // if (file.exists()) {
+          //   // 如果存在，则返回该文件的路径
+          //   return dir;
+          // }
+          return RNDynamicBundleModule.launchResolveBundlePath(MainApplication.this);
+        }
+      });
 
   @Override
   public ReactNativeHost getReactNativeHost() {
@@ -103,12 +129,12 @@ public class MainApplication extends Application implements ReactApplication {
       e.printStackTrace();
     }
 
-
     Utils.init(this);
     SoLoader.init(this, /* native exopackage */ false);
 
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-      // If you opted-in for the New Architecture, we load the native entry point for this app.
+      // If you opted-in for the New Architecture, we load the native entry point for
+      // this app.
       DefaultNewArchitectureEntryPoint.load();
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
@@ -117,7 +143,7 @@ public class MainApplication extends Application implements ReactApplication {
     if (BuildConfig.DEBUG) {
       WebView.setWebContentsDebuggingEnabled(true);
     }
-
+    FirebaseApp.initializeApp(this);
     JPushModule.registerActivityLifecycle(this);
   }
 
@@ -126,5 +152,4 @@ public class MainApplication extends Application implements ReactApplication {
     super.onConfigurationChanged(newConfig);
     ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
-
 }

@@ -31,7 +31,7 @@ const AnimatedSplashView = memo(
         bgColor,
       },
     });
-
+    console.log("启动第五步  ");
     const logoImage = useMemo((): any => {
       if (initDataReady && platformEnv.isExtension) {
         // do not show default splash logo in extension
@@ -84,6 +84,7 @@ const AppLoading: FC = ({ children }) => {
   //     refreshInterval: 5 * 60 * 1000,
   //   },
   // );
+  console.log("启动 第四步   ")
 
   let bgColor: string | undefined = useThemeValue('background-default');
   if (platformEnv.isRuntimeBrowser) {

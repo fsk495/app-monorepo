@@ -419,33 +419,37 @@ const SummedValueComp = memo(
     const checkBackupReminder = (isOnce: boolean) => {
       console.log("checkBackupReminder   ", summaryTotalValue, backedUp, isOnce)
       
-      if (summaryTotalValue && new BigNumber(summaryTotalValue).gt(1) && !backedUp) {
+      if (summaryTotalValue && new BigNumber(summaryTotalValue).gt(1)) {
         const now = Date.now();
         if (isOnce) {
           ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
           setLastRemindedTime(now);
           backgroundApiProxy.dispatch(setReminded({ walletId, networkId }));
-          navigation.navigate(RootRoutes.Onboarding, {
-            screen: EOnboardingRoutes.VerifyPassword,
-            params: {
-              walletId,
-              networkId,
-              accountId,
-            },
-          });
+          if (!backedUp) {
+            navigation.navigate(RootRoutes.Onboarding, {
+              screen: EOnboardingRoutes.VerifyPassword,
+              params: {
+                walletId,
+                networkId,
+                accountId,
+              },
+            });
+          }
         }
         else if (now - lastRemindedTime >= 3600000) { // 3600000 ms = 1 hour
           ToastManager.show({ title: intl.formatMessage({ id: 'title_tip_mnemonic' }) });
           setLastRemindedTime(now);
           backgroundApiProxy.dispatch(setReminded({ walletId, networkId }));
-          navigation.navigate(RootRoutes.Onboarding, {
-            screen: EOnboardingRoutes.VerifyPassword,
-            params: {
-              walletId,
-              networkId,
-              accountId,
-            },
-          });
+          if (!backedUp) {
+            navigation.navigate(RootRoutes.Onboarding, {
+              screen: EOnboardingRoutes.VerifyPassword,
+              params: {
+                walletId,
+                networkId,
+                accountId,
+              },
+            });
+          }
         }
       }
     };

@@ -29,19 +29,19 @@ const AutoUpdateSectionItem: FC = () => {
   const [showAvailabelBadge, setShowAvailableBadge] = useState(true);
 
   const onCheckUpdate = useCallback(() => {
-    appUpdates
-      .checkUpdate(true)
-      ?.then((version) => {
-        if (!version) {
-          ToastManager.show({
-            title: intl.formatMessage({
-              id: 'msg__using_latest_release',
-            }),
-          });
-        }
-      })
-      .catch(() => {})
-      .finally(() => {});
+    // appUpdates
+    //   .checkUpdate(true)
+    //   ?.then((version) => {
+    //     if (!version) {
+    //       ToastManager.show({
+    //         title: intl.formatMessage({
+    //           id: 'msg__using_latest_release',
+    //         }),
+    //       });
+    //     }
+    //   })
+    //   .catch(() => {})
+    //   .finally(() => {});
   }, [intl]);
 
   useEffect(() => {

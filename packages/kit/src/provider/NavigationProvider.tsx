@@ -127,7 +127,7 @@ const NavigationApp = () => {
       dividerColor,
     },
   });
-
+  console.log("最后一步  NavigationApp  ");
   // https://reactnavigation.org/docs/devtools/#useflipper
   // only work during development and are disabled in production.
   useFlipper(navigationRef);

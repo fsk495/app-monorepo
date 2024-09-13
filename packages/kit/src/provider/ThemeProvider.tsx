@@ -73,7 +73,7 @@ const ThemeApp: FC = ({ children }) => {
   if (!isReady) {
     return null;
   }
-
+  console.log("ThemeApp    ");
   return (
     <Provider
       themeVariant={themeVariant}

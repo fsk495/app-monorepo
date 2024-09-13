@@ -113,6 +113,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.majorVersion
@@ -141,9 +142,6 @@ android {
                 JPUSH_APPKEY    : defEnvStr(appEnvConfig, 'JPUSH_KEY'),
                 JPUSH_CHANNEL   : 'prod',
         ]
-         // 添加 react-native-updates 的配置
-        buildConfigField("boolean", "OTA_UPDATES_ENABLED", defEnvStr(appEnvConfig, 'OTA_UPDATES_ENABLED', 'false'))
-        buildConfigField("String", "OTA_UPDATES_URL", defEnvStr(appEnvConfig, 'OTA_UPDATES_URL', '""'))
     }
 
     buildFeatures {
@@ -320,8 +318,6 @@ dependencies {
     implementation "androidx.coordinatorlayout:coordinatorlayout:1.2.0"
 
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
-
-    implementation 'com.reactnativeupdates:react-native-updates:0.0.2'
 }
 
 // configurations.all {

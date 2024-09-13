@@ -55,8 +55,8 @@ const dapps = [
   {
     _id: '5',
     url: 'https://dapp.dragmeta.vip',
-    name: 'Dragon',
-    shortName: 'Dragon',
+    name: 'Dragon Meta',
+    shortName: 'Dragon Meta',
     description: '5',//'NovaiFaucet is a free option to get a certain amount of Noavi',
     logoURL: 'https://drag2.s3.ap-east-1.amazonaws.com/pocket/assets/dappIcons/NovaiDragon.png'
   },

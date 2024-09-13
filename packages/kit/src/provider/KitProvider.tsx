@@ -62,6 +62,7 @@ const KitProvider: FC<LaunchProps> = (propsRaw) => {
     ),
     [launchNotification],
   );
+  console.log("启动的 第三步   KitProvider  ",content)
   return (
     <SWRConfig value={swrConfig}>
       <ReduxProvider store={store}>

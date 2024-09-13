@@ -13,6 +13,8 @@ startTrace('js_render');
 SplashScreen.preventAutoHideAsync();
 LogBox.ignoreAllLogs();
 
+console.log("启动第一步  app.tsx  ");
+
 DeviceEventEmitter.addListener('native_log_info', (event: string) => {
   debugLogger.native.info(event);
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Platform } from 'react-native';
 import WebView from 'react-native-webview';
 import { saveIMData } from '../../utils/IMDataUtil';
 import { useActiveWalletAccount } from '../../hooks';
@@ -12,11 +12,15 @@ import { useIntl } from 'react-intl';
 import { Wallet } from '@onekeyhq/engine/src/types/wallet';
 import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
 import backgroundApiProxy from '../../background/instance/backgroundApiProxy';
+import { NativeModules } from 'react-native';
+// import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+
+const { PermissionsManager } = NativeModules;
 
 const ImScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const webViewRef = useRef<WebView>(null);
-  const intl = useIntl()
+  const intl = useIntl();
 
   const { walletId, accountAddress, networkId, accountId } = useActiveWalletAccount();
   const sectionData = useWalletSelectorSectionData();
@@ -25,33 +29,101 @@ const ImScreen: React.FC = () => {
   const [imserver_token, SetImserver_token] = useState<string>('');
   const [imserver_url, SetImserver_url] = useState<string>('');
   const [im_id, SetIm_id] = useState<string>('');
-  const [im_header, SetImHeader] = useState<string>('IM');
+  const [im_header, SetImHeader] = useState<string>('NIM');
   const [walletName, SetWalletName] = useState<string>('');
 
-  // const sendMessageToWebView = (message: any) => {
-  //   if (webViewRef.current) {
-  //     console.log("发送消息给IM   ",JSON.stringify(message));
-  //     webViewRef.current.injectJavaScript(`window.postMessage(${JSON.stringify(message)}, '*');`);
+  // const requestPermissions = async () => {
+  //   if (Platform.OS === 'android') {
+  //     try {
+  //       const granted = await PermissionsAndroid.requestMultiple([
+  //         PermissionsAndroid.PERMISSIONS.CAMERA,
+  //         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+  //         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  //       ]);
+
+  //       const cameraGranted =
+  //         granted[PermissionsAndroid.PERMISSIONS.CAMERA] ===
+  //         PermissionsAndroid.RESULTS.GRANTED;
+  //       const audioGranted =
+  //         granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO] ===
+  //         PermissionsAndroid.RESULTS.GRANTED;
+
+  //       if (!cameraGranted || !audioGranted) {
+  //         ToastManager.show({ title: 'Permissions not granted' });
+  //       }
+  //     } catch (err) {
+  //       console.warn(err);
+  //     }
+  //   } else if (Platform.OS === 'ios') {
+  //     try {
+  //       const result = await PermissionsManager.requestPermissions();
+  //       console.log('Permissions result:', result);
+  //       if (result.camera === false || result.microphone === false || result.photoLibrary === false) {
+  //         ToastManager.show({ title: 'Permissions not granted' });
+  //       }
+  //     } catch (err) {
+  //       console.warn(err);
+  //     }
   //   }
   // };
 
-  // const handleRedEnvelopeSent = (chainName: string, redEnvelopeId: string | undefined, redEnvelopeType: string) => {
-  //   const message = {
-  //     action: 'redEnvelopeSent',
-  //     chainName: chainName,
-  //     redEnvelopeType: redEnvelopeType,
-  //     redEnvelopeId: redEnvelopeId
-  //   };
-  //   sendMessageToWebView(message);
-  // };
+  const getRequestPermissions = async (data: any) => {
+    let isGranted = false
+    // const result = await request(data);
+    // if (result !== RESULTS.GRANTED) {
+    //   isGranted = false;
+    // }
+    return isGranted;
+  }
 
-  // const handleRedEnvelopeReceived = (redEnvelopeId: string) => {
-  //   const message = {
-  //     action: 'redEnvelopeReceived',
-  //     redEnvelopeId:redEnvelopeId
-  //   };
-  //   sendMessageToWebView(message);
-  // };
+
+  const temprequestPermissions = async (data: any) => {
+    // let permissions: string[] = [];
+    let isGranted = false;
+    switch (data.type) {
+      case 'camera':
+        // isGranted = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA);
+        // permissions = Platform.select({
+        //   ios: [PERMISSIONS.IOS.CAMERA],
+        //   android: [PERMISSIONS.ANDROID.CAMERA],
+        // });
+        break;
+      case 'audio':
+        // isGranted = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.MICROPHONE : PERMISSIONS.ANDROID.RECORD_AUDIO);
+        // permissions = Platform.select({
+        //   ios: [PERMISSIONS.IOS.MICROPHONE],
+        //   android: [PERMISSIONS.ANDROID.RECORD_AUDIO],
+        // });
+        break;
+      case 'storage':
+        // permissions = Platform.select({
+        //   ios: [PERMISSIONS.IOS.PHOTO_LIBRARY],
+        //   android: [
+        //     PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+        //     PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
+        //   ],
+        // });
+        break;
+      default:
+        ToastManager.show({ title: 'Unknown permission type' });
+        return;
+    }
+
+    try {
+
+      if (isGranted) {
+        webViewRef.current?.postMessage(JSON.stringify({ ...data, value: true }));
+      } else {
+        ToastManager.show({ title: 'Permissions not granted' });
+        webViewRef.current?.postMessage(JSON.stringify({ ...data, value: false }));
+      }
+    } catch (error) {
+      console.warn(error);
+      ToastManager.show({ title: 'Error requesting permissions' });
+    }
+  };
+
 
   useEffect(() => {
     const saveIM = async () => {
@@ -65,17 +137,13 @@ const ImScreen: React.FC = () => {
       });
       if (tempWallet) {
         try {
-          
-          const result = await saveIMData(accountAddress, networkId,accountId,tempWallet);
+          const result = await saveIMData(accountAddress, networkId, accountId, tempWallet);
           console.log('API Response 1111 :', result.data);
           let walletName = '';
-          if (isImportedWallet({ walletId }))
-          {
+          if (isImportedWallet({ walletId })) {
             const tempAccount = await backgroundApiProxy.engine.getAccount(accountId, networkId);
             walletName = tempAccount.name;
-          }
-          else
-          {
+          } else {
             walletName = tempWallet.name;
           }
           SetWalletName(walletName);
@@ -102,10 +170,10 @@ const ImScreen: React.FC = () => {
 
   useEffect(() => {
     if (im_id) {
-      const newHeader = `IM(${im_id})`;
+      const newHeader = `NIM(${im_id})`;
       SetImHeader(newHeader);
     }
-  }, [im_id])
+  }, [im_id]);
 
   const handleMessage = (event: any) => {
     try {
@@ -113,8 +181,7 @@ const ImScreen: React.FC = () => {
       const { action, ...params } = data;
 
       if (action === 'imSendRedEnvelope') {
-        // ToastManager.show({ title: "没有收到imSendRedEnvelope的消息" })
-        console.log("收到imSendRedEnvelope的消息   ", data)
+        console.log("收到imSendRedEnvelope的消息   ", data);
         if (data.peerID && data.peerType) {
           navigationRoot.navigate(RootRoutes.Onboarding, {
             screen: EOnboardingRoutes.SendRedPackage,
@@ -122,17 +189,14 @@ const ImScreen: React.FC = () => {
               imserver_id: imserver_id,
               peerID: data.peerID,
               peerType: data.peerType,
-              // onRedEnvelopeSent: handleRedEnvelopeSent,
               ...params,
             },
           });
-        }
-        else {
-          ToastManager.show({ title: intl.formatMessage({ id: 'msg__error_aptso_account_does_not_exist' }) })
+        } else {
+          ToastManager.show({ title: intl.formatMessage({ id: 'msg__error_aptso_account_does_not_exist' }) });
         }
       } else if (action === 'imReceiveRedEnvelope') {
-        // ToastManager.show({ title: "没有收到imReceiveRedEnvelope的消息" })
-        console.log("收到imReceiveRedEnvelope的消息  1 ", data)
+        console.log("收到imReceiveRedEnvelope的消息  1 ", data);
         if (data.peerID && data.peerType) {
           navigationRoot.navigate(RootRoutes.Onboarding, {
             screen: EOnboardingRoutes.ReceiveRedPackage,
@@ -140,18 +204,23 @@ const ImScreen: React.FC = () => {
               imserver_id: imserver_id,
               peerID: data.peerID,
               peerType: data.peerType,
-              redEnvelopeId:'',
+              redEnvelopeId: '',
               walletName: walletName,
-              // onRedEnvelopeReceived: handleRedEnvelopeReceived,
               ...params,
             },
           });
+        } else {
+          ToastManager.show({ title: intl.formatMessage({ id: 'msg__error_aptso_account_does_not_exist' }) });
         }
-        else {
-          ToastManager.show({ title: intl.formatMessage({ id: 'msg__error_aptso_account_does_not_exist' }) })
-        }
-      } else {
-        ToastManager.show({ title: intl.formatMessage({ id: 'msg__unknown_error' }) })
+      } else if (action === 'hasPermissions') {
+        console.log("收到hasPermissions的消息   ", data);
+        temprequestPermissions(data);
+      } else if (action === 'requestNecessaryPermissions') {
+        console.log("收到requestNecessaryPermissions的消息   ", data);
+        temprequestPermissions(data);
+      }
+      else {
+        ToastManager.show({ title: intl.formatMessage({ id: 'msg__unknown_error' }) });
       }
     } catch (error) {
       console.error('Error parsing message:', error);
@@ -173,15 +242,8 @@ const ImScreen: React.FC = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography.PageHeading>
-            {im_header}
-          </Typography.PageHeading>
-          <IconButton
-            name="ArrowPathOutline"
-            size="lg"
-            type="plain"
-            onPress={handleRefresh}
-          />
+          <Typography.PageHeading>{im_header}</Typography.PageHeading>
+          <IconButton name="ArrowPathOutline" size="lg" type="plain" onPress={handleRefresh} />
         </Box>
       </Box>
       {imserver_url ? (
@@ -224,9 +286,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
+    justifyContent: 'center',
+    marginTop: 10,
   },
 });
 
-export default React.memo(ImScreen);
+export default ImScreen;

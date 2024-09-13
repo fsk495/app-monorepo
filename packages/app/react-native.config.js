@@ -1,5 +1,8 @@
 module.exports = {
   reactNativePath: '../../node_modules/react-native',
+  react: {
+    entryFile: './index.js', // 确保这个路径是正确的
+  },
   dependencies: {
     'react-native-flipper': {
       // disable flipper in CI environment

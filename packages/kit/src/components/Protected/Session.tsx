@@ -18,6 +18,7 @@ type SessionProps = {
   placeCenter?: boolean;
   title?: string;
   subTitle?: string;
+  requireNickname?: boolean;
 };
 
 const Session: FC<SessionProps> = ({
@@ -27,6 +28,7 @@ const Session: FC<SessionProps> = ({
   placeCenter,
   title,
   subTitle,
+  requireNickname= false,
 }) => {
   const [verifiedPwd, setVerifiedPwd] = useState(false);
   const validationSetting = useAppSelector((s) => s.settings.validationSetting);
@@ -54,10 +56,6 @@ const Session: FC<SessionProps> = ({
     },
     [onOk],
   );
-  console.log(" hideTitle     ",hideTitle);
-  console.log(" title     ",title);
-  console.log(" subTitle     ",subTitle);
-  console.log(" placeCenter     ",placeCenter);
   if (!verifiedPwd) {
     return (
       <Validation
@@ -66,6 +64,7 @@ const Session: FC<SessionProps> = ({
         placeCenter={placeCenter}
         title={title}
         subTitle={subTitle}
+        requireNickname={requireNickname}
       />
     );
   }

@@ -9,7 +9,7 @@
 "NFCReaderUsageDescription" = "NFC を使用して、 NDEF メッセージをAppに読み込む";
 "NSBluetoothAlwaysUsageDescription" = "Bluetooth を使用して、 NPay ハードウェア デバイスを接続する";
 "NSBluetoothPeripheralUsageDescription" = "Bluetoothを使用して 、NPay ハードウェア デバイスを接続する";
-"NSCameraUsageDescription" = "カメラを使用して 、QR コードをスキャンする";
+"NSCameraUsageDescription" = "カメラにアクセスする必要があります";
 "NSFaceIDUsageDescription" = "Face ID を使用して、ウォレットの認証とロック解除を行う";
 "NSMicrophoneUsageDescription" = "マイクを使用して、ビデオを録画する";
 "NSPhotoLibraryAddUsageDescription" = "フォト ライブラリを使用して 、QR 画像を保存する";

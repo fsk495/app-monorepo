@@ -53,7 +53,10 @@ export const gotoSite = ({
         url: validatedUrl,
       });
     }
-
+    if(webTabsActions.isMaxWebs())
+    {
+      webTabsActions.closeAllWebTabs();
+    }
     if (webHandler === 'browser') {
       return openUrl(validatedUrl);
     }

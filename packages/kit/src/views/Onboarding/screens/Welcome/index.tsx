@@ -39,6 +39,8 @@ import TermsOfService from './TermsOfService';
 import type { IOnboardingRoutesParams } from '../../routes/types';
 import type { RouteProp } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
+import { startDownload } from './HotUpdate';
+
 
 type NavigationProps = StackNavigationProp<
   IOnboardingRoutesParams,
@@ -147,6 +149,10 @@ const Welcome = () => {
     setTimeout(() => navigation.navigate(EOnboardingRoutes.ThirdPartyWallet));
   }, [navigation, resetLayoutAnimation]);
 
+  const onPressUpdateApp = useCallback(() => {
+    startDownload('http://8.217.55.46:5244/d/home/alist/home/index.android.bundle?sign=FYkaW5I5zixfeWTX7wN88s4zRFtx870ThbDpHlghB7g=:0');
+  }, []);
+
   return (
     <>
       <Layout
@@ -233,6 +239,13 @@ const Welcome = () => {
           </Box>
         </Hidden>
         {/* <ConnectThirdPartyWallet onPress={onPressThirdPartyWallet} /> */}
+        <PressableListItem
+          icon="UsbCableOutline"
+          label={'热更新'}
+          description={''}
+          mt={6}
+          onPress={onPressUpdateApp}
+        />
       </Layout>
       <TermsOfService />
     </>

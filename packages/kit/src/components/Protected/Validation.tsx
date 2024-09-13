@@ -30,6 +30,7 @@ type ValidationProps = {
   placeCenter?: boolean;
   title?: string;
   subTitle?: string;
+  requireNickname?: boolean;
 };
 
 const Validation: FC<ValidationProps> = ({
@@ -38,6 +39,7 @@ const Validation: FC<ValidationProps> = ({
   placeCenter,
   title,
   subTitle,
+  requireNickname= false
 }) => {
   const intl = useIntl();
   const ref = useRef<any>();
@@ -87,7 +89,7 @@ const Validation: FC<ValidationProps> = ({
   );
 
   const onLocalAuthenticationOk = useCallback(
-    (text: string,nickname?:string) => {
+    (text: string, nickname?: string) => {
       onOk?.(text, nickname as string, true);
     },
     [onOk],
@@ -129,7 +131,7 @@ const Validation: FC<ValidationProps> = ({
         ) : null}
 
         <Form>
-          <Form.Item
+          {!requireNickname && (<Form.Item
             name="nickname"
             defaultValue=""
             control={control}
@@ -158,7 +160,7 @@ const Validation: FC<ValidationProps> = ({
               autoFocus
               placeholder={intl.formatMessage({ id: 'title_wallet_nickname' })}
             />
-          </Form.Item>
+          </Form.Item>)}
           <Form.Item
             name="password"
             defaultValue=""
@@ -210,6 +212,7 @@ const Validation: FC<ValidationProps> = ({
       onLocalAuthenticationOk,
       onSubmit,
       onSubmitThrottle,
+      requireNickname,
       subTitle,
       title,
     ],

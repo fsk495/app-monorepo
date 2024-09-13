@@ -12,8 +12,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "entryPoint": "./index.js",
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "checkAutomatically": "ON_ERROR_RECOVERY",
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/87480e83-dfc1-4f0b-aab9-586ad27348d1"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -36,6 +40,7 @@
       "eas": {
         "projectId": "87480e83-dfc1-4f0b-aab9-586ad27348d1"
       }
-    }
+    },
+    "runtimeVersion": "1.0.0"
   }
 }

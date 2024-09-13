@@ -219,4 +219,10 @@ export const webTabsActions = {
   setIncomingUrl: (url: string) => {
     incomingUrlObs.set(url);
   },
+
+  isMaxWebs: () => { 
+    const tabs = [...webTabsObs.get()];
+    return isTabLimitReached(tabs);
+  }
+
 };

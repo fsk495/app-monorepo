@@ -49,19 +49,19 @@ export const RootStackNavigator = memo(() => {
     if (hasVersionSet && versionChanged && process.env.VERSION) {
       const newVersion = process.env.VERSION;
       if (!platformEnv.isWeb) {
-        appUpdates.getChangeLog(version, newVersion).then((changeLog) => {
-          if (!changeLog) return; // no change log
-          navigation.navigate(RootRoutes.Modal, {
-            screen: ModalRoutes.UpdateFeature,
-            params: {
-              screen: UpdateFeatureModalRoutes.UpdateFeatureModal,
-              params: {
-                changeLog,
-                newVersion,
-              },
-            },
-          });
-        });
+        // appUpdates.getChangeLog(version, newVersion).then((changeLog) => {
+        //   if (!changeLog) return; // no change log
+        //   navigation.navigate(RootRoutes.Modal, {
+        //     screen: ModalRoutes.UpdateFeature,
+        //     params: {
+        //       screen: UpdateFeatureModalRoutes.UpdateFeatureModal,
+        //       params: {
+        //         changeLog,
+        //         newVersion,
+        //       },
+        //     },
+        //   });
+        // });
       }
 
       dispatch(

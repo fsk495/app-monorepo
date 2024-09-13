@@ -78,7 +78,7 @@
 		<string>_http-service._udp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Use Camera to scan QR Code.</string>
+	<string>Need access to your camera.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Use Face ID to authenticate and unlock your wallet.</string>
 	<key>NSLocalNetworkUsageDescription</key>

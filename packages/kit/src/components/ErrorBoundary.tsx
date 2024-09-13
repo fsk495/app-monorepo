@@ -33,10 +33,14 @@ class ErrorBoundaryBase extends PureComponent<
     return this.props.children;
   }
 }
-
+console.log("错误界面  ErrorBoundary ")
 class ErrorBoundary extends ErrorBoundaryBase {
   override render() {
-    if (platformEnv.isDev && this.state.error) {
+    if(this.state.error)
+    {
+      console.log("ErrorBoundary render  ",this.state.error);
+    }
+    if (this.state.error) {
       return (
         // The component has to be unmounted or else it would continue to error
         <Box flex="1" bg="background-default" px={4} py={8}>
