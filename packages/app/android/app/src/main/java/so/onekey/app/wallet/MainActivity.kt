@@ -1,7 +1,7 @@
 package so.onekey.app.wallet
 
-
 import android.os.Bundle
+import android.util.Log
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint
@@ -9,11 +9,16 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 import expo.modules.ReactActivityDelegateWrapper
 import so.onekey.app.wallet.utils.sendEvent
 
+import android.webkit.PermissionRequest
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 
 class MainActivity : ReactActivity() {
 
     companion object {
         private const val ANDROID_LIFECYCLE_EVENT = "android_lifecycle"
+        private const val TAG = "MainActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +27,11 @@ class MainActivity : ReactActivity() {
         // This is required for expo-splash-screen.
         setTheme(R.style.AppTheme)
         super.onCreate(null)
+
+        // Initialize WebView
+        val webView = WebView(this)
+        webView.settings.javaScriptEnabled = true
+        webView.webChromeClient = getWebChromeClient()
     }
 
     override fun onResume() {
@@ -35,6 +45,17 @@ class MainActivity : ReactActivity() {
         super.onRestart()
         reactInstanceManager.currentReactContext?.let {
             sendEvent(it, ANDROID_LIFECYCLE_EVENT, "inactive")
+        }
+    }
+
+    fun getWebChromeClient(): WebChromeClient {
+        return object : WebChromeClient() {
+            override fun onPermissionRequest(request: PermissionRequest) {
+                Log.d(TAG, "Permission request received: ${request.resources.joinToString(", ")}")
+                // Grant the requested permissions
+                request.grant(request.resources)
+                Log.d(TAG, "Permissions granted: ${request.resources.joinToString(", ")}")
+            }
         }
     }
 
@@ -53,7 +74,6 @@ class MainActivity : ReactActivity() {
         return "main"
     }
 
-
     /**
      * Returns the instance of the [ReactActivityDelegate]. There the RootView is created and
      * you can specify the rendered you wish to use (Fabric or the older renderer).
@@ -69,5 +89,4 @@ class MainActivity : ReactActivity() {
             )
         )
     }
-
 }

@@ -41,6 +41,31 @@
         "projectId": "87480e83-dfc1-4f0b-aab9-586ad27348d1"
       }
     },
-    "runtimeVersion": "1.0.0"
+    "runtimeVersion": "1.0.0",
+    "plugins": [
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": [
+            "AppTrackingTransparency",
+            "Bluetooth",
+            "CalendarsWriteOnly",
+            "Notifications",
+            "SpeechRecognition",
+            "Camera",
+            "Microphone",
+            "PhotoLibrary",
+            "MediaLibrary"
+          ],
+          "androidPermissions": [
+            "android.permission.ACCESS_FINE_LOCATION",
+            "android.permission.CAMERA",
+            "android.permission.RECORD_AUDIO",
+            "android.permission.READ_EXTERNAL_STORAGE",
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+          ]
+        }
+      ]
+    ]
   }
 }

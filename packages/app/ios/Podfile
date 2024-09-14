@@ -17,9 +17,26 @@ $RNFirebaseAnalyticsWithoutAdIdSupport = true
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 require File.join(File.dirname(`node --print "require.resolve('@react-native-community/cli-platform-ios/package.json')"`), "native_modules")
+# 执行 react-native-permissions 的设置脚本
+require_relative '../../../node_modules/react-native-permissions/scripts/setup'
 
 platform :ios, '14.0'
 prepare_react_native_project!
+
+
+# 添加权限设置
+setup_permissions([
+  'AppTrackingTransparency',
+  'Bluetooth',
+  'CalendarsWriteOnly',
+  'Notifications',
+  'SpeechRecognition',
+  'Camera',
+  'Microphone',
+  'PhotoLibrary',
+  'MediaLibrary'
+])
+
 
 flipper_config = ENV['CI'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.162.0' })
 linkage = ENV['USE_FRAMEWORKS']
@@ -75,6 +92,8 @@ target 'OneKeyWallet' do
   pod 'JXPagingView/Pager'
   pod 'JXCategoryView'
   pod "GCDWebServer", "~> 3.5.3"
+
+  
 
   post_install do |installer|
     Pod::UI.puts "Post-install script started"

@@ -12,10 +12,7 @@ import { useIntl } from 'react-intl';
 import { Wallet } from '@onekeyhq/engine/src/types/wallet';
 import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
 import backgroundApiProxy from '../../background/instance/backgroundApiProxy';
-import { NativeModules } from 'react-native';
-// import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-
-const { PermissionsManager } = NativeModules;
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const ImScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -32,98 +29,45 @@ const ImScreen: React.FC = () => {
   const [im_header, SetImHeader] = useState<string>('NIM');
   const [walletName, SetWalletName] = useState<string>('');
 
-  // const requestPermissions = async () => {
-  //   if (Platform.OS === 'android') {
-  //     try {
-  //       const granted = await PermissionsAndroid.requestMultiple([
-  //         PermissionsAndroid.PERMISSIONS.CAMERA,
-  //         PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
-  //         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  //         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-  //       ]);
-
-  //       const cameraGranted =
-  //         granted[PermissionsAndroid.PERMISSIONS.CAMERA] ===
-  //         PermissionsAndroid.RESULTS.GRANTED;
-  //       const audioGranted =
-  //         granted[PermissionsAndroid.PERMISSIONS.RECORD_AUDIO] ===
-  //         PermissionsAndroid.RESULTS.GRANTED;
-
-  //       if (!cameraGranted || !audioGranted) {
-  //         ToastManager.show({ title: 'Permissions not granted' });
-  //       }
-  //     } catch (err) {
-  //       console.warn(err);
-  //     }
-  //   } else if (Platform.OS === 'ios') {
-  //     try {
-  //       const result = await PermissionsManager.requestPermissions();
-  //       console.log('Permissions result:', result);
-  //       if (result.camera === false || result.microphone === false || result.photoLibrary === false) {
-  //         ToastManager.show({ title: 'Permissions not granted' });
-  //       }
-  //     } catch (err) {
-  //       console.warn(err);
-  //     }
-  //   }
-  // };
-
   const getRequestPermissions = async (data: any) => {
-    let isGranted = false
-    // const result = await request(data);
-    // if (result !== RESULTS.GRANTED) {
-    //   isGranted = false;
-    // }
-    return isGranted;
-  }
-
+    const result = await request(data);
+    if (result !== RESULTS.GRANTED) {
+      console.log("没有获取到权限    ", result);
+      return false;
+    }
+    console.log("获得权限了    ", result);
+    return true;
+  };
 
   const temprequestPermissions = async (data: any) => {
-    // let permissions: string[] = [];
-    let isGranted = false;
+    let params = {
+      ...data,
+      value: false,
+    };
     switch (data.type) {
-      case 'camera':
-        // isGranted = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA);
-        // permissions = Platform.select({
-        //   ios: [PERMISSIONS.IOS.CAMERA],
-        //   android: [PERMISSIONS.ANDROID.CAMERA],
-        // });
+      case 'video':
+        params.value = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA);
         break;
       case 'audio':
-        // isGranted = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.MICROPHONE : PERMISSIONS.ANDROID.RECORD_AUDIO);
-        // permissions = Platform.select({
-        //   ios: [PERMISSIONS.IOS.MICROPHONE],
-        //   android: [PERMISSIONS.ANDROID.RECORD_AUDIO],
-        // });
+        params.value = await getRequestPermissions(Platform.OS === 'ios' ? PERMISSIONS.IOS.MICROPHONE : PERMISSIONS.ANDROID.RECORD_AUDIO);
         break;
       case 'storage':
-        // permissions = Platform.select({
-        //   ios: [PERMISSIONS.IOS.PHOTO_LIBRARY],
-        //   android: [
-        //     PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
-        //     PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE
-        //   ],
-        // });
+        if (Platform.OS === 'android') {
+          params.value = await getRequestPermissions(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
+          if (params.value) {
+            params.value = await getRequestPermissions(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+          }
+        } else {
+          params.value = await getRequestPermissions(PERMISSIONS.IOS.PHOTO_LIBRARY);
+        }
         break;
       default:
         ToastManager.show({ title: 'Unknown permission type' });
         return;
     }
-
-    try {
-
-      if (isGranted) {
-        webViewRef.current?.postMessage(JSON.stringify({ ...data, value: true }));
-      } else {
-        ToastManager.show({ title: 'Permissions not granted' });
-        webViewRef.current?.postMessage(JSON.stringify({ ...data, value: false }));
-      }
-    } catch (error) {
-      console.warn(error);
-      ToastManager.show({ title: 'Error requesting permissions' });
-    }
+    console.log("返回给IM的数据   ", params);
+    webViewRef.current?.postMessage(JSON.stringify(params));
   };
-
 
   useEffect(() => {
     const saveIM = async () => {
@@ -218,8 +162,7 @@ const ImScreen: React.FC = () => {
       } else if (action === 'requestNecessaryPermissions') {
         console.log("收到requestNecessaryPermissions的消息   ", data);
         temprequestPermissions(data);
-      }
-      else {
+      } else {
         ToastManager.show({ title: intl.formatMessage({ id: 'msg__unknown_error' }) });
       }
     } catch (error) {
@@ -254,6 +197,7 @@ const ImScreen: React.FC = () => {
           onLoad={() => setLoading(false)}
           onMessage={handleMessage}
           cacheEnabled={true}
+          javaScriptEnabled={true}
           style={styles.webview}
         />
       ) : (
