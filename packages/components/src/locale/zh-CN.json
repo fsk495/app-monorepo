@@ -3008,7 +3008,7 @@
   "receive_red_envelopes": "收红包",
   "title_piece": "个",
   "content__backup_your_mnemonic": "在 '我的' 备份<b>助记词</b>",
-  "title_tip_mnemonic":"您的账户金额已超过1U，请及时备份助记词。",
+  "title_tip_mnemonic":"您的账户金额已超过1USD，请及时备份助记词。",
   "content_show_private_key":"显示私钥",
   "title_redEnvelope_expired":"红包过期",
   "title_redEnvelope_success":"领取成功",

@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"붉은 봉투를 받다",
   "title_piece":"piece",
   "content__backup_your_mnemonic": "'내'에 <b>니모닉</b>을 백업하세요.",
-  "title_tip_mnemonic":"귀하의 계좌 잔액이 1U를 초과했습니다. 시간 내에 니모닉을 백업하세요.",
+  "title_tip_mnemonic":"귀하의 계좌 잔액이 1USD를 초과했습니다. 시간 내에 니모닉을 백업하세요.",
   "content_show_private_key":"개인키 표시",
   "title_redEnvelope_expired":"빨간 봉투 만료",
   "title_redEnvelope_success":"성공적으로 수신",

@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"Recevoir des enveloppes rouges",
   "title_piece":"pièce",
   "content__backup_your_mnemonic": "Sauvegardez <b>Mnémonique</b> dans « Mon »",
-  "title_tip_mnemonic":"Le solde de votre compte a dépassé 1U, veuillez sauvegarder votre mnémonique à temps.",
+  "title_tip_mnemonic":"Le solde de votre compte a dépassé 1USD, veuillez sauvegarder votre mnémonique à temps.",
   "content_show_private_key":"Afficher la clé privée",
   "title_redEnvelope_expired":"Enveloppe rouge expirée",
   "title_redEnvelope_success":"Reçu avec succès",

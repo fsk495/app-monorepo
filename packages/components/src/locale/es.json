@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"Recibir sobres rojos",
   "title_piece":"pieza",
   "content__backup_your_mnemonic": "Realice una copia de seguridad de <b>Mnemotécnica</b> en 'Mi'",
-  "title_tip_mnemonic":"El saldo de su cuenta ha excedido 1U, por favor haga una copia de seguridad de su mnemotécnica a tiempo.",
+  "title_tip_mnemonic":"El saldo de su cuenta ha excedido 1USD, por favor haga una copia de seguridad de su mnemotécnica a tiempo.",
   "content_show_private_key":"Mostrar clave privada",
   "title_redEnvelope_expired":"Sobre rojo caducado",
   "title_redEnvelope_success":"Recibido correctamente",

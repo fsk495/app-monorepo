@@ -30,13 +30,20 @@ const ImScreen: React.FC = () => {
   const [walletName, SetWalletName] = useState<string>('');
 
   const getRequestPermissions = async (data: any) => {
-    const result = await request(data);
-    if (result !== RESULTS.GRANTED) {
-      console.log("没有获取到权限    ", result);
-      return false;
+    const result = await check(data);
+    if (result === RESULTS.GRANTED) {
+      console.log('Audio permission already granted');
+      return true;
+    } else {
+      const status = await request(data);
+      if (status === RESULTS.GRANTED) {
+        console.log('Audio permission granted');
+        return true;
+      } else {
+        console.log('Audio permission denied');
+        return false;
+      }
     }
-    console.log("获得权限了    ", result);
-    return true;
   };
 
   const temprequestPermissions = async (data: any) => {
@@ -156,11 +163,8 @@ const ImScreen: React.FC = () => {
         } else {
           ToastManager.show({ title: intl.formatMessage({ id: 'msg__error_aptso_account_does_not_exist' }) });
         }
-      } else if (action === 'hasPermissions') {
+      } else if (action === 'hasPermissions' || action === 'requestNecessaryPermissions') {
         console.log("收到hasPermissions的消息   ", data);
-        temprequestPermissions(data);
-      } else if (action === 'requestNecessaryPermissions') {
-        console.log("收到requestNecessaryPermissions的消息   ", data);
         temprequestPermissions(data);
       } else {
         ToastManager.show({ title: intl.formatMessage({ id: 'msg__unknown_error' }) });
@@ -174,6 +178,19 @@ const ImScreen: React.FC = () => {
     if (webViewRef.current) {
       webViewRef.current.reload();
     }
+  };
+
+  const handleShouldStartLoadWithRequest = (event: any) => {
+    const { url } = event;
+    console.log("url   ", url);
+    console.log("event   ", event);
+    if (url.includes('requestPermissions')) {
+      const permissionType = url.split('requestPermissions=')[1];
+      temprequestPermissions({ type: permissionType });
+      return false; // 阻止 WebView 加载请求
+    }
+    console.log("允许   ",);
+    return true; // 允许 WebView 加载请求
   };
 
   return (
@@ -197,8 +214,11 @@ const ImScreen: React.FC = () => {
           onLoad={() => setLoading(false)}
           onMessage={handleMessage}
           cacheEnabled={true}
+          onShouldStartLoadWithRequest={handleShouldStartLoadWithRequest}
+          mediaPlaybackRequiresUserAction={true}
           javaScriptEnabled={true}
           style={styles.webview}
+          allowsInlineMediaPlayback
         />
       ) : (
         <View style={styles.loadingOverlay}>

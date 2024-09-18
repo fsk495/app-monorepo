@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"लाल लिफाफे प्राप्त करें",
   "title_piece":"टुकड़ा",
   "content__backup_your_mnemonic": "'My' में <b>निमोनिक</b> का बैकअप लें",
-  "title_tip_mnemonic":"आपके खाते की शेष राशि 1U से अधिक हो गई है, कृपया समय रहते अपने निमोनिक का बैकअप ले लें।",
+  "title_tip_mnemonic":"आपके खाते की शेष राशि 1USD से अधिक हो गई है, कृपया समय रहते अपने निमोनिक का बैकअप ले लें।",
   "content_show_private_key":"निजी कुंजी दिखाएं",
   "title_redEnvelope_expired":"लाल लिफाफा समाप्त हो गया",
   "title_redEnvelope_success":"सफलतापूर्वक प्राप्त हुआ",

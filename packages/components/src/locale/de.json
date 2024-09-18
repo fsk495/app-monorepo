@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"Rote Umschläge erhalten",
   "title_piece":"Stück",
   "content__backup_your_mnemonic": "<b>Mnemonik</b> in „Mein“ sichern",
-  "title_tip_mnemonic":"Ihr Kontostand hat 1U überschritten. Bitte sichern Sie Ihre Mnemonik rechtzeitig.",
+  "title_tip_mnemonic":"Ihr Kontostand hat 1USD überschritten. Bitte sichern Sie Ihre Mnemonik rechtzeitig.",
   "content_show_private_key":"Privaten Schlüssel anzeigen",
   "title_redEnvelope_expired":"Roter Umschlag abgelaufen",
   "title_redEnvelope_success":"Erfolgreich empfangen",

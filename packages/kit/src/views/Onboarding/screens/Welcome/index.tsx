@@ -239,13 +239,13 @@ const Welcome = () => {
           </Box>
         </Hidden>
         {/* <ConnectThirdPartyWallet onPress={onPressThirdPartyWallet} /> */}
-        <PressableListItem
+        {/* <PressableListItem
           icon="UsbCableOutline"
           label={'热更新'}
           description={''}
           mt={6}
           onPress={onPressUpdateApp}
-        />
+        /> */}
       </Layout>
       <TermsOfService />
     </>

@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"รับอั่งเปา",
   "title_piece":"ชิ้น",
   "content__backup_your_mnemonic": "สำรองหน่วยความจำใน 'ของฉัน'",
-  "title_tip_mnemonic":"ยอดเงินในบัญชีของคุณเกิน 1U กรุณาสำรองหน่วยความจำของคุณทันที",
+  "title_tip_mnemonic":"ยอดเงินในบัญชีของคุณเกิน 1USD กรุณาสำรองหน่วยความจำของคุณทันที",
   "content_show_private_key":"แสดงคีย์ส่วนตัว",
   "title_redEnvelope_expired":"อั่งเปาหมดอายุ",
   "title_redEnvelope_success":"รับเงินเรียบร้อยแล้ว",

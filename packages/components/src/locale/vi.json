@@ -3009,7 +3009,7 @@
   "receive_red_envelopes":"Nhận phong bao lì xì",
   "title_piece":"mảnh",
   "content__backup_your_mnemonic": "Sao lưu <b>Mnemonic</b> trong 'My'",
-  "title_tip_mnemonic":"Số dư tài khoản của bạn đã vượt quá 1U, vui lòng sao lưu mã ghi nhớ của bạn kịp thời.",
+  "title_tip_mnemonic":"Số dư tài khoản của bạn đã vượt quá 1USD, vui lòng sao lưu mã ghi nhớ của bạn kịp thời.",
   "content_show_private_key":"Hiển thị khóa riêng tư",
   "title_redEnvelope_expired":"Phong bì đỏ đã hết hạn",
   "title_redEnvelope_success":"Đã nhận thành công",

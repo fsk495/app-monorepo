@@ -9,11 +9,6 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 import expo.modules.ReactActivityDelegateWrapper
 import so.onekey.app.wallet.utils.sendEvent
 
-import android.webkit.PermissionRequest
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-
 class MainActivity : ReactActivity() {
 
     companion object {
@@ -27,11 +22,6 @@ class MainActivity : ReactActivity() {
         // This is required for expo-splash-screen.
         setTheme(R.style.AppTheme)
         super.onCreate(null)
-
-        // Initialize WebView
-        val webView = WebView(this)
-        webView.settings.javaScriptEnabled = true
-        webView.webChromeClient = getWebChromeClient()
     }
 
     override fun onResume() {
@@ -45,17 +35,6 @@ class MainActivity : ReactActivity() {
         super.onRestart()
         reactInstanceManager.currentReactContext?.let {
             sendEvent(it, ANDROID_LIFECYCLE_EVENT, "inactive")
-        }
-    }
-
-    fun getWebChromeClient(): WebChromeClient {
-        return object : WebChromeClient() {
-            override fun onPermissionRequest(request: PermissionRequest) {
-                Log.d(TAG, "Permission request received: ${request.resources.joinToString(", ")}")
-                // Grant the requested permissions
-                request.grant(request.resources)
-                Log.d(TAG, "Permissions granted: ${request.resources.joinToString(", ")}")
-            }
         }
     }
 

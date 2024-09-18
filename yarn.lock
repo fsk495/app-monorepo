@@ -6847,7 +6847,7 @@ __metadata:
     react-native-mmkv: ^2.8.0
     react-native-nested-scroll-view: "https://github.com/OneKeyHQ/react-native-nested-scroll-view.git#feat/support-rn71"
     react-native-pager-view: 6.1.4
-    react-native-permissions: ^4.1.5
+    react-native-permissions: 3.10.0
     react-native-randombytes: ^3.6.1
     react-native-reanimated: 3.3.0
     react-native-restart: 0.0.27
@@ -30387,17 +30387,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-permissions@npm:^4.1.5":
-  version: 4.1.5
-  resolution: "react-native-permissions@npm:4.1.5"
+"react-native-permissions@npm:3.10.0":
+  version: 3.10.0
+  resolution: "react-native-permissions@npm:3.10.0"
   peerDependencies:
-    react: ">=18.1.0"
-    react-native: ">=0.70.0"
-    react-native-windows: ">=0.70.0"
+    react: ">=16.13.1"
+    react-native: ">=0.63.3"
+    react-native-windows: ">=0.62.0"
   peerDependenciesMeta:
     react-native-windows:
       optional: true
-  checksum: dc4b366a0f561a47f032c027eb703a2be45e801788b915ed583e38f617eea23656eb63a77b17fb3a663fe3199b2ec25788f799e751421634e35a64f5258feed9
+  checksum: cd3b3fd99212f0d044fd4de1b410b9f7cee0ccc92bd6fd8f4d45bce815ccac36d8744d5440822135c95cd9b821c6972f42142b9c8ae9e950695faed2fcd7779d
   languageName: node
   linkType: hard
 
