@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Berhasil diterima",
   "title_redEnvelope_failed":"Gagal diterima",
   "title_redEnvelope_return":"Sisanya akan dikembalikan",
-  "title_wallet_nickname":"Nama Panggilan Dompet"
+  "title_wallet_nickname":"Nama Panggilan Dompet",
+  "action__paste_address":"Tempel Alamat",
+  "im_authorized":"NIM meminta login resmi"
 }

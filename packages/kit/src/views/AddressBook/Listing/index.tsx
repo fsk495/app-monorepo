@@ -186,7 +186,7 @@ const AddressBookModal = () => {
           circle
         />
       }
-      header={intl.formatMessage({ id: 'title__contacts' })}
+      header={intl.formatMessage({ id: 'title__address_book' })}
       hideSecondaryAction
       footer={null}
       height="480px"

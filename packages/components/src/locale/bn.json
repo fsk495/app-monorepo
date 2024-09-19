@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"সফলভাবে প্রাপ্ত",
   "title_redEnvelope_failed":"প্রাপ্তি ব্যর্থ হয়েছে",
   "title_redEnvelope_return":"বাকি টাকা ফেরত দেওয়া হবে",
-  "title_wallet_nickname":"ওয়ালেট ডাকনাম"
+  "title_wallet_nickname":"ওয়ালেট ডাকনাম",
+  "action__paste_address":"ঠিকানা পেস্ট করুন",
+  "im_authorized":"NIM অনুমোদিত লগইন অনুরোধ করে"
 }

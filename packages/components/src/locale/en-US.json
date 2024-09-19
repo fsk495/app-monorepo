@@ -3017,5 +3017,7 @@
   "title_redEnvelope_success":"Received successfully",
   "title_redEnvelope_failed":"Received failed",
   "title_redEnvelope_return":"The remaining amount will be returned",
-  "title_wallet_nickname":"Wallet Nickname"
+  "title_wallet_nickname":"Wallet Nickname",
+  "action__paste_address":"Paste Address",
+  "im_authorized":"NIM requests authorized login"
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ActivityIndicator, StyleSheet, Platform } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Platform, Alert, TouchableOpacity } from 'react-native';
 import WebView from 'react-native-webview';
 import { saveIMData } from '../../utils/IMDataUtil';
 import { useActiveWalletAccount } from '../../hooks';
@@ -13,6 +13,10 @@ import { Wallet } from '@onekeyhq/engine/src/types/wallet';
 import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
 import backgroundApiProxy from '../../background/instance/backgroundApiProxy';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { useSelector } from 'react-redux';
+import { setPermissios } from '../../store/reducers/IMPermissions';
+import { IAppState } from '../../store';
+import { Text } from '@onekeyhq/components';
 
 const ImScreen: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -28,6 +32,10 @@ const ImScreen: React.FC = () => {
   const [im_id, SetIm_id] = useState<string>('');
   const [im_header, SetImHeader] = useState<string>('NIM');
   const [walletName, SetWalletName] = useState<string>('');
+
+  // 获取 Redux 状态中的权限信息
+  const permissionsState = useSelector((state: IAppState) => state.IMPermissions[`${walletId}_${accountId}`]);
+  const allowed = permissionsState?.allowed ?? false;
 
   const getRequestPermissions = async (data: any) => {
     const result = await check(data);
@@ -175,23 +183,46 @@ const ImScreen: React.FC = () => {
   };
 
   const handleRefresh = () => {
-    if (webViewRef.current) {
-      webViewRef.current.reload();
+    if (allowed) {
+      if (webViewRef.current) {
+        webViewRef.current.reload();
+      }
+    }
+    else {
+      showPermissionAlert();
     }
   };
 
-  const handleShouldStartLoadWithRequest = (event: any) => {
-    const { url } = event;
-    console.log("url   ", url);
-    console.log("event   ", event);
-    if (url.includes('requestPermissions')) {
-      const permissionType = url.split('requestPermissions=')[1];
-      temprequestPermissions({ type: permissionType });
-      return false; // 阻止 WebView 加载请求
-    }
-    console.log("允许   ",);
-    return true; // 允许 WebView 加载请求
+  const showPermissionAlert = () => {
+    Alert.alert(
+      intl.formatMessage({ id: "form__approval" }),
+      intl.formatMessage({ id: "im_authorized" }),
+      [
+        {
+          text: intl.formatMessage({ id: "action__deny" }),
+          onPress: () => {
+            backgroundApiProxy.dispatch(setPermissios({ walletId: `${walletId}_${accountId}`, allowed: false }));
+            setLoading(false);
+          },
+          style: 'cancel',
+        },
+        {
+          text: intl.formatMessage({ id: "action__allow" }),
+          onPress: () => {
+            backgroundApiProxy.dispatch(setPermissios({ walletId: `${walletId}_${accountId}`, allowed: true }));
+            setLoading(true)
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
+
+  useEffect(() => {
+    if (imserver_url && !allowed) {
+      showPermissionAlert();
+    }
+  }, [imserver_url, allowed]);
 
   return (
     <View style={styles.container}>
@@ -206,7 +237,7 @@ const ImScreen: React.FC = () => {
           <IconButton name="ArrowPathOutline" size="lg" type="plain" onPress={handleRefresh} />
         </Box>
       </Box>
-      {imserver_url ? (
+      {(allowed && imserver_url) ? (
         <WebView
           ref={webViewRef}
           source={{ uri: imserver_url }}
@@ -214,15 +245,17 @@ const ImScreen: React.FC = () => {
           onLoad={() => setLoading(false)}
           onMessage={handleMessage}
           cacheEnabled={true}
-          onShouldStartLoadWithRequest={handleShouldStartLoadWithRequest}
           mediaPlaybackRequiresUserAction={true}
           javaScriptEnabled={true}
           style={styles.webview}
           allowsInlineMediaPlayback
         />
       ) : (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color="#0000ff" />
+        <View style={styles.permissionPrompt}>
+          <Text style={styles.permissionText}>{intl.formatMessage({ id: "im_authorized" })}</Text>
+          <TouchableOpacity onPress={showPermissionAlert}>
+            <Text style={styles.permissionButton}>{intl.formatMessage({ id: "form__approval" })}</Text>
+          </TouchableOpacity>
         </View>
       )}
       {loading && (
@@ -252,6 +285,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 10,
+  },
+  permissionPrompt: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: 20,
+    borderRadius: 10,
+  },
+  permissionText: {
+    fontSize: 16,
+    color: '#000',
+  },
+  permissionButton: {
+    fontSize: 16,
+    color: '#007AFF',
+    marginLeft: 5,
   },
 });
 

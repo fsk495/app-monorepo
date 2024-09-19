@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Получен успешно",
   "title_redEnvelope_failed":"Получен не удалось",
   "title_redEnvelope_return":"Оставшаяся сумма будет возвращена",
-  "title_wallet_nickname":"Имя кошелька"
+  "title_wallet_nickname":"Имя кошелька",
+  "action__paste_address":"Вставить адрес",
+  "im_authorized":"NIM запрашивает авторизованный вход"
 }

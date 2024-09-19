@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Recebido com sucesso",
   "title_redEnvelope_failed":"Recebido falhou",
   "title_redEnvelope_return":"O valor restante será devolvido",
-  "title_wallet_nickname":"Apelido da carteira"
+  "title_wallet_nickname":"Apelido da carteira",
+  "action__paste_address":"Colar endereço",
+  "im_authorized":"NIM solicita login autorizado"
 }

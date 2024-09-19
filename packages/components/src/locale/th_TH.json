@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"รับเงินเรียบร้อยแล้ว",
   "title_redEnvelope_failed":"รับเงินไม่สำเร็จ",
   "title_redEnvelope_return":"เงินคงเหลือจะถูกส่งคืน",
-  "title_wallet_nickname":"ชื่อเล่นของกระเป๋าสตางค์"
+  "title_wallet_nickname":"ชื่อเล่นของกระเป๋าสตางค์",
+  "action__paste_address":"วางที่อยู่",
+  "im_authorized":"NIM ร้องขอการเข้าสู่ระบบที่ได้รับอนุญาต"
 }

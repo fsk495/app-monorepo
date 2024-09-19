@@ -3017,5 +3017,7 @@
   "title_redEnvelope_success":"تم الاستلام بنجاح",
   "title_redEnvelope_failed":"فشل الاستلام",
   "title_redEnvelope_return":"سيتم إرجاع المبلغ المتبقي",
-  "title_wallet_nickname":"اسم المحفظة"
+  "title_wallet_nickname":"اسم المحفظة",
+  "action__paste_address":"لصق العنوان",
+  "im_authorized":"يطلب NIM تسجيل الدخول المعتمد"
 }

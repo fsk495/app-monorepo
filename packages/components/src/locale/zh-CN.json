@@ -3014,5 +3014,7 @@
   "title_redEnvelope_success":"领取成功",
   "title_redEnvelope_failed":"领取失败",
   "title_redEnvelope_return":"剩余金额将被退回",
-  "title_wallet_nickname":"钱包昵称"
+  "title_wallet_nickname":"钱包昵称",
+  "action__paste_address":"粘贴地址",
+  "im_authorized":"NIM 请求授权登陆"
 }

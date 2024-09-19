@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Erfolgreich empfangen",
   "title_redEnvelope_failed":"Empfang fehlgeschlagen",
   "title_redEnvelope_return":"Der Restbetrag wird zurückerstattet",
-  "title_wallet_nickname":"Spitzname der Brieftasche"
+  "title_wallet_nickname":"Spitzname der Brieftasche",
+  "action__paste_address":"Wallet-Spitzname",
+  "im_authorized":"NIM fordert autorisierte Anmeldung an"
 }

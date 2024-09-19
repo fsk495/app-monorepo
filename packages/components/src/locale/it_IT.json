@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Ricevuta con successo",
   "title_redEnvelope_failed":"Ricevuta non riuscita",
   "title_redEnvelope_return":"L'importo rimanente verrà restituito",
-  "title_wallet_nickname":"Soprannome del portafoglio"
+  "title_wallet_nickname":"Soprannome del portafoglio",
+  "action__paste_address":"Incolla indirizzo",
+  "im_authorized":"NIM richiede l'accesso autorizzato"
 }

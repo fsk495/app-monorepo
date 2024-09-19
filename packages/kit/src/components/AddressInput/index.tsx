@@ -155,7 +155,7 @@ const AddressInput: FC<AddressInputProps> = ({
             >
               <Icon size={20} name="ClipboardMini" />
               <Typography.Body2 ml="3">
-                {intl.formatMessage({ id: 'action__paste' })}
+                {intl.formatMessage({ id: 'action__paste_address' })}
               </Typography.Body2>
             </Pressable>
           ) : null}
@@ -170,7 +170,7 @@ const AddressInput: FC<AddressInputProps> = ({
             >
               <Icon size={20} name="BookOpenMini" />
               <Typography.Body2 ml="3">
-                {intl.formatMessage({ id: 'action__contact' })}
+                {intl.formatMessage({ id: 'title__address_book' })}
               </Typography.Body2>
             </Pressable>
           ) : null}

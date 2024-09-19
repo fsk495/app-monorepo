@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Matagumpay na natanggap",
   "title_redEnvelope_failed":"Nabigo ang natanggap",
   "title_redEnvelope_return":"Ang natitirang halaga ay ibabalik",
-  "title_wallet_nickname":"Palayaw sa Wallet"
+  "title_wallet_nickname":"Palayaw sa Wallet",
+  "action__paste_address":"Idikit ang Address",
+  "im_authorized":"Ang NIM ay humihiling ng awtorisadong pag-login"
 }

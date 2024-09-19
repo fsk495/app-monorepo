@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Recibido correctamente",
   "title_redEnvelope_failed":"Recibido fallido",
   "title_redEnvelope_return":"Se devolverá el importe restante",
-  "title_wallet_nickname":"Apodo de la billetera"
+  "title_wallet_nickname":"Apodo de la billetera",
+  "action__paste_address":"Pegar dirección",
+  "im_authorized":"NIM solicita inicio de sesión autorizado"
 }

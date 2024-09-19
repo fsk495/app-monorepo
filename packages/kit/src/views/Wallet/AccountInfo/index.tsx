@@ -48,7 +48,7 @@ import { showAccountValueSettings } from '../../Overlay/AccountValueSettings';
 import AccountOption from './AccountOption';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setReminded } from '../../../store/reducers/reminderSlice';
 
 import type { ReminderState } from '../../../store/reducers/reminderSlice';

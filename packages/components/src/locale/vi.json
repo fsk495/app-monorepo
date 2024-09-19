@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"Đã nhận thành công",
   "title_redEnvelope_failed":"Đã nhận không thành công",
   "title_redEnvelope_return":"Số tiền còn lại sẽ được trả lại",
-  "title_wallet_nickname":"Biệt danh ví"
+  "title_wallet_nickname":"Biệt danh ví",
+  "action__paste_address":"Dán Địa Chỉ",
+  "im_authorized":"NIM yêu cầu đăng nhập được ủy quyền"
 }

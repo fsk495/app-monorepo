@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"正常に受信されました",
   "title_redEnvelope_failed":"受信に失敗しました",
   "title_redEnvelope_return":"残額は返金されます",
-  "title_wallet_nickname":"ウォレットニックネーム"
+  "title_wallet_nickname":"ウォレットニックネーム",
+  "action__paste_address":"住所を貼り付け",
+  "im_authorized":"NIMは承認されたログインを要求する"
 }

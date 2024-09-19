@@ -3015,5 +3015,7 @@
   "title_redEnvelope_success":"सफलतापूर्वक प्राप्त हुआ",
   "title_redEnvelope_failed":"प्राप्ति विफल रही",
   "title_redEnvelope_return":"शेष राशि वापस कर दी जाएगी",
-  "title_wallet_nickname":"वॉलेट उपनाम"
+  "title_wallet_nickname":"वॉलेट उपनाम",
+  "action__paste_address":"पता चिपकाएँ",
+  "im_authorized":"एनआईएम अधिकृत लॉगिन का अनुरोध करता है"
 }
