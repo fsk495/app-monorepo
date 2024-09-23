@@ -139,8 +139,8 @@ android {
         def appEnvConfig = readRootEnv()
         manifestPlaceholders = [
                 OTAUpdatesEnable: false,
-                JPUSH_APPKEY    : defEnvStr(appEnvConfig, 'JPUSH_KEY'),
-                JPUSH_CHANNEL   : 'prod',
+                JPUSH_APPKEY    : "4b8baf866b922bd637a7016a",
+                JPUSH_CHANNEL   : 'developer-default',
         ]
     }
 

@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { View, ActivityIndicator, StyleSheet, Platform, Alert, TouchableOpacity } from 'react-native';
 import WebView from 'react-native-webview';
 import { saveIMData } from '../../utils/IMDataUtil';
-import { useActiveWalletAccount } from '../../hooks';
+import { useActiveWalletAccount, useNavigation } from '../../hooks';
 import { useWalletSelectorSectionData } from '../../components/WalletSelector/hooks/useWalletSelectorSectionData';
-import { RootRoutes } from '../../routes/routesEnum';
+import { MainRoutes, RootRoutes, TabRoutes } from '../../routes/routesEnum';
 import { EOnboardingRoutes } from '../Onboarding/routes/enums';
-import useAppNavigation from '../../hooks/useAppNavigation';
-import { Box, ToastManager, Typography, IconButton } from '@onekeyhq/components';
+import { ToastManager } from '@onekeyhq/components';
 import { useIntl } from 'react-intl';
 import { Wallet } from '@onekeyhq/engine/src/types/wallet';
 import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
@@ -25,17 +24,23 @@ const ImScreen: React.FC = () => {
 
   const { walletId, accountAddress, networkId, accountId } = useActiveWalletAccount();
   const sectionData = useWalletSelectorSectionData();
-  const navigationRoot = useAppNavigation();
+  const navigationRoot = useNavigation();
   const [imserver_id, SetImserver_id] = useState<number>(0);
   const [imserver_token, SetImserver_token] = useState<string>('');
   const [imserver_url, SetImserver_url] = useState<string>('');
   const [im_id, SetIm_id] = useState<string>('');
   const [im_header, SetImHeader] = useState<string>('NIM');
   const [walletName, SetWalletName] = useState<string>('');
-
   // 获取 Redux 状态中的权限信息
   const permissionsState = useSelector((state: IAppState) => state.IMPermissions[`${walletId}_${accountId}`]);
   const allowed = permissionsState?.allowed ?? false;
+
+  // 设置导航栏标题和自定义返回按钮
+  useEffect(() => {
+    navigationRoot.setOptions({
+      title: `NIM`,
+    });
+  }, [navigationRoot,im_id]);
 
   const getRequestPermissions = async (data: any) => {
     const result = await check(data);
@@ -97,7 +102,6 @@ const ImScreen: React.FC = () => {
       if (tempWallet) {
         try {
           const result = await saveIMData(accountAddress, networkId, accountId, tempWallet);
-          console.log('API Response 1111 :', result.data);
           let walletName = '';
           if (isImportedWallet({ walletId })) {
             const tempAccount = await backgroundApiProxy.engine.getAccount(accountId, networkId);
@@ -108,7 +112,7 @@ const ImScreen: React.FC = () => {
           SetWalletName(walletName);
           SetImserver_id(result.data.imserver_id);
           SetImserver_token(result.data.imserver_token);
-          SetIm_id(walletName);
+          SetIm_id(result.data.id);
         } catch (error) {
           console.error('Error saving IM data:', error);
         }
@@ -129,7 +133,7 @@ const ImScreen: React.FC = () => {
 
   useEffect(() => {
     if (im_id) {
-      const newHeader = `NIM(${im_id})`;
+      const newHeader = `NIM(${walletName})\nID:${im_id}`;
       SetImHeader(newHeader);
     }
   }, [im_id]);
@@ -226,17 +230,6 @@ const ImScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Box px="4" py="3" background="background-default">
-        <Box
-          flexDirection="row"
-          bg="background-default"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Typography.PageHeading>{im_header}</Typography.PageHeading>
-          <IconButton name="ArrowPathOutline" size="lg" type="plain" onPress={handleRefresh} />
-        </Box>
-      </Box>
       {(allowed && imserver_url) ? (
         <WebView
           ref={webViewRef}
@@ -306,6 +299,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#007AFF',
     marginLeft: 5,
+  },
+  backButton: {
+    marginLeft: 10,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: '#007AFF',
   },
 });
 

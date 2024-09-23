@@ -101,8 +101,8 @@
         "ascAppId": "6581480380",
         "appleTeamId": "B8RDJF7YUS",
         "ascApiKeyIssuerId": "60dafc36-bfb3-474f-93a6-73173433c7b1",
-        "ascApiKeyId": "2BKW2P3W9M",
-        "ascApiKeyPath": "./AuthKey_2BKW2P3W9M.p8"
+        "ascApiKeyId": "G3YG4T6N93",
+        "ascApiKeyPath": "./AuthKey_G3YG4T6N93.p8"
       },
       "android": {
         "serviceAccountKeyPath": "./pc-api-8644398719570171123-0-dcae07e2afab.json",

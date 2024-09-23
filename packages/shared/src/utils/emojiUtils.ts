@@ -1841,12 +1841,8 @@ export const randomList = [
   '6.png',
   '7.png',
   '8.png',
-  '9.png',
-  '10.png',
-  '11.png',
-  '12.png',
 ] as const;
-export type ImageKey = '1.png' | '2.png' | '3.png' | '4.png' | '5.png' | '6.png' | '7.png' | '8.png' | '9.png' | '10.png' | '11.png' | '12.png';
+export type ImageKey = '1.png' | '2.png' | '3.png' | '4.png' | '5.png' | '6.png' | '7.png' | '8.png' ;
 
 export const imageMap = {
   '1.png': require('@onekeyhq/kit/assets/avatar/1.png'),
@@ -1857,10 +1853,6 @@ export const imageMap = {
   '6.png': require('@onekeyhq/kit/assets/avatar/6.png'),
   '7.png': require('@onekeyhq/kit/assets/avatar/7.png'),
   '8.png': require('@onekeyhq/kit/assets/avatar/8.png'),
-  '9.png': require('@onekeyhq/kit/assets/avatar/9.png'),
-  '10.png': require('@onekeyhq/kit/assets/avatar/10.png'),
-  '11.png': require('@onekeyhq/kit/assets/avatar/11.png'),
-  '12.png': require('@onekeyhq/kit/assets/avatar/12.png'),
 };
 
 export type EmojiTypes = typeof randomList[number];

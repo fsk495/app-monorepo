@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-
 import { useIntl } from 'react-intl';
-
 import {
   Box,
   Pressable,
@@ -17,6 +15,7 @@ import {
   useHardwareWalletInfo,
 } from '@onekeyhq/kit/src/components/WalletSelector/WalletAvatar';
 import {
+  getActiveWalletAccount,
   useActiveWalletAccount,
   useNavigationActions,
 } from '@onekeyhq/kit/src/hooks';
@@ -24,14 +23,14 @@ import { useWalletName } from '@onekeyhq/kit/src/hooks/useWalletName';
 import reducerAccountSelector from '@onekeyhq/kit/src/store/reducers/reducerAccountSelector';
 import { wait } from '@onekeyhq/kit/src/utils/helper';
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
-
 import {
   ACCOUNT_SELECTOR_CHANGE_ACCOUNT_CLOSE_DRAWER_DELAY,
   WALLET_SELECTOR_DESKTOP_ACTION_DELAY_AFTER_CLOSE,
 } from '../../../NetworkAccountSelector/consts';
 import { WalletItemSelectDropdown } from '../WalletItemSelectDropdown';
-
 import type { IWalletDataBase } from './index';
+import { saveIMData } from '../../../../utils/IMDataUtil';
+import { isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
 
 const SelectedIndicator = () => (
   <Box
@@ -116,7 +115,6 @@ export function ListItemBase({
         flexDirection="row"
         alignItems="center"
         rounded="2xl"
-        // bgColor={selectedBgColor}
         _hover={{ bgColor: 'surface-hovered' }}
         _pressed={{ bgColor: 'surface-pressed' }}
         onPress={onPress}
@@ -161,7 +159,6 @@ function ListItem({
   onLastItemRender?: () => void;
 }) {
   const { walletId } = useActiveWalletAccount();
-  // const deviceId = wallet.associatedDevice || '';
   const { dispatch, serviceAccount } = backgroundApiProxy;
   const isVertical = useIsVerticalLayout();
   const { closeWalletSelector } = useNavigationActions();
@@ -170,7 +167,44 @@ function ListItem({
     devicesStatus,
     wallet,
   });
+  const [im_id, SetIm_id] = useState<string>('');
+  const [newName, SetNewName] = useState<string>(name as string);
 
+  let accountId1 = wallet.accounts && wallet.accounts.length > 0 ? wallet.accounts[0] : null;
+  if (isImportedWallet({ walletId }) && walletId === wallet.id) {
+    const { accountId } = getActiveWalletAccount();
+    accountId1 = accountId || accountId1;
+  }
+
+  const { networkId } = getActiveWalletAccount();
+  if (!networkId) {
+    console.error('Network ID is undefined');
+    return null;
+  }
+
+  useEffect(() => {
+    const saveIM = async () => {
+      try {
+        const { address } = await serviceAccount.getAcccountAddressWithXpub(accountId1 as string, networkId);
+        const result = await saveIMData(address, networkId, accountId1 as string, wallet);
+        if (!result || !result.data || !result.data.id) {
+          console.error('Error saving IM data: result is undefined or invalid');
+          return;
+        }
+        SetIm_id(result.data.id);
+      } catch (error) {
+        console.error('Error saving IM data:', error);
+      }
+    };
+
+    saveIM();
+  }, [walletId, networkId, wallet, accountId1]);
+
+  useEffect(() => {
+    if (im_id) {
+      SetNewName(`${name}(${im_id})`);
+    }
+  }, [im_id,name]);
   const isSelected = walletId === wallet.id;
   const circular = !isSelected;
 
@@ -193,13 +227,10 @@ function ListItem({
           await wait(WALLET_SELECTOR_DESKTOP_ACTION_DELAY_AFTER_CLOSE);
         }
 
-        // await serviceNetwork.changeActiveNetwork(section?.title?.id);
-        // TODO performance
         await serviceAccount.autoChangeAccount({
           walletId: wallet?.id ?? '',
           skipIfSameWallet: true,
         });
-        // await serviceAccountSelector.setSelectedWalletToActive();
       } finally {
         await wait(100);
         dispatch(updateIsRefreshDisabled(false), updateIsLoading(false));
@@ -226,7 +257,7 @@ function ListItem({
           devicesStatus={devicesStatus}
         />
       }
-      text={name}
+      text={newName}
       isSelected={isSelected}
     />
   );

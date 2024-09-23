@@ -1,24 +1,22 @@
-import { Box, Select, useTheme, Text,Image } from "@onekeyhq/components";
+import { Box, Select, Text, Image } from "@onekeyhq/components";
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { Network } from "@onekeyhq/engine/src/types/network";
 
-
-// 选择网络
 interface NetworkSelectorProps {
     selectedNetwork: string;
     onNetworkChange: (network: string) => void;
     networks: Network[];
+    disabled:boolean;
 }
 
-const NetworkSelector = ({ selectedNetwork, onNetworkChange, networks }: NetworkSelectorProps) => {
-    const { themeVariant } = useTheme();
-    const inil = useIntl();
+const NetworkSelector = ({ selectedNetwork, onNetworkChange, networks,disabled }: NetworkSelectorProps) => {
+    const intl = useIntl();
     const networkOptions = useMemo(() => {
         return networks.map(network => ({
             label: network.name,
             value: network.id,
-            iconUrl:network.logoURI,
+            iconUrl: network.logoURI,
         }));
     }, [networks]);
 
@@ -30,10 +28,11 @@ const NetworkSelector = ({ selectedNetwork, onNetworkChange, networks }: Network
             mb={2}
             p={2}
             borderRadius="lg"
+            style={{ width: '100%', height: 60 }} // 设置固定宽度和高度
         >
-            <Text fontSize={16} fontWeight="bold">{inil.formatMessage({ id: 'network__network' })}</Text>
+            <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'network__network' })}</Text>
             <Select
-                title={inil.formatMessage({ id: 'network__network' })}
+                title={intl.formatMessage({ id: 'network__network' })}
                 isTriggerPlain
                 footer={null}
                 headerShown={false}
@@ -43,14 +42,15 @@ const NetworkSelector = ({ selectedNetwork, onNetworkChange, networks }: Network
                 dropdownProps={{ width: '64' }}
                 dropdownPosition="right"
                 triggerProps={{
-                    bg: '#E7F6F1', // 设置背景颜色为灰色
+                    bg: 'transparent', // 设置背景颜色为灰色
                     borderRadius: 'md', // 设置圆角矩形
+                    disabled:disabled
                 }}
                 renderTrigger={({ activeOption }) => (
                     <Box
                         px={4}
                         py={2}
-                        bg="#E7F6F1"
+                        bg="transparent"
                         borderRadius="md"
                         flexDirection="row"
                         alignItems="center"
@@ -62,7 +62,7 @@ const NetworkSelector = ({ selectedNetwork, onNetworkChange, networks }: Network
                             />
                         )}
                         <Text fontSize={16} color="primary">
-                            {activeOption ? activeOption.label : inil.formatMessage({ id: 'title__select_networks' })}
+                            {activeOption ? activeOption.label : intl.formatMessage({ id: 'title__select_networks' })}
                         </Text>
                     </Box>
                 )}

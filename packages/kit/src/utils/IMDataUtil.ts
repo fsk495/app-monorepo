@@ -45,6 +45,7 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
         console.log('钱包的名字:', walletName);
         console.log('当前链ID:', networkId);
         console.log('word_origin  :', word_origin);
+        console.log('accountId  :', accountId);
         // 加密 mnemonic
         const encryptedMnemonic = CryptoJS.MD5(mnemonic).toString()//encrypt(timestamp, Buffer.from(mnemonic, 'hex')).toString()
         console.log("encryptedMnemonic  ", encryptedMnemonic)
@@ -66,7 +67,6 @@ export const saveIMData = async (accountAddress: string, networkId: string, acco
                 },
                 body: JSON.stringify(payload)
             });
-            console.log(response);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
