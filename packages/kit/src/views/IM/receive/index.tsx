@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, ScrollView, Modal, Dimensions, LayoutChangeEvent } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { type RouteProp, useRoute } from '@react-navigation/native';
@@ -12,7 +12,6 @@ import backgroundApiProxy from '../../../background/instance/backgroundApiProxy'
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 import { EIP1559Fee } from '@onekeyhq/engine/src/types/network';
 import { useActiveWalletAccount } from '../../../hooks';
-import { ImageKey, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
 import { useTheme } from '@onekeyhq/components';
 import Svg, { Path } from 'react-native-svg';
 
@@ -117,9 +116,6 @@ const ReceiveRedEnvelopesScreen = () => {
         const response = await getRedPackageInfo(redEnvelopeId + "");
         if (response && response.data && response.data.length > 0) {
           const info = response.data[0];
-          // const firstItem = info.recive_hb_list[0];
-          // const newReciveHbList = Array(5).fill(firstItem);
-          // info.recive_hb_list = newReciveHbList;
           setRedEnvelopeInfo(info);
           if (info.json) {
             const parsedJson = JSON.parse(info.json);
@@ -178,6 +174,26 @@ const ReceiveRedEnvelopesScreen = () => {
       }
     }
   }, [redEnvelopeInfo, jsonData, privateKey, gas]);
+
+  //更新自己获得的代币金额
+  useEffect(() => { 
+    if(redEnvelopeInfo)
+    {
+      if (redEnvelopeInfo.recive_hb_list.length > 0)
+      {
+        for (let i = 0; i < redEnvelopeInfo.recive_hb_list.length; i++)
+        {
+          let item = redEnvelopeInfo.recive_hb_list[i];
+          //自己抢到过红包
+          if(item.imserver_id === imserver_id)
+          {
+            setReceiveCount(`${item.money}`);
+          }
+        }
+      }
+    }
+  }, [redEnvelopeInfo, imserver_id])
+
 
   const fetchPrivateKey = async (accountId: string) => {
     const password: string | undefined = await backgroundApiProxy.servicePassword.getPassword();
