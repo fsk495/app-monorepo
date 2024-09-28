@@ -19,6 +19,7 @@ import { RootRoutes } from '@onekeyhq/kit/src/routes/routesEnum';
 
 import useAppNavigation from '../../../hooks/useAppNavigation';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
+import { isHdWallet } from '@onekeyhq/shared/src/engine/engineUtils';
 
 
 
@@ -27,7 +28,7 @@ export const DefaultSection = () => {
   const navigationRoot = useAppNavigation();
   const { themeVariant } = useTheme();
 
-  const { walletId,networkId,accountId } =
+  const { walletId, networkId, accountId } =
     useActiveWalletAccount();
   const { showAddressBookModal } = useAddressBook();
   return (
@@ -130,7 +131,7 @@ export const DefaultSection = () => {
             <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
           </Box>
         </Pressable> */}
-        <Pressable
+        {isHdWallet({ walletId }) && (<><Pressable
           display="flex"
           flexDirection="row"
           justifyContent="space-between"
@@ -140,10 +141,11 @@ export const DefaultSection = () => {
           onPress={() => {
             navigationRoot.navigate(RootRoutes.Onboarding, {
               screen: EOnboardingRoutes.VerifyPassword,
-              params: { 
+              params: {
                 walletId,
                 networkId,
                 accountId,
+                exportPrivate: false
               },
             });
           }}
@@ -157,6 +159,41 @@ export const DefaultSection = () => {
           >
             {intl.formatMessage({
               id: 'title__recovery_phrase',
+            })}
+          </Text>
+          <Box>
+            <Icon name="ChevronRightMini" color="icon-subdued" size={20} />
+          </Box>
+        </Pressable><Divider /></>)}
+
+        <Pressable
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignItems="center"
+          py={4}
+          px={{ base: 4, md: 6 }}
+          onPress={() => {
+            navigationRoot.navigate(RootRoutes.Onboarding, {
+              screen: EOnboardingRoutes.VerifyPassword,
+              params: {
+                walletId,
+                networkId,
+                accountId,
+                exportPrivate: true
+              },
+            });
+          }}
+        >
+          <Icon name="KeytagOutline" />
+          <Text
+            typography={{ sm: 'Body1Strong', md: 'Body2Strong' }}
+            flex="1"
+            numberOfLines={1}
+            mx={3}
+          >
+            {intl.formatMessage({
+              id: 'action__export_private_key',
             })}
           </Text>
           <Box>

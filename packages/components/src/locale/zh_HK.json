@@ -3016,5 +3016,10 @@
   "title_redEnvelope_return": "剩餘金額將被退回",
   "title_wallet_nickname":"钱包昵称",
   "action__paste_address":"貼上網址",
-  "im_authorized":"NIM 請求授權登入"
+  "im_authorized":"NIM 請求授權登入",
+  "title_redEnvelope_lucky":"幸運紅包",
+  "onboarding__landing_welcome_desc_new":"最實用的去中心化社交錢包",
+  "upload_header_success":"上傳成功，等待刷新",
+  "upload_header_failed":"上傳失敗",
+  "title_redEnvelope_getChain":"獲取代幣"
 }

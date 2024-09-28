@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Số tiền còn lại sẽ được trả lại",
   "title_wallet_nickname":"Biệt danh ví",
   "action__paste_address":"Dán Địa Chỉ",
-  "im_authorized":"NIM yêu cầu đăng nhập được ủy quyền"
+  "im_authorized":"NIM yêu cầu đăng nhập được ủy quyền",
+  "title_redEnvelope_lucky":"Bao lì xì đỏ may mắn",
+  "onboarding__landing_welcome_desc_new":"Ví xã hội phi tập trung hữu ích nhất",
+  "upload_header_success":"Tải lên thành công, đang chờ làm mới",
+  "upload_header_failed":"Tải lên không thành công",
+  "title_redEnvelope_getChain":"Nhận mã thông báo"
 }

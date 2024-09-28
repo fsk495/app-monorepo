@@ -2,10 +2,11 @@ import { ethers } from "@onekeyhq/engine/src/vaults/impl/evm/sdk/ethers";
 import novaiMainABI from "../../assets/json/novaiMainABI.json";
 import BigNumber from 'bignumber.js';
 import { EIP1559Fee } from '@onekeyhq/engine/src/types/network';
-import { useIntl } from "react-intl";
 
 
-const contractAddress = '0x92F679EBE29E7Fd7Cb17d383B50Bc9cd306164f1';
+const contractAddressNovai = '0x92F679EBE29E7Fd7Cb17d383B50Bc9cd306164f1';
+
+const contractAddressBNB = '0x28E6AdBeb44585Ee89751256806c855C82Da32ad';
 
 /**
  * 公共参数
@@ -47,16 +48,22 @@ export const generateUnique8DigitNumber = () => {
  * @param privateKey 私钥
  * @param gas Gas 价格
  */
-export const createRedEnvelope = async (password: string, amount: string, max_re: number, rpc: string, privateKey: string, gas: string | EIP1559Fee) => {
+export const createRedEnvelope = async (password: string, amount: string, max_re: number, rpc: string, privateKey: string, gas: string | EIP1559Fee,networkId:string) => {
     try {
+        let contractAddress = contractAddressNovai;
+        if(networkId == 'evm--56')
+        {
+            contractAddress = contractAddressBNB;
+        }
+        console.log("networkId   ",networkId);
+        console.log("contractAddress   ",contractAddress);
         const provider = new ethers.providers.JsonRpcProvider(rpc);
         const signer = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);
-
+        console.log('signer   ',signer);
         // 获取用户余额
         const balance = await signer.getBalance();
         console.log('User balance:', ethers.utils.formatEther(balance));
-
         // 估算 gasLimit
         const gasLimit = commonParams.gasLimit
         // 计算 gas price
@@ -68,10 +75,10 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
         const gasCost = gasPrice.times(gasLimit);
         const totalCost = gasCost.plus(value);
         console.log('Total transaction cost:', totalCost.toString());
-
+        
         // 检查用户余额是否足够
         if (new BigNumber(ethers.utils.formatEther(balance)).times(new BigNumber(10).pow(18)).lt(totalCost)) {
-            return { success: false, error: useIntl().formatMessage({ id: 'msg__broadcast_dot_tx_Insufficient_fee' }) }
+            return { success: false, error: 'The balance is insufficient.' }
         }
         console.log("ethers.utils.formatBytes32String(password)  ", ethers.utils.formatBytes32String(password))
         // 发送交易调用 createRedEnvelope 方法
@@ -86,7 +93,7 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
                 gasLimit: gasLimit
             },
         );
-        console.log('Transaction sent:  1', tx.hash);
+        console.log('Transaction sent:  ', tx);
 
         // 等待交易确认
         const receipt = await tx.wait();
@@ -97,7 +104,7 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
         return { success: true, redEnvelopeId: redEnvelopeId.toString(),password: ethers.utils.formatBytes32String(password)};
     } catch (error) {
         console.log("createRedEnvelope error:", error);
-        return { success: false, error: useIntl().formatMessage({ id: 'msg__transaction_failed_desc' }) };
+        return { success: false, error: '😵 Transaction Failed' };
     }
 };
 
@@ -108,13 +115,20 @@ export const createRedEnvelope = async (password: string, amount: string, max_re
  * @param rpc RPC 地址
  * @param privateKey 私钥
  */
-export const getRedEnvelope = async (redEnvelopeId: number, password: string, rpc: string, privateKey: string, gas: string | EIP1559Fee) => {
+export const getRedEnvelope = async (redEnvelopeId: number, password: string, rpc: string, privateKey: string, gas: string | EIP1559Fee,networkId:string) => {
     try {
         console.log("获取红包 红包ID ", redEnvelopeId);
         console.log("获取红包 原红包口令 ", password);
         console.log("获取红包 rpc 地址  ", rpc);
         console.log("获取红包 privateKey  ", privateKey);
-        
+        let contractAddress = contractAddressNovai;
+        if(networkId == 'evm--56')
+        {
+            contractAddress = contractAddressBNB;
+        }
+
+        console.log("networkId   ",networkId);
+        console.log("contractAddress   ",contractAddress);
         const provider = new ethers.providers.JsonRpcProvider(rpc);
         const signer = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);
@@ -173,9 +187,14 @@ export const getRedEnvelope = async (redEnvelopeId: number, password: string, rp
  * @param gas gas费
  * @returns 
  */
-export const ExpiredRedEnvelope = async (redEnvelopeId: number, rpc: string, privateKey: string, gas: string | EIP1559Fee) => {
+export const ExpiredRedEnvelope = async (redEnvelopeId: number, rpc: string, privateKey: string, gas: string | EIP1559Fee,networkId:string) => {
     console.log(" 领取过期红包    ", redEnvelopeId);
     try {
+        let contractAddress = contractAddressNovai;
+        if(networkId == 'evm--56')
+        {
+            contractAddress = contractAddressBNB;
+        }
         const provider = new ethers.providers.JsonRpcProvider(rpc);
         const signer = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);
@@ -214,9 +233,14 @@ export const ExpiredRedEnvelope = async (redEnvelopeId: number, rpc: string, pri
     }
 }
 
-export const getLeftMoney = async (redEnvelopeId: number, rpc: string, privateKey: string) => { 
+export const getLeftMoney = async (redEnvelopeId: number, rpc: string, privateKey: string,networkId:string) => { 
     console.log("获取剩余金额    ", redEnvelopeId);
     try {
+        let contractAddress = contractAddressNovai;
+        if(networkId == 'evm--56')
+        {
+            contractAddress = contractAddressBNB;
+        }
         const provider = new ethers.providers.JsonRpcProvider(rpc);
         const signer = new ethers.Wallet(privateKey, provider);
         const contract = new ethers.Contract(contractAddress, novaiMainABI, signer);

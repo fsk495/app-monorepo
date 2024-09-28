@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"L'importo rimanente verrà restituito",
   "title_wallet_nickname":"Soprannome del portafoglio",
   "action__paste_address":"Incolla indirizzo",
-  "im_authorized":"NIM richiede l'accesso autorizzato"
+  "im_authorized":"NIM richiede l'accesso autorizzato",
+  "title_redEnvelope_lucky":"Pacchetto rosso fortunato",
+  "onboarding__landing_welcome_desc_new":"Il portafoglio sociale decentralizzato più utile",
+  "upload_header_success":"Caricamento riuscito, in attesa di aggiornamento",
+  "upload_header_failed":"Caricamento non riuscito",
+  "title_redEnvelope_getChain":"Ottieni token"
 }

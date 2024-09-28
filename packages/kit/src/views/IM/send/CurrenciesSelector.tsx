@@ -1,5 +1,5 @@
-import { Box, Select, Text, Image } from '@onekeyhq/components';
-import { useMemo } from 'react';
+import { Box, Menu, Text, Image, Pressable, Icon } from '@onekeyhq/components';
+import { useMemo, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 interface Currency {
@@ -12,67 +12,81 @@ interface CurrenciesSelectorProps {
   selectedCurrencies: string;
   onCurrenciesChange: (currency: string) => void;
   currencies: Currency[];
-  disabled:boolean;
+  disabled: boolean;
+  colors: colors
 }
+interface colors { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string }
 
-const CurrenciesSelector = ({ selectedCurrencies, onCurrenciesChange, currencies,disabled }: CurrenciesSelectorProps) => {
+const CurrenciesSelector = ({ selectedCurrencies, onCurrenciesChange, currencies, disabled,colors }: CurrenciesSelectorProps) => {
   const intl = useIntl();
+  const [isOpen, setIsOpen] = useState(false);
+
   const currencyOptions = useMemo(() => {
     return currencies.map(currency => ({
-        label: currency.name,
-        value: currency.symbol,
-        iconUrl: currency.logoURI,
+      label: currency.name,
+      value: currency.symbol,
+      iconUrl: currency.logoURI,
     }));
   }, [currencies]);
 
+  const selectedCurrency = useMemo(() => {
+    return currencyOptions.find(option => option.value === selectedCurrencies);
+  }, [currencyOptions, selectedCurrencies]);
+
   return (
-    <Box
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-      mb={2}
-      p={2}
-      borderRadius="lg"
-      style={{ width: '100%', height: 60 }} // 设置固定宽度和高度
-    >
-      <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'asset__tokens' })}</Text>
-      <Select
-        title={intl.formatMessage({ id: 'asset__tokens' })}
-        isTriggerPlain
-        footer={null}
-        headerShown={false}
-        value={selectedCurrencies}
-        onChange={onCurrenciesChange}
-        options={currencyOptions}
-        dropdownProps={{ width: '64' }}
-        dropdownPosition="right"
-        triggerProps={{
-          bg: 'transparent', // 设置背景颜色为灰色
-          borderRadius: 'md', // 设置圆角矩形
-          disabled: disabled
-        }}
-        renderTrigger={({ activeOption }) => (
+    <Menu
+      placement="bottom right"
+      style={{ width: 140 }}
+      offset={42}
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)} // 监听弹窗关闭事件
+      trigger={(triggerProps) => (
+        <Pressable {...triggerProps} disabled={disabled} onPress={() => setIsOpen(!isOpen)}>
           <Box
-            px={4}
-            py={2}
             bg="transparent"
             borderRadius="md"
             flexDirection="row"
             alignItems="center"
           >
-            {activeOption?.iconUrl && (
+            {selectedCurrency?.iconUrl && (
               <Image
-                source={{ uri: activeOption.iconUrl }}
+                source={{ uri: selectedCurrency.iconUrl }}
                 style={{ width: 24, height: 24, marginRight: 8 }}
               />
             )}
-            <Text fontSize={16} color="primary">
-              {activeOption ? activeOption.label : intl.formatMessage({ id: 'title__select_a_token' })}
+            <Text fontSize={16} color={colors.inputText} fontWeight={600}>
+              {selectedCurrency ? selectedCurrency.label : intl.formatMessage({ id: 'title__select_a_token' })}
+            </Text>
+            <Icon
+              name={isOpen ? 'ChevronDownMini' : 'ChevronRightMini'}
+              size={24}
+            />
+          </Box>
+        </Pressable>
+      )}
+    >
+      {currencyOptions.map(option => (
+        <Menu.Item
+          key={option.value}
+          onPress={() => {
+            onCurrenciesChange(option.value);
+            setIsOpen(false); // 关闭弹窗
+          }}
+        >
+          <Box flexDirection="row" alignItems="center">
+            {option.iconUrl && (
+              <Image
+                source={{ uri: option.iconUrl }}
+                style={{ width: 24, height: 24, marginRight: 8 }}
+              />
+            )}
+            <Text fontSize={16} color={colors.inputText}>
+              {option.label}
             </Text>
           </Box>
-        )}
-      />
-    </Box>
+        </Menu.Item>
+      ))}
+    </Menu>
   );
 };
 

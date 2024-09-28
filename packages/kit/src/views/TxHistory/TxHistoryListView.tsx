@@ -320,6 +320,8 @@ function TxHistoryListViewComponent({
           tokenAddress === '' ? tokenAddress : tokenAddress || undefined,
         limit: HISTORY_CONSTS.DISPLAY_TX_LIMIT,
       });
+
+      console.log("获取历史记录  ",txList)
       return txList;
     },
     [serviceHistory],

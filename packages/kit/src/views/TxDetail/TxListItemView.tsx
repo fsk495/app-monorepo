@@ -35,6 +35,7 @@ function TxListItemViewCmp(props: {
   isLast: boolean;
 }) {
   const { historyTx, isFirst, isLast } = props;
+  
   const { decodedTx } = historyTx;
   const { status } = decodedTx;
   const intl = useIntl();
@@ -106,6 +107,8 @@ function TxListItemViewCmp(props: {
     </HStack>
   ) : null;
   const paddingY = 16; // should convert to px string
+
+  console.log("historyTx    ",historyTx);
   return (
     <Pressable.Item
       borderTopRadius={isFirst ? 12 : 0}

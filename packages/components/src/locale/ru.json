@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Оставшаяся сумма будет возвращена",
   "title_wallet_nickname":"Имя кошелька",
   "action__paste_address":"Вставить адрес",
-  "im_authorized":"NIM запрашивает авторизованный вход"
+  "im_authorized":"NIM запрашивает авторизованный вход",
+  "title_redEnvelope_lucky":"Счастливый красный пакет",
+  "onboarding__landing_welcome_desc_new":"Самый полезный децентрализованный социальный кошелек",
+  "upload_header_success":"Загрузка прошла успешно, ожидание обновления",
+  "upload_header_failed":"Загрузка не удалась",
+  "title_redEnvelope_getChain":"Получить токен"
 }

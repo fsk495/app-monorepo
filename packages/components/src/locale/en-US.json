@@ -3019,5 +3019,10 @@
   "title_redEnvelope_return":"The remaining amount will be returned",
   "title_wallet_nickname":"Wallet Nickname",
   "action__paste_address":"Paste Address",
-  "im_authorized":"NIM requests authorized login"
+  "im_authorized":"NIM requests authorized login",
+  "title_redEnvelope_lucky":"Lucky Red Packet",
+  "onboarding__landing_welcome_desc_new":"The most useful decentralized social wallet",
+  "upload_header_success":"Upload successful, waiting for refresh",
+  "upload_header_failed":"Upload failed",
+  "title_redEnvelope_getChain":"Get token"
 }

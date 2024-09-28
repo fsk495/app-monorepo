@@ -104,6 +104,7 @@ const AddImportedAccountDone = () => {
         walletId={null}
         skipSavePassword
         field={ValidationFields.Account}
+        requireNickname={false}
       >
         {(password, { withEnableAuthentication },nickname) => (
           <Done

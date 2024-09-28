@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"เงินคงเหลือจะถูกส่งคืน",
   "title_wallet_nickname":"ชื่อเล่นของกระเป๋าสตางค์",
   "action__paste_address":"วางที่อยู่",
-  "im_authorized":"NIM ร้องขอการเข้าสู่ระบบที่ได้รับอนุญาต"
+  "im_authorized":"NIM ร้องขอการเข้าสู่ระบบที่ได้รับอนุญาต",
+  "title_redEnvelope_lucky":"ซองแดงนำโชค",
+  "onboarding__landing_welcome_desc_new":"กระเป๋าเงินโซเชียลแบบกระจายอำนาจที่มีประโยชน์ที่สุด",
+  "upload_header_success":"อัปโหลดสำเร็จแล้ว กำลังรอการรีเฟรช",
+  "upload_header_failed":"อัปโหลดล้มเหลว",
+  "title_redEnvelope_getChain":"รับโทเค็น"
 }

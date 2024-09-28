@@ -345,11 +345,11 @@ export const SendAuthentication = () => {
       }}
     >
       <Box flex={1}>
-        <DecodeTxButtonTest
+        {/* <DecodeTxButtonTest
           accountId={accountId}
           networkId={networkId}
           encodedTx={params.encodedTx}
-        />
+        /> */}
         <Protected walletId={walletId} field={ValidationFields.Payment}>
           {(password) => (
             <SendAuthMemo setTitleInfo={setTitleInfo} password={password} />

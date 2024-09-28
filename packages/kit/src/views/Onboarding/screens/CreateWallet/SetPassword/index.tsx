@@ -177,6 +177,7 @@ const SetPassword = () => {
         walletId={null}
         skipSavePassword
         field={ValidationFields.Wallet}
+        requireNickname={false}
       >
         {(password, { withEnableAuthentication }, nickname) => (
           <RedirectToRecoveryPhraseMemo

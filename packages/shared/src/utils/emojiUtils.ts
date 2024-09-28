@@ -1842,17 +1842,17 @@ export const randomList = [
   '7.png',
   '8.png',
 ] as const;
-export type ImageKey = '1.png' | '2.png' | '3.png' | '4.png' | '5.png' | '6.png' | '7.png' | '8.png' ;
+export type ImageKey = '1.png' | '2.png' | '3.png' | '4.png' | '5.png' | '6.png' | '7.png' | '8.png';
 
 export const imageMap = {
-  '1.png': require('@onekeyhq/kit/assets/avatar/1.png'),
-  '2.png': require('@onekeyhq/kit/assets/avatar/2.png'),
-  '3.png': require('@onekeyhq/kit/assets/avatar/3.png'),
-  '4.png': require('@onekeyhq/kit/assets/avatar/4.png'),
-  '5.png': require('@onekeyhq/kit/assets/avatar/5.png'),
-  '6.png': require('@onekeyhq/kit/assets/avatar/6.png'),
-  '7.png': require('@onekeyhq/kit/assets/avatar/7.png'),
-  '8.png': require('@onekeyhq/kit/assets/avatar/8.png'),
+  '1.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/1.png',
+  '2.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/2.png',
+  '3.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/3.png',
+  '4.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/4.png',
+  '5.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/5.png',
+  '6.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/6.png',
+  '7.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/7.png',
+  '8.png': 'https://drag2.s3.ap-east-1.amazonaws.com/im_icon/8.png',
 };
 
 export type EmojiTypes = typeof randomList[number];
@@ -1873,7 +1873,7 @@ export type Avatar = {
   bgColor: string;
 };
 
-export const defaultAvatar: Avatar = { emoji: '1.png', bgColor: '#55A9D9' };
+export const defaultAvatar: Avatar = { emoji: '1.png', bgColor: '#55A9D9'};
 
 function getRandomInt(max: number) {
   return Math.floor(Math.random() * max);
@@ -1882,6 +1882,13 @@ function getRandomInt(max: number) {
 export function randomAvatar(): Avatar {
   return {
     emoji: randomList[getRandomInt(randomList.length)],
+    bgColor: colors[getRandomInt(colors.length)],
+  };
+}
+
+export function getOldAvatar(icon: string): Avatar {
+  return {
+    emoji: icon ?? randomList[getRandomInt(randomList.length)],
     bgColor: colors[getRandomInt(colors.length)],
   };
 }

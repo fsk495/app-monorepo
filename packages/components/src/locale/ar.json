@@ -3019,5 +3019,10 @@
   "title_redEnvelope_return":"سيتم إرجاع المبلغ المتبقي",
   "title_wallet_nickname":"اسم المحفظة",
   "action__paste_address":"لصق العنوان",
-  "im_authorized":"يطلب NIM تسجيل الدخول المعتمد"
+  "im_authorized":"يطلب NIM تسجيل الدخول المعتمد",
+  "title_redEnvelope_lucky":"حزمة الحظ الحمراء",
+  "onboarding__landing_welcome_desc_new":"المحفظة الاجتماعية اللامركزية الأكثر فائدة",
+  "upload_header_success":"تم التحميل بنجاح، في انتظار التحديث",
+  "upload_header_failed":"فشل التحميل",
+  "title_redEnvelope_getChain":"احصل على الرمز"
 }

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, ScrollView, Modal,  } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator, ScrollView, Modal, Dimensions, LayoutChangeEvent } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { IOnboardingRoutesParams } from '../../Onboarding/routes/types';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
-import { Box, IconButton, useSafeAreaInsets, Text, ToastManager,Image } from '@onekeyhq/components';
+import { Box, IconButton, useSafeAreaInsets, ToastManager, Image, Typography } from '@onekeyhq/components';
 import { getRedPackageInfo, recevieRedPackageRecord } from '../../../utils/IMDataUtil';
 import { useIntl } from 'react-intl';
 import { ExpiredRedEnvelope, getLeftMoney, getRedEnvelope } from '../../../utils/RedEnvelope';
@@ -12,8 +12,9 @@ import backgroundApiProxy from '../../../background/instance/backgroundApiProxy'
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 import { EIP1559Fee } from '@onekeyhq/engine/src/types/network';
 import { useActiveWalletAccount } from '../../../hooks';
-import redEnvelopes from '../redEnvelopes.png';
 import { ImageKey, imageMap } from '@onekeyhq/shared/src/utils/emojiUtils';
+import { useTheme } from '@onekeyhq/components';
+import Svg, { Path } from 'react-native-svg';
 
 type RouteProps = RouteProp<
   IOnboardingRoutesParams,
@@ -28,6 +29,7 @@ interface ReciveHbListItem {
   peerType: number;
   nike_name: string;
   icon: string;
+  create_date: string;
 }
 
 interface RedEnvelopeInfo {
@@ -57,12 +59,16 @@ interface jsonProps {
   chainLogo: string;
   tokenLogo: string;
   networkId: string;
+  chainName: string;
 }
 
+const { width } = Dimensions.get('window');
+const height = width / 2;
+
 const ReceiveRedEnvelopesScreen = () => {
-  const route = useRoute<RouteProps>(); // 使用 useRoute 获取路由参数
+  const route = useRoute<RouteProps>();
   const { accountId } = useActiveWalletAccount();
-  let { imserver_id, peerID, peerType, redEnvelopeId, walletName } = route.params || {}; // 获取 imserver_id 参数
+  let { imserver_id, peerID, peerType, redEnvelopeId, walletName } = route.params || {};
   const inset = useSafeAreaInsets();
   const [loading, setLoading] = useState(true);
   const intl = useIntl();
@@ -71,22 +77,52 @@ const ReceiveRedEnvelopesScreen = () => {
   const navigation = useNavigation();
   const [password, setPassword] = useState('');
   const [networkId, setNetworkId] = useState('');
+  const [contentHeight, setContentHeight] = useState(0);
+  const [scrollViewHeight, setScrollViewHeight] = useState(0);
 
   const { engine, serviceGas } = backgroundApiProxy;
   const [privateKey, setPrivateKey] = useState<string>('');
-  const [gas, setGas] = useState<string | EIP1559Fee>(''); // 新增状态来存储gas非
+  const [gas, setGas] = useState<string | EIP1559Fee>('');
+
+  const [receive_count, setReceiveCount] = useState<string | EIP1559Fee>('0'); 
+
+  const { themeVariant } = useTheme();
+
+  const themeColors = {
+    light: {
+      text: 'rgba(0,0,0,0.5)',
+      inputText: 'black',
+      backgroundBox: 'rgba(1, 136, 138, 0.05)',
+    },
+    dark: {
+      text: 'rgba(255,255,255,0.5)',
+      inputText: 'white',
+      backgroundBox: 'rgba(255, 255, 255, 0.05)',
+    },
+  };
+
+  const colors = themeColors[themeVariant];
+
+  // 截取时间
+  const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
 
   useEffect(() => {
     const fetchRedEnvelopeInfo = async () => {
       try {
         const response = await getRedPackageInfo(redEnvelopeId + "");
         if (response && response.data && response.data.length > 0) {
-          console.log("response.data  ", response.data);
           const info = response.data[0];
+          // const firstItem = info.recive_hb_list[0];
+          // const newReciveHbList = Array(5).fill(firstItem);
+          // info.recive_hb_list = newReciveHbList;
           setRedEnvelopeInfo(info);
           if (info.json) {
             const parsedJson = JSON.parse(info.json);
-            console.log("parsedJson  ", parsedJson);
             setJsonData({
               password: parsedJson.password,
               redEnvelopeId: parsedJson.redEnvelopeId,
@@ -95,22 +131,19 @@ const ReceiveRedEnvelopesScreen = () => {
               chainLogo: parsedJson.chainLogo,
               tokenLogo: parsedJson.tokenLogo,
               networkId: parsedJson.networkId,
+              chainName: parsedJson.chainName
             });
-
             setPassword(parsedJson.password);
             setNetworkId(parsedJson.networkId);
-            console.log('networkId     ', parsedJson.networkId);
           }
         } else {
           ToastManager.show({
-            title: intl.formatMessage({ id: 'msg__unknown_error' }),
+            title: intl.formatMessage({ id: 'msg__wrong_network' }),
           });
-          console.log("没有找到服务信息  ");
         }
       } catch (err) {
-        console.log("fetchRedEnvelopeInfo err:  ", err);
         ToastManager.show({
-          title: intl.formatMessage({ id: 'msg__unknown_error' }),
+          title: intl.formatMessage({ id: 'msg__wrong_network' }),
         });
       } finally {
         setLoading(false);
@@ -133,13 +166,11 @@ const ReceiveRedEnvelopesScreen = () => {
   useEffect(() => {
     if (redEnvelopeInfo && jsonData && privateKey && gas) {
       if (redEnvelopeInfo.recive_hb_list.length < redEnvelopeInfo.num && !redEnvelopeInfo.is_timeout) {
-        // 检查用户是否已经领取过红包
         const hasUserReceived = redEnvelopeInfo.recive_hb_list.some(item => item.imserver_id === imserver_id);
         if (!hasUserReceived) {
           receiveRedEnvelopes();
         }
-      }
-      else if (redEnvelopeInfo.is_timeout) {
+      } else if (redEnvelopeInfo.is_timeout) {
         ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_expired' }) });
         if (redEnvelopeInfo.imserver_id === imserver_id) {
           ExpiredRedEnvelopes();
@@ -155,7 +186,6 @@ const ReceiveRedEnvelopesScreen = () => {
       try {
         const $privateKey = await engine.getAccountPrivateKey({ accountId, credentialType, password });
         setPrivateKey($privateKey);
-        console.log("privateKey    ", $privateKey);
       } catch (error) {
         console.error('Error fetching private key:', error);
       }
@@ -163,10 +193,7 @@ const ReceiveRedEnvelopesScreen = () => {
   }
 
   const fetchGasInfo = async (networkId: string) => {
-    const resp = await serviceGas.getGasInfo({
-      networkId: networkId,
-    });
-
+    const resp = await serviceGas.getGasInfo({ networkId });
     if (resp.prices.length === 5) {
       resp.prices = [resp.prices[0], resp.prices[2], resp.prices[4]];
     }
@@ -174,51 +201,47 @@ const ReceiveRedEnvelopesScreen = () => {
   }
 
   const receiveRedEnvelopes = async () => {
-    setLoading(true); // 开始领取红包时显示loading动画
+    setLoading(true);
     try {
       let tempRedEnvelopeId = redEnvelopeId as number;
-      
       let network = await backgroundApiProxy.engine.getNetwork(networkId);
-      const responseLeftMonkey = await getLeftMoney(tempRedEnvelopeId, network.rpcURL, privateKey);
-      console.log("responseLeftMonkey   ",parseFloat(responseLeftMonkey));
-      // return;
-      const response = await getRedEnvelope(tempRedEnvelopeId, password, network.rpcURL, privateKey, gas);
-      //领取红包成功
+      ToastManager.show({ title: '正在打开红包' });//intl.formatMessage({ id: 'title_redEnvelope_opening' }) });
+      const response = await getRedEnvelope(tempRedEnvelopeId, password, network.rpcURL, privateKey, gas, jsonData?.networkId as string);
       if (response?.success) {
+        if(response?.amount)
+        {
+          setReceiveCount(response?.amount)
+        }
         ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_success' }) });
         const responseReceive = await recevieRedPackageRecord(tempRedEnvelopeId.toString(), imserver_id as number, parseFloat(response?.amount), walletName, peerID as number, peerType as number);
-        console.log("领取红包成功  ");
-        // 重新获取红包信息，刷新显示的数据
         if (responseReceive.code === 200) {
           const updatedResponse = await getRedPackageInfo(redEnvelopeId + "");
           if (updatedResponse && updatedResponse.data && updatedResponse.data.length > 0) {
             setRedEnvelopeInfo(updatedResponse.data[0]);
+
+            ToastManager.show({ title: `${response?.amount} ${redEnvelopeInfo?.coin} 已存入您的钱包` });
           }
         }
-      }
-      else {
+      } else {
         ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_failed' }) });
       }
     } catch (error) {
       console.error("领取红包失败:", error);
     } finally {
-      setLoading(false); // 领取完成后隐藏loading动画
+      setLoading(false);
     }
   }
 
   const ExpiredRedEnvelopes = async () => {
-    setLoading(true); // 开始领取红包时显示loading动画
+    setLoading(true);
     try {
       let tempRedEnvelopeId = redEnvelopeId as number;
-      console.log("领取过期红包");
       let network = await backgroundApiProxy.engine.getNetwork(networkId);
-      const responseLeftMonkey = await getLeftMoney(tempRedEnvelopeId, network.rpcURL, privateKey);
+      const responseLeftMonkey = await getLeftMoney(tempRedEnvelopeId, network.rpcURL, privateKey, jsonData?.networkId as string);
       if (parseFloat(responseLeftMonkey) === 0) {
-        console.log("过期红包已经领取过了");
         return;
       }
-      const response = await ExpiredRedEnvelope(tempRedEnvelopeId, network.rpcURL, privateKey, gas);
-      //领取红包成功
+      const response = await ExpiredRedEnvelope(tempRedEnvelopeId, network.rpcURL, privateKey, gas, jsonData?.networkId as string);
       if (response?.success) {
         ToastManager.show({ title: intl.formatMessage({ id: 'title_redEnvelope_return' }) });
         navigation.goBack();
@@ -226,21 +249,39 @@ const ReceiveRedEnvelopesScreen = () => {
     } catch (error) {
       console.error("领取过期红包失败:", error);
     } finally {
-      setLoading(false); // 领取完成后隐藏loading动画
+      setLoading(false);
     }
   }
+
+  const handleContentLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setContentHeight(height);
+  };
+
+  const handleScrollViewContentSizeChange = (width: number, height: number) => {
+    if (contentHeight > 0) {
+      const maxHeight = contentHeight - 200;
+      setScrollViewHeight(Math.min(height + 10, maxHeight));
+    }
+  };
+
+  useEffect(() => {
+    if (contentHeight > 0) {
+      handleScrollViewContentSizeChange(0, contentHeight);
+    }
+  }, [contentHeight]);
 
   if (!redEnvelopeInfo) {
     return (
       <View style={styles.container}>
-        <Text>{"暂无红包"}</Text>
+        <Typography.Body1 color={colors.text}>{"暂无红包"}</Typography.Body1>
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={[styles.container]}>
+      <View style={[styles.header, { backgroundColor: colors.backgroundBox, paddingTop: inset.top }]}>
         <IconButton
           position="absolute"
           onPress={() => navigation.goBack()}
@@ -252,19 +293,34 @@ const ReceiveRedEnvelopesScreen = () => {
           circle
           zIndex={9999}
         />
-        <Text style={styles.title}>{intl.formatMessage({ id: 'receive_red_envelopes' })}</Text>
+        <Typography.DisplayLarge style={styles.title}>{intl.formatMessage({ id: 'receive_red_envelopes' })}</Typography.DisplayLarge>
       </View>
-      <Box flexDirection="column" alignItems="center" marginTop={5}>
-        <Image
-          w={312}
-          h={218}
-          resizeMode="contain"
-          source={redEnvelopes}
-        />
-      </Box>
-
-      <Text style={[styles.infoText, styles.centeredText]}>{intl.formatMessage({ id: 'form__quantity' })}: {redEnvelopeInfo.recive_hb_list.length}/{redEnvelopeInfo.num}</Text>
-      <View style={styles.content}>
+      <Box
+        width='100%'
+        height={50}
+        bgColor={colors.backgroundBox}
+      ></Box>
+      <View style={styles.ellipseContainer}>
+        <Svg height={height} width={width}>
+          <Path
+            d={`M 0 ${0} A ${width / 2} ${width / 4} 0 0 0 ${width} ${0}`}
+            fill={colors.backgroundBox}
+          />
+        </Svg>
+        <Box
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          style={styles.ellipseTextContainer}
+        >
+          <Box flexDirection="row" alignItems="center" justifyContent="center" flexWrap="wrap">
+            <Typography.Body1 fontSize={30} fontWeight="bold" color={colors.inputText} lineHeight={32}>{receive_count} {redEnvelopeInfo.coin}</Typography.Body1>
+          </Box>
+          <Typography.Body1 fontSize={14} color={colors.text}>{intl.formatMessage({ id: 'title_redEnvelope_getChain' })}</Typography.Body1>
+        </Box>
+      </View>
+      <Typography.Body1 style={[styles.infoText, styles.centeredText]} color={colors.text}>{intl.formatMessage({ id: 'form__quantity' })}: {redEnvelopeInfo.recive_hb_list.length}/{redEnvelopeInfo.num}</Typography.Body1>
+      <View style={styles.content} onLayout={handleContentLayout}>
         <View style={styles.moduleContainer}>
           <Box
             flexDirection="row"
@@ -273,17 +329,18 @@ const ReceiveRedEnvelopesScreen = () => {
             mb={2}
             p={2}
             borderRadius="lg"
+            style={styles.optionBoxBottom}
+            bgColor={colors.backgroundBox}
           >
-            <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'network__network' })}</Text>
-            <Box flexDirection="row" alignItems="center" bgColor={'#E7F6F1'} padding={2}>
+            <Typography.Body1 fontSize={16} color={colors.text}>{intl.formatMessage({ id: 'network__network' })}</Typography.Body1>
+            <Box flexDirection="row" alignItems="center" padding={2}>
               <Image
                 source={{ uri: jsonData?.chainLogo }}
                 style={{ width: 24, height: 24, marginRight: 8 }}
               />
-              <Text fontSize={16} fontWeight="bold">{redEnvelopeInfo.chain_name}</Text>
+              <Typography.Body1 fontSize={16} fontWeight={600} color={colors.inputText}>{jsonData?.chainName}</Typography.Body1>
             </Box>
           </Box>
-          <View style={styles.divider} />
           <Box
             flexDirection="row"
             alignItems="center"
@@ -291,53 +348,52 @@ const ReceiveRedEnvelopesScreen = () => {
             mb={2}
             p={2}
             borderRadius="lg"
+            style={styles.optionBoxBottom}
+            bgColor={colors.backgroundBox}
           >
-            <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'asset__tokens' })}</Text>
-            <Box flexDirection="row" alignItems="center" bgColor={'#E7F6F1'} padding={2}>
+            <Typography.Body1 fontSize={16} color={colors.text}>{intl.formatMessage({ id: 'asset__tokens' })}</Typography.Body1>
+            <Box flexDirection="row" alignItems="center" padding={2}>
               <Image
                 source={{ uri: jsonData?.tokenLogo }}
                 style={{ width: 24, height: 24, marginRight: 8 }}
               />
-              <Text fontSize={16} fontWeight="bold">{redEnvelopeInfo.coin}</Text>
+              <Typography.Body1 fontSize={16} fontWeight={600} color={colors.inputText}>{redEnvelopeInfo.coin}</Typography.Body1>
             </Box>
           </Box>
-          <View style={styles.divider} />
-          <Box
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-            mb={1}
-            p={1}
-            borderRadius="lg"
-          >
-            <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'form__amount' })}</Text>
-            <Box flexDirection="row" alignItems="center">
-              <Text fontSize={16} fontWeight="bold">{redEnvelopeInfo.money} {redEnvelopeInfo.coin}</Text>
-            </Box>
-          </Box>
-        </View>
-        {redEnvelopeInfo.recive_hb_list.length > 0 && (
-          <ScrollView style={styles.reciveHbList}>
-            {redEnvelopeInfo.recive_hb_list.map((item, index) => (
-              <View key={index}>
-                <View style={styles.reciveHbListItem}>
-                  <Box flexDirection="row" alignItems="center" borderRadius="12">
-                    <Image
-                      source={imageMap[(item.icon ?? '1.png') as ImageKey]}
-                      style={{ width: 24, height: 24, marginRight: 8 }}
-                    />
-                    <Text style={styles.reciveHbListItemText}>{item.nike_name}</Text>
-                  </Box>
-                  <Text style={styles.reciveHbListItemText}>{item.money} {redEnvelopeInfo.coin}</Text>
+          {redEnvelopeInfo.recive_hb_list.length > 0 && (
+            <ScrollView
+              style={[styles.reciveHbList, { backgroundColor: colors.backgroundBox, height: scrollViewHeight }]}
+              showsVerticalScrollIndicator={false}
+              onContentSizeChange={handleScrollViewContentSizeChange}
+            >
+              {redEnvelopeInfo.recive_hb_list.map((item, index) => (
+                <View key={index}>
+                  <View style={styles.reciveHbListItem}>
+                    <Box flexDirection="row" alignItems="center" borderRadius="12">
+                      <Image
+                        source={{ uri: item.icon }}
+                        style={{ width: 50, height: 50, marginRight: 8, borderRadius: 10 }}
+                      />
+                      <Box
+                        flexDirection="column"
+                        alignItems="flex-start" // 左对齐
+                        justifyContent="center"
+                      >
+                        <Typography.Body1 style={styles.reciveHbListItemNameText} color={colors.inputText}>{item.nike_name}</Typography.Body1>
+                        <Typography.Body1 fontSize={12} color={colors.text}>{formatTime(item.create_date)}</Typography.Body1>
+                      </Box>
+
+                    </Box>
+                    <Typography.Body1 style={styles.reciveHbListItemText} color={colors.inputText}>{item.money} {redEnvelopeInfo.coin}</Typography.Body1>
+                  </View>
+                  {index < redEnvelopeInfo.recive_hb_list.length - 1 && <View style={styles.divider} />}
                 </View>
-                {index < redEnvelopeInfo.recive_hb_list.length - 1 && <View style={styles.divider} />}
-              </View>
-            ))}
-          </ScrollView>
-        )}
+              ))}
+            </ScrollView>
+          )}
+        </View>
       </View>
 
-      {/* Loading Modal */}
       <Modal
         transparent={true}
         animationType="none"
@@ -377,19 +433,15 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     maxWidth: 768,
-    marginHorizontal: 'auto',
-    paddingHorizontal: 16
+    paddingBottom: 20,
   },
   moduleContainer: {
-    width: '90%', // 调整宽度
-    backgroundColor: 'white',
+    width: '100%',
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'black',
     paddingHorizontal: 16,
     padding: 10,
     marginBottom: 10,
-    alignSelf: 'center', // 居中对齐
+    alignSelf: 'center',
   },
   infoText: {
     fontSize: 16,
@@ -400,30 +452,31 @@ const styles = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: 'black',
-    marginVertical: 10,
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    marginVertical: 5,
+    marginHorizontal: 20,
   },
   reciveHbList: {
-    width: '90%', // 调整宽度
-    marginTop: 10,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    padding: 10,
-    marginBottom: 20,
-    alignSelf: 'center', // 居中对齐
-    flexGrow: 1, // 确保内容可以滚动
+    width: '100%',
+    paddingVertical: 10,
+    alignSelf: 'center',
+    flexGrow: 1,
   },
   reciveHbListItem: {
     flexDirection: 'row',
+    alignItems: "center",
     justifyContent: 'space-between',
-    padding: 5,
-    marginBottom: 10,
-    borderRadius: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 18,
+    marginVertical: 5,
+  },
+  reciveHbListItemNameText: {
+    fontSize: 16,
+    fontWeight: 'normal'
   },
   reciveHbListItemText: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: '600'
   },
   modalBackground: {
     flex: 1,
@@ -440,7 +493,27 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-around'
-  }
+  },
+  optionBoxBottom: {
+    width: '100%',
+    height: 60,
+    marginBottom: 10,
+  },
+  ellipseContainer: {
+    position: 'relative',
+    width: '100%',
+    height: 100,
+    marginBottom: 25
+  },
+  ellipseTextContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default ReceiveRedEnvelopesScreen;

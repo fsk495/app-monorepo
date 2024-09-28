@@ -227,7 +227,7 @@ function AddressLabel(props: Props) {
           accountWallet?.name ??
           (isWatchAccountLabel ? 'form__watched_address' : 'form__my_account'),
         type: 'success',
-        icon: accountWallet?.avatar?.emoji ?? '👤',
+        icon: '👤',
         desc: accountLabel,
       },
       isAddressBookLabel && {
@@ -304,37 +304,17 @@ function AddressLabel(props: Props) {
 
       if (label.icon) {
         if (label.desc) {
-          return `${label.icon} ${intl.formatMessage(
-            {
-              id: label.title,
-            },
-            values,
-          )}: ${label.desc}`;
+          return `${label.icon} ${label.title}: ${label.desc}`;
         }
 
-        return `${label.icon} ${intl.formatMessage(
-          {
-            id: label.title,
-          },
-          values,
-        )}`;
+        return `${label.icon} ${label.title}`;
       }
 
       if (label.desc) {
-        return `${intl.formatMessage(
-          {
-            id: label.title,
-          },
-          values,
-        )}: ${label.desc}`;
+        return `${label.title}: ${label.desc}`;
       }
 
-      return `${intl.formatMessage(
-        {
-          id: label.title,
-        },
-        values,
-      )}`;
+      return `${label.title}`;
     },
     [intl, validAddressMessageProperty],
   );

@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Залишок суми буде повернено",
   "title_wallet_nickname":"Псевдонім гаманця",
   "action__paste_address":"Вставити адресу",
-  "im_authorized":"NIM запитує авторизований вхід"
+  "im_authorized":"NIM запитує авторизований вхід",
+  "title_redEnvelope_lucky":"Щасливий червоний пакет",
+  "onboarding__landing_welcome_desc_new":"Найкорисніший децентралізований соціальний гаманець",
+  "upload_header_success":"Завантаження успішне, очікується оновлення",
+  "upload_header_failed":"Помилка завантаження",
+  "title_redEnvelope_getChain":"Отримати жетон"
 }

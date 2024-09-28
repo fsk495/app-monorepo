@@ -171,7 +171,7 @@ const Welcome = () => {
           {intl.formatMessage({ id: 'onboarding__landing_welcome_title' })}
           {'\n'}
           <Text color="text-subdued">
-            {intl.formatMessage({ id: 'onboarding__landing_welcome_desc' })}
+            {intl.formatMessage({ id: 'onboarding__landing_welcome_desc_new' })}
           </Text>
         </Text>
         <Box

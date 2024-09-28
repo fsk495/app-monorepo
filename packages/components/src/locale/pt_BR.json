@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"O valor restante será devolvido",
   "title_wallet_nickname":"Apelido da carteira",
   "action__paste_address":"Colar Endereço",
-  "im_authorized":"O NIM solicita login autorizado"
+  "im_authorized":"O NIM solicita login autorizado",
+  "title_redEnvelope_lucky":"Pacote vermelho da sorte",
+  "onboarding__landing_welcome_desc_new":"A carteira social descentralizada mais útil",
+  "upload_header_success":"Upload bem-sucedido, aguardando atualização",
+  "upload_header_failed":"Falha no upload",
+  "title_redEnvelope_getChain":"Obter token"
 }

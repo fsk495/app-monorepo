@@ -393,12 +393,12 @@ export function BaseSendConfirmModal(props: ITxConfirmViewProps) {
 
             <SendConfirmErrorBoundary>
               {children}
-              <DecodeTxButtonTest
+               {/* <DecodeTxButtonTest
                 accountId={accountId}
                 networkId={networkId}
                 encodedTx={encodedTx}
                 feeInfoPayload={feeInfoPayload}
-              />
+              />  */}
             </SendConfirmErrorBoundary>
 
             {platformEnv.isDev ? (

@@ -30,6 +30,8 @@ export enum EOnboardingRoutes {
   //VerifyPassword
   VerifyPassword = 'VerifyPassword',
 
+  VerifyPassword_red = 'VerifyPassword_red',
+
   //IM Send And Receive
 
   SendRedPackage = 'SendRedPackage',

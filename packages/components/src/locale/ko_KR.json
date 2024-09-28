@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"나머지 금액은 반환됩니다.",
   "title_wallet_nickname":"지갑 별명",
   "action__paste_address":"주소 붙여넣기",
-  "im_authorized":"NIM이 승인된 로그인을 요청합니다"
+  "im_authorized":"NIM이 승인된 로그인을 요청합니다",
+  "title_redEnvelope_lucky":"행운의 빨간 패킷",
+  "onboarding__landing_welcome_desc_new":"가장 유용한 분산형 소셜 지갑",
+  "upload_header_success":"업로드 성공, 새로 고침 대기 중",
+  "upload_header_failed":"업로드 실패",
+  "title_redEnvelope_getChain":"토큰 받기"
 }

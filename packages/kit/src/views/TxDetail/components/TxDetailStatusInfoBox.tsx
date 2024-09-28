@@ -31,6 +31,7 @@ import type { IBaseMenuOptions } from '../../Overlay/BaseMenu';
 import type { ITxActionListViewProps } from '../types';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { ImageURISource } from 'react-native';
+import { openDapp } from '../../../utils/openUrl';
 
 type Props = ITxActionListViewProps & {
   tokensInTx: Token[];
@@ -66,37 +67,44 @@ function TxDetailStatusInfoBox(props: Props) {
   const handleToSwapOnPress = useCallback(
     async (token: Token) => {
       let checkToken = token;
-      if (checkToken) {
-        const supported = await backgroundApiProxy.serviceSwap.tokenIsSupported(
-          checkToken,
-        );
-        if (!supported) {
-          ToastManager.show(
-            {
-              title: intl.formatMessage({ id: 'msg__wrong_network_desc' }),
-            },
-            { type: 'default' },
-          );
-          checkToken = await backgroundApiProxy.engine.getNativeTokenInfo(
-            OnekeyNetwork.eth,
-          );
-        }
+      if(decodedTx.networkId === 'evm--7256'){
+        navigation?.goBack();
+        openDapp('https://swap.novaichain.com/novaichain#/swap');
       }
-      const isLightningNetwork = isLightningNetworkByNetworkId(
-        decodedTx.networkId,
-      );
-      backgroundApiProxy.serviceSwap
-        .sellToken(checkToken, !isLightningNetwork)
-        .then(() => {
-          if (isLightningNetwork) {
-            backgroundApiProxy.serviceSwap.switchToNativeOutputToken(
-              decodedTx.networkId === OnekeyNetwork.lightning
-                ? OnekeyNetwork.btc
-                : OnekeyNetwork.tbtc,
+      else
+      {
+        if (checkToken) {
+          const supported = await backgroundApiProxy.serviceSwap.tokenIsSupported(
+            checkToken,
+          );
+          if (!supported) {
+            ToastManager.show(
+              {
+                title: intl.formatMessage({ id: 'msg__wrong_network_desc' }),
+              },
+              { type: 'default' },
+            );
+            checkToken = await backgroundApiProxy.engine.getNativeTokenInfo(
+              OnekeyNetwork.eth,
             );
           }
-        });
-      navigation.navigate(TabRoutes.Swap);
+        }
+        const isLightningNetwork = isLightningNetworkByNetworkId(
+          decodedTx.networkId,
+        );
+        backgroundApiProxy.serviceSwap
+          .sellToken(checkToken, !isLightningNetwork)
+          .then(() => {
+            if (isLightningNetwork) {
+              backgroundApiProxy.serviceSwap.switchToNativeOutputToken(
+                decodedTx.networkId === OnekeyNetwork.lightning
+                  ? OnekeyNetwork.btc
+                  : OnekeyNetwork.tbtc,
+              );
+            }
+          });
+        navigation.navigate(TabRoutes.Swap);
+      }
     },
     [intl, navigation, decodedTx.networkId],
   );

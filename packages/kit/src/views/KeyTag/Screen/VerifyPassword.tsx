@@ -29,7 +29,7 @@ const VerifyPassword = () => {
         hideBackButton={!!navigateMode}
         headerShown={!navigateMode}
       >
-        <Protected walletId={walletId} field={ValidationFields.Secret} requireNickname={true}>
+        <Protected walletId={walletId} field={ValidationFields.Secret}>
           {(password) => {
             navigation.replace(KeyTagRoutes.KeyTagAttention, {
               walletId,

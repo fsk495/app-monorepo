@@ -106,8 +106,6 @@ export function DialogConfirmMismatchOrContinue(
         onClose?.();
       }}
       contentProps={{
-        // title: intl.formatMessage({ id: 'action__remove_account' }),
-        // content: ''
         contentElement: (
           <VStack space={6} alignSelf="stretch">
             <Alert

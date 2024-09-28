@@ -11,7 +11,6 @@ import {
   KeyboardAvoidingView,
   IconButton,
   useSafeAreaInsets,
-  Text,
   Typography, // 导入 Text 组件
 } from '@onekeyhq/components';
 import { type RouteProp, useRoute } from '@react-navigation/native';
@@ -25,9 +24,6 @@ import { encodeSensitiveText } from '@onekeyhq/engine/src/secret/encryptors/aes2
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
 import { wait } from '../../../../utils/helper';
 import { Keyboard, Platform } from 'react-native';
-import AppStateUnlockButton from '../../../../components/AppLock/AppStateUnlockButton';
-import { isHdWallet, isImportedWallet } from '@onekeyhq/shared/src/engine/engineUtils';
-import { ModalRoutes, RootRoutes } from '../../../../routes/routesEnum';
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 
 type NavigationProps = StackNavigationProp<
@@ -42,7 +38,7 @@ type RouteProps = RouteProp<
 const VerifyPassword = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavigationProps>();
-  const { walletId, networkId,accountId } = route.params;
+  const { walletId, networkId,accountId,exportPrivate } = route.params;
   const intl = useIntl();
   const isSmall = useIsVerticalLayout();
   const [password, setPassword] = useState('');
@@ -55,16 +51,16 @@ const VerifyPassword = () => {
 
   const showTitle = useCallback(() => { 
     let tit = ''
-    if (isHdWallet({ walletId }))
+    if(exportPrivate)
+    {
+      tit = tit = intl.formatMessage({
+        id: 'form__private_key',
+      });
+    }
+    else
     {
       tit = intl.formatMessage({
         id: 'title__recovery_phrase',
-      })
-    }
-    else if (isImportedWallet({ walletId }))
-    {
-      tit = intl.formatMessage({
-        id: 'form__private_key',
       })
     }
     return tit;
@@ -108,7 +104,8 @@ const VerifyPassword = () => {
   const handleProtectedSubmit = useCallback(async (password: string) => {
     try {
       // 获取助记词
-      if(isHdWallet({walletId}))
+      // if(isHdWallet({walletId}))
+      if(!exportPrivate)
       {
         const mnemonic = await backgroundApiProxy.engine.revealHDWalletMnemonic(walletId, password);
         if (!mnemonic?.length) {

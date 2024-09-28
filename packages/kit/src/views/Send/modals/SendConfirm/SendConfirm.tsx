@@ -261,6 +261,9 @@ function SendConfirm({
           await dappApprove.resolve({
             result: tx.txid,
           });
+          console.log("data   ",data);
+          console.log("feeInfoValue   ",feeInfoValue);
+          console.log(`清清浅浅   networkId: ${networkId} accountId: ${accountId} data: ${data} resendActionInfo: ${resendActionInfo} feeInfoValue: ${feeInfoValue}`)
           await serviceHistory.saveSendConfirmHistory({
             networkId,
             accountId,

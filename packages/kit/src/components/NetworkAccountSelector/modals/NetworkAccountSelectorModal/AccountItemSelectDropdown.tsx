@@ -113,7 +113,7 @@ function AccountItemSelectDropdown({
   useEffect(() => {
     if (network?.id) {
       const networkSettings = networks.find(
-        (i) => i.id === network.id,
+        (i: { id: string; }) => i.id === network.id,
       )?.settings;
       setShowAllUsedAddressOption(networkSettings?.isBtcForkChain ?? false);
       setShowCopyAddressOption(network.impl !== IMPL_LIGHTNING);

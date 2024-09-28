@@ -24,9 +24,6 @@ function TextareaWithLineNumber(props: Props) {
   }, []);
 
   useLayoutEffect(() => {
-    if (textAreaLineNumberRef.current) {
-      textAreaLineNumberRef.current.style.whiteSpace = 'break-spaces';
-    }
   }, []);
 
   return (

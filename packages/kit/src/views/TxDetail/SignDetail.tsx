@@ -91,7 +91,7 @@ const renderMessage = (json: any, padding = 0) => {
 
   if (typeof json === 'string' || typeof json === 'number') {
     return (
-      <Typography.Body2 wordBreak="break-all" whiteSpace="pre-wrap">
+      <Typography.Body2 wordBreak="break-all">
         {json}
         {'\n'}
       </Typography.Body2>

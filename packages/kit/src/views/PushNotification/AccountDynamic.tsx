@@ -146,6 +146,10 @@ const Section: FC<
         />
       );
     }
+    let isNetwork = false
+    if (avatar?.emoji?.startsWith('https://') ||avatar?.emoji.startsWith('http://')) {
+      isNetwork = true
+    }
     return (
       <Box
         bg={avatar?.bgColor || '#000'}
@@ -155,11 +159,12 @@ const Section: FC<
         justifyContent="center"
         alignItems="center"
       >
-        {/* {avatar?.emoji} */}
         <Image
-          source={imageMap[avatar?.emoji as ImageKey]}
+          source={isNetwork ? { uri: avatar?.emoji } : { uri: imageMap[avatar?.emoji as ImageKey] }}
           w={20}
           h={20}
+          borderRadius={10}
+          resizeMode="cover" // 确保图像内容适应圆形
         />
       </Box>
     );

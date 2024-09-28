@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"残額は返金されます",
   "title_wallet_nickname":"ウォレットニックネーム",
   "action__paste_address":"住所を貼り付け",
-  "im_authorized":"NIMは承認されたログインを要求する"
+  "im_authorized":"NIMは承認されたログインを要求する",
+  "title_redEnvelope_lucky":"幸運の赤いパケット",
+  "onboarding__landing_welcome_desc_new":"最も便利な分散型ソーシャルウォレット",
+  "upload_header_success":"アップロード成功、更新待ち",
+  "upload_header_failed":"アップロード失敗",
+  "title_redEnvelope_getChain":"トークンを取得"
 }

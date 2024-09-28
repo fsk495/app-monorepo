@@ -62,12 +62,7 @@ export const Attentions: FC<AttentionsProps> = ({
           {List.map((item) => (
             <Box flexDirection="row" mb={4} key={item.desc} borderRadius="12">
               <Typography.DisplayLarge mt={-1} mr={4}>
-                {/* {item.emoji} */}
-                <Image
-                  source={imageMap[item.emoji as ImageKey]}
-                  w={20}
-                  h={20}
-                />  
+                {item.emoji}  
               </Typography.DisplayLarge>
               <Typography.Body1 flex={1}>{item.desc}</Typography.Body1>
             </Box>

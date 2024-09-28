@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Der Restbetrag wird zurückerstattet",
   "title_wallet_nickname":"Spitzname der Brieftasche",
   "action__paste_address":"Wallet-Spitzname",
-  "im_authorized":"NIM fordert autorisierte Anmeldung an"
+  "im_authorized":"NIM fordert autorisierte Anmeldung an",
+  "title_redEnvelope_lucky":"Rotes Glückspaket",
+  "onboarding__landing_welcome_desc_new":"Das nützlichste dezentrale Social Wallet",
+  "upload_header_success":"Upload erfolgreich, warte auf Aktualisierung",
+  "upload_header_failed":"Upload fehlgeschlagen",
+  "title_redEnvelope_getChain":"Token abrufen"
 }

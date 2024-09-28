@@ -98,11 +98,12 @@ function SectionItems({ section }: { section: Section }) {
           >
             <Center rounded="full" size="8" bgColor="surface-neutral-default">
               {iconType === 'Avatar' ? (
-                // <Text typography="DisplayMedium">{(icon as Avatar).emoji}</Text>
                 <Image
-                  source={imageMap[(icon as Avatar).emoji as ImageKey]}
+                  source={(icon as Avatar).emoji?.startsWith('https://') || (icon as Avatar).emoji.startsWith('http://') ? { uri: (icon as Avatar).emoji } : { uri: imageMap[(icon as Avatar).emoji as ImageKey] }}
                   w={20}
                   h={20}
+                  borderRadius={10}
+                  resizeMode="cover" // 确保图像内容适应圆形
                 />
               ) : (
                 <Icon

@@ -22,7 +22,7 @@ export function TxActionElementTitle(
     return null;
   }
   return (
-    <Text whiteSpace="nowrap" {...others}>
+    <Text {...others}>
       {title || ''}
     </Text>
   );

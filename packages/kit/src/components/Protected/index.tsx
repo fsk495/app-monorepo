@@ -58,7 +58,7 @@ const Protected: FC<ProtectedProps> = ({
   subTitle,
   networkId,
   checkIsNeedPassword,
-  requireNickname = false
+  requireNickname = true
 }) => {
   const navigation = useNavigation();
   const walletDetail = useGetWalletDetail(walletId);
@@ -76,7 +76,6 @@ const Protected: FC<ProtectedProps> = ({
   const isPasswordLoadedInVault = useAppSelector(
     (s) => s.data.isPasswordLoadedInVault,
   );
-
   const [isNeedInputPassword, setIsNeedInputPassword] = useState<
     boolean | undefined
   >(undefined);

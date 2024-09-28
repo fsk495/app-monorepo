@@ -147,30 +147,41 @@ const WalletImage: FC<Partial<WalletAvatarProps>> = ({
     };
   } = {
     'xl': {
-      width: '20px',
-      height: '30px',
+      width: '45px',
+      height: '45px',
     },
     'lg': {
-      width: '20px',
-      height: '30px',
+      width: '40px',
+      height: '40px',
     },
     'sm': {
-      width: '14px',
-      height: '21px',
+      width: '25px',
+      height: '25px',
     },
     'xs': {
-      width: '12px',
-      height: '18px',
+      width: '20px',
+      height: '20px',
+    },
+    'ei': {
+      width: '100px',
+      height: '100px',
     },
   };
   if (walletImage === 'hd') {
-    let emoji = avatar?.emoji as ImageKey;
+    let emoji = avatar?.emoji;
+    let source;
+    if (emoji?.startsWith('https://') || emoji?.startsWith('http://')) {
+      source = { uri: emoji };
+    }
+    else {
+      // Load local image
+      source = { uri: imageMap[emoji as ImageKey] };
+    }
     return (
-      // <Text typography={textFontSizeMap[size as string]}>{avatar?.emoji}</Text>
       <Image
-        source={imageMap[emoji]}
+        source={source}
         w={sizeMap[size as string]?.width}
-        h={sizeMap[size as string]?.height}
+        h={sizeMap[size as string]?.width}
         borderRadius={parseFloat(sizeMap[size as string]?.width) / 2} // 设置为宽度的一半
         resizeMode="cover" // 确保图像内容适应圆形
       />

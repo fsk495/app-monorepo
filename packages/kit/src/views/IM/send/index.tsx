@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import {
   Box,
@@ -9,78 +10,124 @@ import {
   Spinner,
   Image,
   ToastManager,
+  useTheme,
 } from '@onekeyhq/components';
-import { useState, useEffect } from 'react';
-import { useActiveWalletAccount, useManageNetworks, useNavigation } from '../../../hooks';
-
+import { useActiveWalletAccount, useAppSelector, useManageNetworks, useNavigation } from '../../../hooks';
 import { TextInput, View, StyleSheet } from 'react-native';
 import backgroundApiProxy from '../../../background/instance/backgroundApiProxy';
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 import { createRedEnvelope, generateUnique8DigitNumber, getRedEnvelope, ExpiredRedEnvelope } from '../../../utils/RedEnvelope';
-import { EIP1559Fee } from '@onekeyhq/engine/src/types/network';
+import { EIP1559Fee, Network } from '@onekeyhq/engine/src/types/network';
 import { sendRedPackageRecord } from '../../../utils/IMDataUtil';
-
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { IOnboardingRoutesParams } from '../../Onboarding/routes/types';
 import { EOnboardingRoutes } from '../../Onboarding/routes/enums';
 import NetworkSelector from '../send/NetworkSelector';
 import CurrenciesSelector from '../send/CurrenciesSelector';
+import { isBRC20Token } from '@onekeyhq/shared/src/utils/tokenUtils';
+import { Token } from '@onekeyhq/engine/src/types/token';
 
-interface NetworkCurrenciesMap {
-  [key: string]: { symbol: string, name: string, logoURI: string, address: string | undefined }[];
-}
+import red_E_amount from '../red_E_amount.png';
+import red_E_number from '../red_E_number.png';
+import { RootRoutes } from '../../../routes/routesEnum';
 
 type RouteProps = RouteProp<
   IOnboardingRoutesParams,
   EOnboardingRoutes.SendRedPackage
 >;
+export const getBalanceKey = (token?: Partial<Token> | null) => {
+  if (!token) {
+    return '';
+  }
+  const { sendAddress } = token;
+  const tokenAddress = token.tokenIdOnNetwork ?? token.address;
+  if (!tokenAddress) {
+    return 'main';
+  }
 
+  if (isBRC20Token(tokenAddress)) {
+    return tokenAddress;
+  }
+
+  if (sendAddress) {
+    return `${tokenAddress}--${sendAddress}`;
+  }
+  return tokenAddress;
+};
 // 发红包界面
 const SendRedEnvelopesScreen = () => {
   const inset = useSafeAreaInsets();
   const intl = useIntl();
   const navigation = useNavigation();
-  const { walletId, accountAddress, networkId, accountId } = useActiveWalletAccount();
+  const { walletId, networkId, accountId } = useActiveWalletAccount();
   const route = useRoute<RouteProps>(); // 使用 useRoute 获取路由参数
   const { imserver_id, peerID, peerType } = route.params || {}; // 获取 imserver_id 参数
+  const { themeVariant } = useTheme(); // 获取当前主题
 
   //获取支持的全部网络
   const data = useManageNetworks({ allowSelectAllNetworks: true }).enabledNetworks;
   const evmNetworks = data.filter(network => network.impl === 'evm');
 
   const [selectedNetwork, setSelectedNetwork] = useState<string>(evmNetworks[0]?.id || '');
-  const [selectedCurrencies, setSelectedCurrencies] = useState('');
   const { engine, serviceGas } = backgroundApiProxy;
   const [privateKey, setPrivateKey] = useState<string>('');
-  const [networkCurrenciesMap, setNetworkCurrenciesMap] = useState<NetworkCurrenciesMap>({});
   const [amount, setAmount] = useState<string>(''); // 新增状态来存储输入的金额
+  const [message, setMessage] = useState<string>(''); // 新增状态来存储红包留言
   const [persons, setPersons] = useState<string>(''); // 新增状态来存储红包的个数，默认为1
   const [gas, setGas] = useState<string | EIP1559Fee>(''); // 新增状态来存储gas非
   const [loading, setLoading] = useState(false); // 新增状态来控制 loading
   const [disabled, setDisabled] = useState(false); // 新增状态来控制禁用状态
+  const [token, setToken] = useState<Token | null>(null);
+  const [tokens, setTokens] = useState<Token[]>([]);
 
-  const handleSendRedEnvelope = async () => {
+  // 使用 useSelector 钩子获取代币余额
+  const totalValue = useAppSelector(
+    (s) => s.tokens.accountTokensBalance?.[networkId]?.[accountId]
+  );
+
+  const handleSendRedEnvelope = () => {
+    if (parseFloat(amount) <= 0 || amount === "") {
+      console.log(" 不能发送红包 ")
+      return;
+    }
+    // 跳转到密码验证界面
+    navigation.navigate(RootRoutes.Onboarding, {
+      screen: EOnboardingRoutes.VerifyPassword_red,
+      params: {
+        walletId,
+        networkId,
+        accountId,
+        onPasswordVerified: () => {
+          // 密码验证成功后，继续发送红包请求
+          sendRedEnvelope();
+        },
+      },
+    });
+  };
+  
+  const sendRedEnvelope = async () => {
     const passwordNum = generateUnique8DigitNumber();
-
+  
     const network = evmNetworks.find(net => net.id === selectedNetwork);
-    const selectedCurrency = networkCurrenciesMap[selectedNetwork].find(currency => currency.symbol === selectedCurrencies);
+    const selectedCurrency = token;
     const address = selectedCurrency ? selectedCurrency.address : undefined;
     if (network) {
-      console.log('发送红包', { network: selectedNetwork, currency: selectedCurrencies, amount });
-      if (parseFloat(amount) <= 0 || amount === "") {
-        console.log(" 不能发送红包 ")
-        return;
-      }
+      console.log('发送红包', { network: selectedNetwork, currency: selectedCurrency, amount });
       try {
         if (peerID === undefined || peerType === undefined) {
           return;
         }
-
         setLoading(true); // 显示 loading
         setDisabled(true); // 禁用所有按钮和输入框
-        const personsInt = Math.floor(parseFloat(persons));
-        const result = await createRedEnvelope(passwordNum + "", amount, personsInt, network.rpcURL, privateKey, gas);
-        console.log("result  ", result);
+        if (persons === '' || parseFloat(amount) < 1 || persons === undefined) {
+          setPersons('1');
+        }
+        let personsInt = Math.floor(parseFloat(persons));
+        if (isNaN(personsInt)) {
+          personsInt = 1;
+        }
+        const result = await createRedEnvelope(passwordNum + "", amount, personsInt, network.rpcURL, privateKey, gas,network.id);
+        console.log("result   ", result)
         if (result.success) {
           let redEnvelopeInfo = {
             password: result.password,
@@ -90,11 +137,12 @@ const SendRedEnvelopesScreen = () => {
             chainLogo: network.logoURI,
             tokenLogo: selectedCurrency?.logoURI,
             networkId: network.id,
+            chainName:network.name,
           };
-
+  
           const recordResult = await sendRedPackageRecord(
-            network.name,
-            selectedCurrencies,
+            message != '' ? message : network.name,
+            token?.symbol as string,
             address,
             result.redEnvelopeId,
             imserver_id as number,
@@ -120,7 +168,7 @@ const SendRedEnvelopesScreen = () => {
       } catch (error) {
         console.error('Error sending red envelope:', error);
         ToastManager.show({
-          title: intl.formatMessage({ id: 'msg__unknown_error' }),
+          title: intl.formatMessage({ id: 'msg__transaction_failed' }),
         });
       } finally {
         setLoading(false); // 隐藏 loading
@@ -131,8 +179,11 @@ const SendRedEnvelopesScreen = () => {
     }
   };
 
-  const handleNetworkChange = (network: string) => {
+  const handleNetworkChange = async (network: string) => {
     setSelectedNetwork(network);
+    const tokens = await engine.getTokens(network, accountId);
+    setTokens(tokens);
+    setToken(tokens[0] || null);
   };
 
   useEffect(() => {
@@ -164,22 +215,35 @@ const SendRedEnvelopesScreen = () => {
     const fetchTokens = async () => {
       const tokens = await engine.getTokens(selectedNetwork, accountId);
       console.log("tokens  ", tokens)
-      const tokenDetails = tokens.map(token => ({
-        symbol: token.symbol,
-        name: token.name,
-        logoURI: token.logoURI,
-        address: token.address
-      }));
-      setNetworkCurrenciesMap(prev => ({
-        ...prev,
-        [selectedNetwork]: tokenDetails,
-      }));
-      setSelectedCurrencies(tokenDetails[0]?.symbol || '');
+      setTokens(tokens);
+      setToken(tokens[0] || null);
     };
+
     fetchGasInfo();
     fetchPrivateKey();
     fetchTokens();
   }, [selectedNetwork, accountId, engine]);
+
+  // 根据主题设置颜色
+  const themeColors = {
+    light: {
+      backgroundBox: 'rgba(1, 136, 138, 0.05)',
+      text: 'rgba(0,0,0,0.5)',
+      inputText: 'black',
+      button: 'rgba(57, 209, 81, 1)',
+      buttonDisabled: '#42818A',
+    },
+    dark: {
+      backgroundBox: 'rgba(255, 255, 255, 0.05)',
+      text: 'rgba(255,255,255,0.5)',
+      inputText: 'white',
+      button: 'rgba(100, 200, 100, 1)',
+      buttonDisabled: '#818A81',
+    },
+  };
+
+  const colors = themeColors[themeVariant];
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -193,39 +257,72 @@ const SendRedEnvelopesScreen = () => {
           name="ArrowLeftOutline"
           circle
           zIndex={9999}
-          disabled={disabled} // 禁用返回按钮
+          disabled={disabled}
         />
         <Text style={styles.title}>{intl.formatMessage({ id: 'send_red_envelopes' })}</Text>
       </View>
       <ScrollView style={styles.scrollView}>
         <Box style={styles.box}>
           <View style={styles.backgroundBox}>
-            <Box bg="gray.200" borderRadius="lg" p={1} mb={2} style={styles.optionBox}>
-              <RedEnvelopeCountSelector count={persons} setCount={setPersons} peerType={peerType} disabled={disabled} />
-            </Box>
-            <Box bg="gray.200" borderRadius="lg" p={1} mb={2} style={styles.optionBox}>
-              <TokenAmountSelector amount={amount} setAmount={setAmount} disabled={disabled} />
-            </Box>
-            <Box bg="gray.200" borderRadius="lg" p={1} mb={2} style={styles.optionBox}>
-              <CurrenciesSelector
-                selectedCurrencies={selectedCurrencies}
-                onCurrenciesChange={setSelectedCurrencies}
-                currencies={networkCurrenciesMap[selectedNetwork] || []}
+            <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2}>
+              <RedEnvelopeCountSelector
+                count={persons}
+                setCount={setPersons}
+                peerType={peerType}
                 disabled={disabled}
+                selectedCurrencies={token?.symbol || ''}
+                onCurrenciesChange={(symbol) => {
+                  const selectedToken = tokens?.find(t => t.symbol === symbol);
+                  setToken(selectedToken || null);
+                }}
+                currencies={tokens?.map(t => ({
+                  symbol: t.symbol,
+                  name: t.name,
+                  logoURI: t.logoURI,
+                  address: t.address,
+                }))}
+                colors={colors} // 传递 colors 对象
               />
             </Box>
-
-            <Box bg="gray.200" borderRadius="lg" p={1} mb={2} style={styles.optionBox}>
-              <NetworkSelector
+            <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2} style={styles.optionBoxBottom}>
+              <AmountWithCurrencySelector
+                amount={amount}
+                setAmount={setAmount}
+                disabled={disabled}
+                colors={colors} // 传递 colors 对象
+              />
+            </Box>
+            <Text style={{ marginTop: 5, marginBottom: 5, textAlign: 'right', color: 'rgba(66, 129, 138, 1)' }}>
+              {intl.formatMessage({ id: 'content__balance' })}: {totalValue?.[getBalanceKey(token)]?.balance ?? 0}
+            </Text>
+            <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2} style={styles.optionBoxTop}>
+              <NetsorksSelector
                 selectedNetwork={selectedNetwork}
                 onNetworkChange={handleNetworkChange}
                 networks={evmNetworks}
                 disabled={disabled}
+                colors={colors} // 传递 colors 对象
+              />
+            </Box>
+            <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2} style={styles.optionBoxBottom}>
+              <InputMessage
+                message={message}
+                setMessage={setMessage}
+                disabled={disabled}
+                colors={colors} // 传递 colors 对象
               />
             </Box>
           </View>
           <View style={styles.buttonContainer}>
-            <Button size="lg" bg="#42818A" borderRadius="lg" _text={{ color: 'white' }} onPress={handleSendRedEnvelope} isDisabled={loading || disabled} _disabled={{ bg: '#42818A' }} >
+            <Button
+              size="lg"
+              bg={colors.button}
+              borderRadius="lg"
+              _text={{ color: 'white', fontSize: 18, fontWeight: 'bold' }} // 设置字体大小和加粗
+              onPress={handleSendRedEnvelope}
+              isDisabled={loading || disabled}
+              _disabled={{ bg: colors.buttonDisabled }}
+              style={styles.button}>
               {loading ? <Spinner color="blue" /> : intl.formatMessage({ id: "send_red_envelopes" })}
             </Button>
           </View>
@@ -257,8 +354,8 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     width: '100%',
-    paddingHorizontal: 16,
-    paddingTop: 40,
+    paddingHorizontal: 0,
+    paddingTop: 10,
     paddingBottom: 12,
     backgroundColor: '',
   },
@@ -275,23 +372,34 @@ const styles = StyleSheet.create({
     paddingTop: 16
   },
   buttonContainer: {
-    marginTop: 20, // 增加按钮与上方组件的空间
-    alignItems: 'stretch', // 居中对齐按钮
+    marginTop: 50,
+    alignItems: 'stretch',
     paddingBottom: 16,
-    paddingHorizontal: 32
+    paddingHorizontal: 16
   },
-  optionBox: {
+  optionBoxBottom: {
     width: '100%',
-    height: 60, // 设置固定高度
+    height: 60,
+    marginBottom: 5,
+    marginTop: 20
+  },
+  optionBoxTop: {
+    width: '100%',
+    height: 60,
+    marginTop: 5,
+  },
+  button: {
+    width: '100%',
+    height: 50,
+    borderRadius: 30, // 半圆形效果
   },
 });
 
 // 红包个数选择组件
-const RedEnvelopeCountSelector = ({ count, setCount, peerType, disabled }: { count: string, setCount: (count: string) => void, peerType: number | undefined, disabled: boolean }) => {
+const RedEnvelopeCountSelector = ({ count, setCount, peerType, disabled, selectedCurrencies, onCurrenciesChange, currencies, colors }: { count: string, setCount: (count: string) => void, peerType: number | undefined, disabled: boolean, selectedCurrencies: string, onCurrenciesChange: (currency: string) => void, currencies: { symbol: string, name: string, logoURI: string, address: string | undefined }[], colors: { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string } }) => {
   const intl = useIntl();
 
   const handleCountChange = (value: string) => {
-    // 使用正则表达式确保只能输入正整数
     const regex = /^\d+$/;
     if (regex.test(value) || value === '') {
       setCount(value);
@@ -301,48 +409,159 @@ const RedEnvelopeCountSelector = ({ count, setCount, peerType, disabled }: { cou
   useEffect(() => {
     if (peerType === 2 || peerType === undefined) {
       setCount('1');
-    } else if (!count) {
-      setCount('1');
     }
   }, [peerType, count, setCount]);
 
+  if (selectedCurrencies === '' || currencies.length === 0) {
+    return null;
+  }
+
   return (
     <Box
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
+      flexDirection="column"
+      alignItems="flex-start"
+      justifyContent="flex-start"
       mb={2}
       p={1}
       borderRadius="lg"
-      style={styles.optionBox}
+      style={{ marginHorizontal: 15 }}
     >
-      <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'form__quantity' })}</Text>
-      <Box flexDirection="row" alignItems="center">
-        <TextInput
-          placeholder="1"
-          value={peerType === 2 || peerType === undefined ? '1' : count}
-          onChangeText={handleCountChange}
-          editable={!(peerType === 2 || peerType === undefined) && !disabled}
-          keyboardType="numeric"
-          style={{ width: 100, textAlign: 'right', padding: 4 }}
+      <Box
+        mt={2}
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        width="100%"
+        style={{ marginBottom: 15 }}
+      >
+        <Box flexDirection="row" alignItems="center">
+          <Image source={red_E_number} style={{ width: 18, height: 20, marginRight: 8 }} />
+          <Text fontSize={16} color={colors.text} >{intl.formatMessage({ id: 'asset__tokens' })}</Text>
+        </Box>
+        <CurrenciesSelector
+          selectedCurrencies={selectedCurrencies}
+          onCurrenciesChange={onCurrenciesChange}
+          currencies={currencies}
+          disabled={disabled}
+          colors={colors}
         />
-        <Text fontSize={16} ml={2}>{intl.formatMessage({ id: "title_piece" })}</Text>
+      </Box>
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="space-between"
+        mt={2}
+        width="100%"
+
+      >
+        <Text fontSize={16} color={colors.text} >{intl.formatMessage({ id: "title_redEnvelope_lucky" })}</Text>
+        <Box flexDirection="row" alignItems="center">
+          <TextInput
+            placeholder="1"
+            value={peerType === 2 || peerType === undefined ? '1' : count}
+            onChangeText={handleCountChange}
+            editable={!(peerType === 2 || peerType === undefined) && !disabled}
+            keyboardType="numeric"
+            style={[{
+              width: 100,
+              textAlign: 'right',
+              padding: 4,
+              color: colors.inputText,
+              fontWeight: 'bold',
+              fontSize: 16,
+            }]}
+          />
+          <Text fontSize={16} ml={2} color={colors.text} >{intl.formatMessage({ id: "title_piece" })}</Text>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-// 代币数量选择组件
-const TokenAmountSelector = ({ amount, setAmount, disabled }: { amount: string, setAmount: (amount: string) => void, disabled: boolean }) => {
+// 金额和币种选择组件
+const AmountWithCurrencySelector = ({ amount, setAmount, disabled, colors }: { amount: string, setAmount: (amount: string) => void, disabled: boolean, colors: { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string } }) => {
   const intl = useIntl();
 
   const handleAmountChange = (value: string) => {
-    // 使用正则表达式确保只能输入正数且只能输入一位小数点
     const regex = /^\d*\.?\d*$/;
     if (regex.test(value)) {
       setAmount(value);
     }
   };
+  return (
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      mb={2}
+      p={1}
+      borderRadius="lg"
+      style={{ marginHorizontal: 15, marginVertical: 8 }}
+    >
+      <Box flexDirection="row" alignItems="center">
+        <Image source={red_E_amount} style={{ width: 18, height: 18, marginRight: 8 }} />
+        <Text fontSize={16} color={colors.text}>{intl.formatMessage({ id: 'form__quantity' })}</Text>
+      </Box>
+      <Box flexDirection="row" alignItems="center">
+        <TextInput
+          placeholder={intl.formatMessage({ id: 'form__quantity' })}
+          placeholderTextColor={colors.text}
+          value={amount}
+          onChangeText={handleAmountChange}
+          keyboardType="numeric"
+          style={[{
+            color: colors.inputText,
+            fontWeight: amount ? 'bold' : 'normal',
+            fontSize: 16, width: 100, textAlign: 'right', padding: 4
+          }]}
+          editable={!disabled}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+// 红包留言组件
+const InputMessage = ({ message, setMessage, disabled, colors }: { message: string, setMessage: (message: string) => void, disabled: boolean, colors: { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string } }) => {
+  const intl = useIntl();
+
+  const handleAmountChange = (value: string) => {  
+    setMessage(value);
+  };
+  return (
+    <Box
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="space-between"
+      mb={2}
+      p={1}
+      borderRadius="lg"
+      style={{ marginHorizontal: 15, marginVertical: 8 }}
+    >
+      <TextInput
+          placeholder={'请输入红包留言'}
+          placeholderTextColor={colors.text}
+          value={message}
+          onChangeText={handleAmountChange}
+          style={[{
+            color: colors.inputText,
+            fontWeight: message ? 'bold' : 'normal',
+            fontSize: 16, width: "100%", textAlign: 'center', padding: 4
+          }]}
+          editable={!disabled}
+        />
+    </Box>
+  );
+};
+
+const NetsorksSelector = ({ selectedNetwork, onNetworkChange, networks, disabled, colors }: {
+  selectedNetwork: string;
+  onNetworkChange: (network: string) => void;
+  networks: Network[];
+  disabled: boolean;
+  colors: { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string }
+}) => {
+  const intl = useIntl();
 
   return (
     <Box
@@ -352,17 +571,16 @@ const TokenAmountSelector = ({ amount, setAmount, disabled }: { amount: string, 
       mb={2}
       p={1}
       borderRadius="lg"
-      style={styles.optionBox}
+      style={{ marginHorizontal: 15, marginVertical: 8 }}
     >
-      <Text fontSize={16} fontWeight="bold">{intl.formatMessage({ id: 'form__amount' })}</Text>
+      <Text fontSize={16} color={colors.text}>{intl.formatMessage({ id: 'network__network' })}</Text>
       <Box flexDirection="row" alignItems="center">
-        <TextInput
-          placeholder={intl.formatMessage({ id: 'form__amount' })}
-          value={amount}
-          onChangeText={handleAmountChange}
-          keyboardType="numeric"
-          style={{ width: 100, textAlign: 'right', padding: 4 }}
-          editable={!disabled}
+        <NetworkSelector
+          selectedNetwork={selectedNetwork}
+          onNetworkChange={onNetworkChange}
+          networks={networks}
+          disabled={disabled}
+          colors={colors}
         />
       </Box>
     </Box>

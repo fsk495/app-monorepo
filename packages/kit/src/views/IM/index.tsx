@@ -4,7 +4,7 @@ import WebView from 'react-native-webview';
 import { saveIMData } from '../../utils/IMDataUtil';
 import { useActiveWalletAccount, useNavigation } from '../../hooks';
 import { useWalletSelectorSectionData } from '../../components/WalletSelector/hooks/useWalletSelectorSectionData';
-import { MainRoutes, RootRoutes, TabRoutes } from '../../routes/routesEnum';
+import { RootRoutes } from '../../routes/routesEnum';
 import { EOnboardingRoutes } from '../Onboarding/routes/enums';
 import { ToastManager } from '@onekeyhq/components';
 import { useIntl } from 'react-intl';
@@ -35,12 +35,6 @@ const ImScreen: React.FC = () => {
   const permissionsState = useSelector((state: IAppState) => state.IMPermissions[`${walletId}_${accountId}`]);
   const allowed = permissionsState?.allowed ?? false;
 
-  // 设置导航栏标题和自定义返回按钮
-  useEffect(() => {
-    navigationRoot.setOptions({
-      title: `NIM`,
-    });
-  }, [navigationRoot,im_id]);
 
   const getRequestPermissions = async (data: any) => {
     const result = await check(data);

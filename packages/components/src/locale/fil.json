@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Ang natitirang halaga ay ibabalik",
   "title_wallet_nickname":"Palayaw sa Wallet",
   "action__paste_address":"Idikit ang Address",
-  "im_authorized":"Ang NIM ay humihiling ng awtorisadong pag-login"
+  "im_authorized":"Ang NIM ay humihiling ng awtorisadong pag-login",
+  "title_redEnvelope_lucky":"Lucky Red Packet",
+  "onboarding__landing_welcome_desc_new":"Ang pinakakapaki-pakinabang na desentralisadong social wallet",
+  "upload_header_success":"Matagumpay ang pag-upload, naghihintay ng pag-refresh",
+  "upload_header_failed":"Nabigo ang pag-upload",
+  "title_redEnvelope_getChain":"Kumuha ng token"
 }

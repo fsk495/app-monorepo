@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"Sisanya akan dikembalikan",
   "title_wallet_nickname":"Nama Panggilan Dompet",
   "action__paste_address":"Tempel Alamat",
-  "im_authorized":"NIM meminta login resmi"
+  "im_authorized":"NIM meminta login resmi",
+  "title_redEnvelope_lucky":"Angpao Merah Beruntung",
+  "onboarding__landing_welcome_desc_new":"Dompet sosial terdesentralisasi yang paling berguna",
+  "upload_header_success":"Pengunggahan berhasil, menunggu penyegaran",
+  "upload_header_failed":"Pengunggahan gagal",
+  "title_redEnvelope_getChain":"Dapatkan token"
 }

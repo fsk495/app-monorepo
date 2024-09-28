@@ -33,7 +33,7 @@ import {
   RootRoutes,
 } from '@onekeyhq/kit/src/routes/routesEnum';
 import { isBTCNetwork } from '@onekeyhq/shared/src/engine/engineConsts';
-import { isWatchingAccount } from '@onekeyhq/shared/src/engine/engineUtils';
+import { isHdWallet, isWatchingAccount } from '@onekeyhq/shared/src/engine/engineUtils';
 
 import backgroundApiProxy from '../../../background/instance/backgroundApiProxy';
 import { useAccountIsUpdating, useOverviewPendingTasks } from '../../../hooks';
@@ -432,6 +432,7 @@ const SummedValueComp = memo(
                 walletId,
                 networkId,
                 accountId,
+                exportPrivate: !isHdWallet({ walletId })
               },
             });
           }
@@ -447,6 +448,7 @@ const SummedValueComp = memo(
                 walletId,
                 networkId,
                 accountId,
+                exportPrivate: !isHdWallet({ walletId })
               },
             });
           }

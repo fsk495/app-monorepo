@@ -28,6 +28,7 @@ import { EOnboardingRoutes } from './enums';
 
 import type { IOnboardingRoutesParams } from './types';
 import PrivateOrPublicKeyPreview from '../screens/VerifyPassword/previewView';
+import VerifyPasswordRedEnvelopes from '../../IM/VerifyPassword';
 
 export const stackScreenList = [
   {
@@ -93,6 +94,10 @@ export const stackScreenList = [
   {
     name:EOnboardingRoutes.VerifyPassword,
     component: VerifyPassword,
+  },
+  {
+    name:EOnboardingRoutes.VerifyPassword_red,
+    component: VerifyPasswordRedEnvelopes,
   },
 
   {

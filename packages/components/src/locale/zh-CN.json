@@ -3016,5 +3016,10 @@
   "title_redEnvelope_return":"剩余金额将被退回",
   "title_wallet_nickname":"钱包昵称",
   "action__paste_address":"粘贴地址",
-  "im_authorized":"NIM 请求授权登陆"
+  "im_authorized":"NIM 请求授权登陆",
+  "title_redEnvelope_lucky":"拼手气红包",
+  "onboarding__landing_welcome_desc_new":"最好用的去中心社交钱包",
+  "upload_header_success":"上传成功,等待刷新",
+  "upload_header_failed":"上传失败",
+  "title_redEnvelope_getChain":"获得代币"
 }

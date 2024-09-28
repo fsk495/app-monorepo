@@ -92,6 +92,13 @@ export type IOnboardingRoutesParams = {
     networkId:string,
     accountId:string,
     wallet?: IWallet;
+    exportPrivate?:boolean
+  };
+  [EOnboardingRoutes.VerifyPassword_red]: {
+    walletId: string;
+    networkId:string,
+    accountId:string,
+    onPasswordVerified: ()=> void
   };
   [EOnboardingRoutes.SendRedPackage]: {
     imserver_id?: number;

@@ -3017,5 +3017,10 @@
   "title_redEnvelope_return":"शेष राशि वापस कर दी जाएगी",
   "title_wallet_nickname":"वॉलेट उपनाम",
   "action__paste_address":"पता चिपकाएँ",
-  "im_authorized":"एनआईएम अधिकृत लॉगिन का अनुरोध करता है"
+  "im_authorized":"एनआईएम अधिकृत लॉगिन का अनुरोध करता है",
+  "title_redEnvelope_lucky":"लकी रेड पैकेट",
+  "onboarding__landing_welcome_desc_new":"सबसे उपयोगी विकेन्द्रीकृत सोशल वॉलेट",
+  "upload_header_success":"अपलोड सफल, रिफ्रेश की प्रतीक्षा में",
+  "upload_header_failed":"अपलोड विफल",
+  "title_redEnvelope_getChain":"टोकन प्राप्त करें"
 }

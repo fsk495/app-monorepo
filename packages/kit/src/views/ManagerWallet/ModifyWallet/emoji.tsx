@@ -1,15 +1,11 @@
 import type { FC } from 'react';
-import { memo, useCallback, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 import { useRoute } from '@react-navigation/core';
 import { useNavigation } from '@react-navigation/native';
 import { chunk } from 'lodash';
 
-import { Box, Center, Modal, Pressable, Text, Image } from '@onekeyhq/components';
-import RecyclerListView, {
-  DataProvider,
-  LayoutProvider,
-} from '@onekeyhq/components/src/RecyclerListView';
+import { Box, Center, Modal, Pressable, Image, ScrollView, ToastManager, Icon } from '@onekeyhq/components';
 import WalletAvatar from '@onekeyhq/kit/src/components/WalletSelector/WalletAvatar';
 import type { ManagerWalletRoutesParams } from '@onekeyhq/kit/src/routes/Root/Modal/ManagerWallet';
 import type { EmojiTypes } from '@onekeyhq/shared/src/utils/emojiUtils';
@@ -17,6 +13,10 @@ import { colors, randomList, imageMap } from '@onekeyhq/shared/src/utils/emojiUt
 
 import type { ManagerWalletModalRoutes } from '../../../routes/routesEnum';
 import type { RouteProp } from '@react-navigation/core';
+import { useIntl } from 'react-intl';
+
+import ImagePicker from 'react-native-image-crop-picker';
+import { Platform, useWindowDimensions } from 'react-native';
 
 type RouteProps = RouteProp<
   ManagerWalletRoutesParams,
@@ -77,78 +77,107 @@ const ColorSelecter = memo((props: ColorSelecterProps) => {
 ColorSelecter.displayName = 'ColorSelecter';
 
 const ModifyWalletEmojiViewModal: FC = () => {
-  const emojiContainerRef = useRef();
   const navigation = useNavigation();
   const { avatar, onDone } = useRoute<RouteProps>().params;
   const [color, updateColor] = useState(avatar.bgColor);
   const [emoji, updateEmoji] = useState(avatar.emoji);
   const [pageWidth, setPageWidth] = useState<number>(0);
-  const padding = 24;
-  const itemWidth = 48;
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const padding = 10; // Updated padding to 10px
+  const itemWidth = 72; // Updated itemWidth to 72px
   const containerWidth = pageWidth - padding * 2;
   const rowItems = Math.floor(containerWidth / itemWidth);
+  const intl = useIntl();
+  const { width: screenWidth } = useWindowDimensions();
 
   const dataProvider = useMemo(() => {
     const emojis: EmojiTypes[][] = chunk(randomList, rowItems);
-    return new DataProvider((r1, r2) => r1 !== r2).cloneWithRows(emojis);
+    return emojis;
   }, [rowItems]);
 
-  const layoutProvider = useMemo(
-    () =>
-      new LayoutProvider(
-        () => 'emoji',
-        (_, dim) => {
-          dim.width = containerWidth;
-          dim.height = itemWidth;
-        },
-      ),
-    [containerWidth, itemWidth],
-  );
   const renderItem = useCallback(
-    (type, dataArray) => {
-      const emojisArray: EmojiTypes[][] = chunk(dataArray, rowItems);
-      return (
-        <Box height="full">
-          {emojisArray.map((rows, rowIndex) => (
+    (item: EmojiTypes[], index: number) => (
+      <Box
+        key={`rows${index}`}
+        flexDirection="row"
+        justifyContent="space-between"
+        width={`${containerWidth}px`}
+        height={`${itemWidth}px`}
+        marginBottom="10px" // 设置上下间距
+      >
+        {item.map((emojiItem, emojiIndex) => (
+          <Pressable
+            key={`rows${index} ${emojiIndex}`}
+            onPress={() => {
+              updateEmoji(emojiItem);
+            }}
+            borderRadius="10px" // Set border radius to 10px
+            _hover={{ bg: 'surface-hovered' }}
+            _pressed={{ bg: 'surface-pressed' }}
+          >
             <Box
-              key={`rows${rowIndex}`}
-              flexDirection="row"
-              justifyContent="space-between"
-              width={`${containerWidth}px`}
+              alignItems="center"
+              justifyContent="center"
+              width={`${itemWidth}px`}
               height={`${itemWidth}px`}
+              borderRadius="10px" // Set border radius to 10px
             >
-              {rows.map((item, index) => (
-                <Pressable
-                  key={`rows${rowIndex} ${index}`}
-                  onPress={() => {
-                    updateEmoji(item);
-                  }}
-                  borderRadius="12px"
-                  _hover={{ bg: 'surface-hovered' }}
-                  _pressed={{ bg: 'surface-pressed' }}
-                >
-                  <Box
-                    alignItems="center"
-                    justifyContent="center"
-                    width={`${itemWidth}px`}
-                    height={`${itemWidth}px`}
-                    borderRadius="12"
-                  >
-                    <Image
-                      source={imageMap[item]}
-                      w={`${itemWidth}px`}
-                      h={`${itemWidth}px`}
-                    />
-                  </Box>
-                </Pressable>
-              ))}
+              <Image
+                source={{ uri: imageMap[emojiItem as keyof typeof imageMap] }}
+                w={`${itemWidth}px`}
+                h={`${itemWidth}px`}
+              />
             </Box>
-          ))}
-        </Box>
-      );
-    },
-    [itemWidth, rowItems, containerWidth],
+          </Pressable>
+        ))}
+      </Box>
+    ),
+    [itemWidth, containerWidth],
   );
+
+  const handleImageUpload = useCallback(() => {
+    ImagePicker.openPicker({
+      width: 800,
+      height: 800,
+      cropping: true,
+      compressImageQuality: 0.8, // 压缩质量 (0-1)
+      mediaType: 'photo',
+    }).then(async (image) => {
+      const formData = new FormData();
+      formData.append('file', {
+        uri: Platform.OS === 'android' ? image.path : image.path.replace('file://', ''),
+        type: image.mime,
+        name: image.filename || 'image.jpg',
+      } as any);
+  
+      try {
+        const uploadResponse = await fetch('https://api.dragmeta.vip/game/file/upload', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log("uploadResponse  ", uploadResponse);
+        const uploadResult = await uploadResponse.json();
+        console.log("uploadResult   ", uploadResult);
+        if (uploadResult.data) {
+          setSelectedImage(uploadResult.data);
+          ToastManager.show({ title: intl.formatMessage({ id: 'upload_header_success' }) })
+        } else {
+          console.log('Upload failed:', uploadResult);
+          ToastManager.show({ title: intl.formatMessage({ id: 'upload_header_failed' }) })
+        }
+      } catch (error) {
+        console.log('Upload error:', error);
+        ToastManager.show({ title: intl.formatMessage({ id: 'upload_header_failed' }) })
+      }
+    }).catch((error) => {
+      console.log('ImagePicker Error: ', error);
+      ToastManager.show({ title: intl.formatMessage({ id: 'upload_header_failed' }) })
+    });
+  }, []);
+
   return (
     <Modal
       size="xs"
@@ -161,7 +190,7 @@ const ModifyWalletEmojiViewModal: FC = () => {
         onPress: () => {
           if (onDone) {
             onDone({
-              emoji,
+              emoji: selectedImage || emoji,
               bgColor: color,
             });
           }
@@ -170,13 +199,36 @@ const ModifyWalletEmojiViewModal: FC = () => {
       }}
     >
       <Box flex={1}>
-        <Box alignItems="center">
-          <WalletAvatar
-            avatar={{ emoji, bgColor: color }}
-            walletImage="hd"
-            size="xl"
-          />
-        </Box>
+        <Center>
+
+        </Center>
+        <Pressable
+          onPress={() => {
+            handleImageUpload();
+          }}
+        >
+          <Box alignItems="center">
+            <WalletAvatar
+              avatar={{ emoji: selectedImage || emoji, bgColor: color }}
+              walletImage="hd"
+              size="ei"
+            />
+          </Box>
+          <Box
+            position="absolute"
+            right={`${screenWidth * 0.32}px`}
+            bottom="-10px"
+            size={8}
+            justifyContent="center"
+            alignItems="center"
+            borderWidth={2}
+            bg={'surface-hovered'}
+            borderColor="surface-subdued"
+            borderRadius="full"
+          >
+            <Icon name="CameraMini" size={16} />
+          </Box>
+        </Pressable>
         <ColorSelecter color={color} onPress={updateColor} />
         <Box
           onLayout={(e) => {
@@ -185,24 +237,14 @@ const ModifyWalletEmojiViewModal: FC = () => {
             }
           }}
           flex={1}
-          ref={emojiContainerRef}
           borderTopLeftRadius="24px"
-          borderTopRadius="24px"
+          borderTopRightRadius="24px" // 确保圆角正确渲染
           bgColor="surface-subdued"
         >
           {pageWidth > 0 && (
-            <Box flex={1}>
-              <RecyclerListView
-                dataProvider={dataProvider}
-                layoutProvider={layoutProvider}
-                rowRenderer={renderItem}
-                renderAheadOffset={300}
-                renderAheadStep={100}
-                style={{
-                  padding,
-                }}
-              />
-            </Box>
+            <ScrollView contentContainerStyle={{ padding }}>
+              {dataProvider.map((item, index) => renderItem(item, index))}
+            </ScrollView>
           )}
         </Box>
       </Box>

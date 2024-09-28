@@ -19,31 +19,6 @@ type TransactionDetailRouteProp = RouteProp<
   TransactionDetailRoutesParams,
   TransactionDetailModalRoutes.HistoryDetailModal
 >;
-
-/* TODO status ICON
-    switch (status) {
-      case TxStatus.Pending:
-        statusTitle = 'transaction__pending';
-        statusIconName = 'DotsCircleHorizontalOutline';
-        iconColor = 'icon-warning';
-        textColor = 'text-warning';
-        iconContainerColor = 'surface-warning-default';
-        break;
-      case TxStatus.Confirmed:
-        statusTitle = 'transaction__success';
-        statusIconName = 'CheckCircleOutline';
-        iconColor = 'icon-success';
-        textColor = 'text-success';
-        iconContainerColor = 'surface-success-default';
-        break;
-      case TxStatus.Dropped:
-        statusTitle = 'transaction__dropped';
-        break;
-      default:
-        break;
-    }
- */
-
 const TxHistoryDetailModal: FC = () => {
   const route = useRoute<TransactionDetailRouteProp>();
   const intl = useIntl();

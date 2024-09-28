@@ -231,7 +231,7 @@ const ExportPubkeyModal = () => {
       );
     }
     return (
-      <Protected walletId={walletId} requireNickname = {true} >
+      <Protected walletId={walletId}>
         {(pwd) => (
           <ExportPublicKeyView
             walletId={walletId}

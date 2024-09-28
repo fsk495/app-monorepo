@@ -392,6 +392,10 @@ class ServiceHistory extends ServiceBase {
       return;
     }
     const { encodedTx, decodedTx, signedTx } = data;
+
+    console.log("encodedTx  ",encodedTx);
+    console.log("decodedTx  ",decodedTx);
+    console.log("signedTx  ",signedTx);
     const vault = await engine.getVault({ networkId, accountId });
     const newHistoryTx = await vault.buildHistoryTx({
       encodedTx,
@@ -400,6 +404,7 @@ class ServiceHistory extends ServiceBase {
       isSigner: true,
       isLocalCreated: true,
     });
+    console.log("newHistoryTx  1 ",newHistoryTx);
     newHistoryTx.decodedTx.feeInfo = newHistoryTx.decodedTx.feeInfo ?? feeInfo;
     if (isEvmNetworkId(networkId)) {
       try {
@@ -412,6 +417,7 @@ class ServiceHistory extends ServiceBase {
         console.error(error);
       }
     }
+    console.log("newHistoryTx  3 ",newHistoryTx);
     let prevTx: IHistoryTx | undefined;
     if (resendActionInfo && resendActionInfo.replaceHistoryId) {
       prevTx = await simpleDb.history.getHistoryById({
@@ -430,7 +436,8 @@ class ServiceHistory extends ServiceBase {
           newHistoryTx.decodedTx.interactInfo || prevTx.decodedTx.interactInfo;
       }
     }
-
+    console.log("newHistoryTx  4 ",newHistoryTx);
+    console.log("prevTx   ",prevTx);
     await this.saveHistoryTx({
       networkId,
       accountId,
