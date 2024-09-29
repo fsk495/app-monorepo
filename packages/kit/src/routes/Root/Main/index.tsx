@@ -23,14 +23,14 @@ function MainScreen() {
   const { dispatch } = backgroundApiProxy;
 
   const { reduxReady } = useProviderValue();
-  const currentVersion = useSelector((state: IAppState) => state.version.version) || '4.23.0'; // 默认版本号
+  const currentVersion = useSelector((state: IAppState) => state.version.version) || '1.0 BETA'; // 默认版本号
 
   useEffect(() => {
     const loadFile = async()=>{
       console.log("开始更新    ",currentVersion);
       // await appUpdates.checkForUpdatesTemp(currentVersion);
     }
-    loadFile();
+    // loadFile();
     // if (reduxReady) {
     //   appUpdates.addUpdaterListener();
     //   appUpdates

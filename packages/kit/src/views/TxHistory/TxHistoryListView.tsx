@@ -41,7 +41,7 @@ import { TxHistoryListViewHeader } from './TxHistoryListViewHeader';
 
 import type { IAccountToken } from '../Overview/types';
 import type { SectionListProps } from 'react-native';
-import { openDapp } from '../../utils/openUrl';
+import { openDapp, openUrlByWebview } from '../../utils/openUrl';
 
 export type IHistoryListSectionGroup = {
   title?: string;
@@ -205,11 +205,13 @@ function TxHistoryListSectionList(props: {
     // 查找交易历史记录
     if(network.network?.blockExplorerURL.name)
     {
-      openDapp(network.network?.blockExplorerURL.name)
+      openUrlByWebview(network.network?.blockExplorerURL.name)
+      // openDapp(network.network?.blockExplorerURL.name)
     }
     else
     {
-      openDapp('https://scan.novaichain.com/novaichain')
+      openUrlByWebview('https://scan.novaichain.com/novaichain','Novai Scan');
+      // openDapp('https://scan.novaichain.com/novaichain')
     }
   }
   const sectionListProps = {

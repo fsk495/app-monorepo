@@ -60,7 +60,7 @@ import {
 } from '../../../hooks/useAllNetwoks';
 import useAppNavigation from '../../../hooks/useAppNavigation';
 import { buildAddressDetailsUrl } from '../../../hooks/useOpenBlockBrowser';
-import { openDapp, openUrl } from '../../../utils/openUrl';
+import { openDapp, openUrl, openUrlByWebview } from '../../../utils/openUrl';
 import { priceUnit, supportedNetworks } from '../../GasPanel/config';
 import { GasPanelRoutes } from '../../GasPanel/types';
 import { useNetworkPrices } from '../../GasPanel/widgets/hooks';
@@ -457,11 +457,16 @@ const ToolsPage: FC = () => {
     }) => {
       if (key === 'revoke') {
         const { chainId } = parseNetworkId(network?.id ?? '');
-        openDapp(
+        openUrlByWebview(
           `${revokeUrl}address/${selectedAccount?.address ?? ''}?chainId=${
             chainId ?? ''
-          }`,
+          }`
         );
+        // openDapp(
+        //   `${revokeUrl}address/${selectedAccount?.address ?? ''}?chainId=${
+        //     chainId ?? ''
+        //   }`,
+        // );
       } else if (key === 'explorer') {
         const url = buildAddressDetailsUrl(
           selectedNetwork,

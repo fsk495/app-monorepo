@@ -31,7 +31,7 @@ import type { IBaseMenuOptions } from '../../Overlay/BaseMenu';
 import type { ITxActionListViewProps } from '../types';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { ImageURISource } from 'react-native';
-import { openDapp } from '../../../utils/openUrl';
+import { openDapp, openUrlByWebview } from '../../../utils/openUrl';
 
 type Props = ITxActionListViewProps & {
   tokensInTx: Token[];
@@ -69,7 +69,8 @@ function TxDetailStatusInfoBox(props: Props) {
       let checkToken = token;
       if(decodedTx.networkId === 'evm--7256'){
         navigation?.goBack();
-        openDapp('https://swap.novaichain.com/novaichain#/swap');
+        openUrlByWebview('https://swap.novaichain.com/novaichain#/swap');
+        // openDapp('https://swap.novaichain.com/novaichain#/swap');
       }
       else
       {

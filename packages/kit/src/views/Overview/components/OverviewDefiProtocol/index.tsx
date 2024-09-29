@@ -22,7 +22,7 @@ import {
   useAppSelector,
   useNavigation,
 } from '../../../../hooks';
-import { openDapp } from '../../../../utils/openUrl';
+import { openDapp, openUrlByWebview } from '../../../../utils/openUrl';
 import { showDialog } from '../../../../utils/overlayUtils';
 
 import { OverviewDefiBoxHeader } from './Header';
@@ -111,7 +111,8 @@ export const useOpenProtocolUrl = (protocol: OverviewDefiRes | undefined) => {
   const isVertical = useIsVerticalLayout();
 
   const open = useCallback(() => {
-    openDapp(protocol?.protocolUrl ?? '');
+    openUrlByWebview(protocol?.protocolUrl ?? '')
+    // openDapp(protocol?.protocolUrl ?? '');
     if (navigation.canGoBack()) {
       navigation.goBack();
     }

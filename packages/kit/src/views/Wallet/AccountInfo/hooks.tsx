@@ -11,7 +11,7 @@ import {
   ModalRoutes,
   RootRoutes,
 } from '../../../routes/routesEnum';
-import { openDapp } from '../../../utils/openUrl';
+import { openDapp, openUrlByWebview } from '../../../utils/openUrl';
 
 export type ButtonsType = (params: {
   networkId: string;
@@ -45,7 +45,8 @@ export const useFiatPay = ({
       ({ network: n, account: a }) => {
         console.log('useFiatPay  ',n.id);
         if (n.id === 'evm--7256') {
-          openDapp('https://swap.novaichain.com/novaichain#/swap');
+          openUrlByWebview('https://swap.novaichain.com/novaichain#/swap','Novai Swap');
+          // openDapp('https://swap.novaichain.com/novaichain#/swap');
           return;
         }
         else {

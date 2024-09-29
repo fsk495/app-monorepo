@@ -8,6 +8,7 @@ import { DiscoverModalRoutes } from '../type';
 import type { ModalScreenProps } from '../../../routes/types';
 import type { MatchDAppItemType } from '../Explorer/explorerUtils';
 import type { DiscoverRoutesParams } from '../type';
+import { openUrlByWebview } from '../../../utils/openUrl';
 
 type NavigationProps = ModalScreenProps<DiscoverRoutesParams>;
 
@@ -29,13 +30,19 @@ export const useExplorerSearch = () => {
             url: defaultUrl,
             onSelectorItem: (item: MatchDAppItemType | string) => {
               if (typeof item === 'string') {
-                return gotoSite({
-                  url: item,
-                  isNewWindow,
-                  userTriggered: true,
-                });
+                openUrlByWebview(item)
+                // return gotoSite({
+                //   url: item,
+                //   isNewWindow,
+                //   userTriggered: true,
+                // });
               }
-              openMatchDApp({ ...item, isNewWindow });
+              else{
+                openUrlByWebview(item?.webSite?.url as string,item?.webSite?.title)
+              }
+              console.log("11111  ",item);
+              
+              // openMatchDApp({ ...item, isNewWindow });
             },
           },
         },

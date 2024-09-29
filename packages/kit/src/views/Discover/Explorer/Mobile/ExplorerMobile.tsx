@@ -50,13 +50,13 @@ const ExplorerMobile: FC = () => {
       <Freeze freeze={!showHome}>
         <WebHomeContainer alwaysOpenNewWindow />
       </Freeze>
-      {showContent && showFloatingContainer && (
+      {/* {showContent && showFloatingContainer && (
         <FloatingContainer
           afterMaximize={() => setShowHome(false)}
           beforeMinimize={beforeMinimize}
           onSearch={() => onSearch({ isNewWindow: false })}
         />
-      )}
+      )} */}
     </Box>
   );
 };

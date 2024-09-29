@@ -34,7 +34,7 @@ import {
   RootRoutes,
   TabRoutes,
 } from '../../../routes/routesEnum';
-import { openUrlExternal,openDapp } from '../../../utils/openUrl';
+import { openUrlExternal,openDapp, openUrlByWebview } from '../../../utils/openUrl';
 import BaseMenu from '../../Overlay/BaseMenu';
 import { SendModalRoutes } from '../../Send/enums';
 import { TokenDetailContext } from '../context';
@@ -176,7 +176,8 @@ export const ButtonsSection: FC = () => {
         if(n.id === 'evm--7256')
         {
           navigation?.goBack();
-          openDapp('https://swap.novaichain.com/novaichain#/swap');
+          openUrlByWebview('https://swap.novaichain.com/novaichain#/swap','Novai Swap');
+          // openDapp('https://swap.novaichain.com/novaichain#/swap');
           return;
         }
         else
@@ -207,7 +208,8 @@ export const ButtonsSection: FC = () => {
         networkId: network?.id,
       });
       // openUrlExternal(signedUrl);
-      openDapp(signedUrl);
+      openUrlByWebview(signedUrl);
+      // openDapp(signedUrl);
       navigation?.goBack();
     },
     [],
@@ -222,7 +224,8 @@ export const ButtonsSection: FC = () => {
         networkId: network?.id,
       });
       // openUrlExternal(signedUrl);
-      openDapp(signedUrl);
+      // openDapp(signedUrl);
+      openUrlByWebview(signedUrl);
       navigation?.goBack();
     },
     [],

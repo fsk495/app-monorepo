@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text, Image } from '@onekeyhq/components';
 import { TouchableOpacity } from 'react-native';
 import { openMatchDApp } from '../../Explorer/Controller/gotoSite';
+import { openUrl, openUrlByWebview } from '../../../../utils/openUrl';
 
 interface Dapp {
     _id: string;
@@ -15,15 +16,16 @@ interface Dapp {
 const DappItem: React.FC<{ dapp: Dapp }> = ({ dapp }) => {
 
     const handlePress = () => {
-        openMatchDApp({
-            id: dapp.url,
-            webSite: {
-                url: dapp.url,
-                favicon: dapp.logoURL,
-                title: dapp.name,
-            },
-            isNewWindow: true,
-        });
+        openUrlByWebview(dapp.url,dapp.name)
+        // openMatchDApp({
+        //     id: dapp.url,
+        //     webSite: {
+        //         url: dapp.url,
+        //         favicon: dapp.logoURL,
+        //         title: dapp.name,
+        //     },
+        //     isNewWindow: true,
+        // });
     };
 
     return (

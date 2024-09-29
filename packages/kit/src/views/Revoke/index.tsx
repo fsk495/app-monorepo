@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 import { revokeUrl } from '@onekeyhq/engine/src/managers/revoke';
 
 import { navigationShortcuts } from '../../routes/navigationShortcuts';
-import { openDapp } from '../../utils/openUrl';
+import { openDapp, openUrlByWebview } from '../../utils/openUrl';
 
 const RevokePage: FC = () => {
   useEffect(() => {
-    openDapp(revokeUrl);
+    openUrlByWebview(revokeUrl);
+    // openDapp(revokeUrl);
     navigationShortcuts.navigateToDiscover();
   }, []);
   return null;

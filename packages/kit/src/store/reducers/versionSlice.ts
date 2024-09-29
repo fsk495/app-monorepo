@@ -6,7 +6,7 @@ export interface VersionState {
 }
 
 const initialState: VersionState = {
-    version: '4.23.0', // 初始版本号
+    version: '1.0 BETA', // 初始版本号
 };
 
 const versionSlice = createSlice({

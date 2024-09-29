@@ -33,7 +33,7 @@ export const AboutSection = () => {
 
   const { dispatch } = backgroundApiProxy;
 
-  const currentVersion = useSelector((state: IAppState) => state.version.version) || '4.23.0'; // 默认版本号
+  const currentVersion = useSelector((state: IAppState) => state.version.version) || '1.0 BETA'; // 默认版本号
   
   const { themeVariant } = useTheme();
   const userAgreementUrl = useHelpLink({ path: 'articles/360002014776' });
@@ -121,9 +121,9 @@ export const AboutSection = () => {
             typography={{ sm: 'Body1Strong', md: 'Body2Strong' }}
             color="text-subdued"
           >
-            {currentVersion}
-            {/* {settings.version}
-            {settings.buildNumber ? `-${settings.buildNumber}` : ''} */}
+            {/* {currentVersion} */}
+            {settings.version}
+            {/* {settings.buildNumber ? `-${settings.buildNumber}` : ''} */}
           </Text>
         </Pressable>
         {/* <AutoUpdateSectionItem /> */}

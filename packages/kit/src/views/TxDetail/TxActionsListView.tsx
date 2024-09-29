@@ -136,6 +136,7 @@ export function TxActionsListView(props: ITxActionListViewProps) {
     transformType,
   ]);
 
+  // 垂直分割线
   const connectionLine =
     items.length > 1 && showConnectionLine ? (
       <Divider

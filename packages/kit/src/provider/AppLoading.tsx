@@ -10,6 +10,7 @@ import AnimatedSplash from 'react-native-animated-splash-screen';
 import { Box, useThemeValue } from '@onekeyhq/components';
 import backgroundApiProxy from '@onekeyhq/kit/src/background/instance/backgroundApiProxy';
 import platformEnv from '@onekeyhq/shared/src/platformEnv';
+import useSWR from 'swr';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { serviceApp, serviceCronJob } = backgroundApiProxy;
@@ -77,13 +78,13 @@ AnimatedSplashView.displayName = 'AnimatedSplashView';
 const AppLoading: FC = ({ children }) => {
   const [initDataReady, setInitDataReady] = useState(false);
   // fiat-money trigger move to init app after endpoint change
-  // useSWR(
-  //   initDataReady ? 'fiat-money' : null,
-  //   () => serviceCronJob.getFiatMoney(),
-  //   {
-  //     refreshInterval: 5 * 60 * 1000,
-  //   },
-  // );
+  useSWR(
+    initDataReady ? 'fiat-money' : null,
+    () => serviceCronJob.getFiatMoney(),
+    {
+      refreshInterval: 5 * 60 * 1000,
+    },
+  );
   console.log("启动 第四步   ")
 
   let bgColor: string | undefined = useThemeValue('background-default');

@@ -25,6 +25,7 @@ import type {
   SearchViewKeyEventType,
   SearchViewRef,
 } from '../../Explorer/explorerUtils';
+import { openUrlByWebview } from '../../../../utils/openUrl';
 
 const SearchInput: FC = () => {
   const intl = useIntl();
@@ -51,7 +52,8 @@ const SearchInput: FC = () => {
       if (typeof dapp === 'string') {
         gotoSite({ url: dapp, userTriggered: true });
       } else {
-        openMatchDApp(dapp);
+        // openMatchDApp(dapp);
+        openUrlByWebview(dapp.webSite?.url as string, dapp.webSite?.title)
       }
       setShowSearch(false);
       await wait(200);

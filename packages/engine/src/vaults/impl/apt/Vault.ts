@@ -16,7 +16,7 @@ import {
   getTimeStamp,
   isHexString,
 } from '@onekeyhq/kit/src/utils/helper';
-import { openDapp } from '@onekeyhq/kit/src/utils/openUrl';
+import { openDapp, openUrlByWebview } from '@onekeyhq/kit/src/utils/openUrl';
 import debugLogger from '@onekeyhq/shared/src/logger/debugLogger';
 import { memoizee } from '@onekeyhq/shared/src/utils/cacheUtils';
 
@@ -231,7 +231,8 @@ export default class Vault extends VaultBase {
   }
 
   override async activateAccount() {
-    openDapp('https://aptoslabs.com/testnet-faucet');
+    openUrlByWebview('https://aptoslabs.com/testnet-faucet')
+    // openDapp('https://aptoslabs.com/testnet-faucet');
   }
 
   override async activateToken(

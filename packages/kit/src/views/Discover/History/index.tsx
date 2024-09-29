@@ -30,6 +30,7 @@ import { getUrlHost } from '../utils';
 
 import type { MatchDAppItemType } from '../Explorer/explorerUtils';
 import type { SectionListData, SectionListProps } from 'react-native';
+import { openUrlByWebview } from '../../../utils/openUrl';
 
 const ItemSeparatorComponent = () => <Box h="4" />;
 
@@ -39,7 +40,9 @@ const HistoryItemBox: FC<HistoryItemBoxProps> = ({ item }) => {
   const navigation = useNavigation();
 
   const onPress = useCallback(() => {
-    openMatchDApp({ ...item, isNewWindow: true });
+    // openMatchDApp({ ...item, isNewWindow: true });
+    // openUrlByWebview((item.dapp?.url ?? item.webSite?.url)? title);
+    openUrlByWebview((item.dapp?.url ?? item.webSite?.url) as string,item.dapp?.name ?? item.webSite?.title ?? 'Unknown')
     navigation.goBack();
   }, [navigation, item]);
   const logoURL = item.dapp?.logoURL ?? item.webSite?.favicon;

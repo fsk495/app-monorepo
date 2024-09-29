@@ -4,6 +4,7 @@ import { Box, Image, Typography } from '@onekeyhq/components';
 
 import { openMatchDApp } from '../../Explorer/Controller/gotoSite';
 import { Pressable } from '../Pressable';
+import { openUrlByWebview } from '../../../../utils/openUrl';
 
 type DappBannerProps = {
   title: string;
@@ -19,7 +20,8 @@ export const DappBanner: FC<DappBannerProps> = ({
   url,
 }) => {
   const onPress = useCallback(() => {
-    openMatchDApp({ id: url, webSite: { url, title }, isNewWindow: true });
+    openUrlByWebview(url, title)
+    // openMatchDApp({ id: url, webSite: { url, title }, isNewWindow: true });
   }, [url, title]);
   return (
     <Pressable

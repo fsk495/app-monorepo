@@ -7,6 +7,7 @@ import DAppIcon from '../../components/DAppIcon';
 import { openMatchDApp } from '../../Explorer/Controller/gotoSite';
 import { DappItemPlainLayout } from '../DappRenderLayout';
 import { Pressable } from '../Pressable';
+import { openUrlByWebview } from '../../../../utils/openUrl';
 
 type DappRenderItemProps = {
   title: string;
@@ -20,28 +21,30 @@ type DappRenderItemProps = {
 const handlePress = (props: DappRenderItemProps) => {
   console.log("handlePress  ",handlePress);
   if (props.dappId) {
-    openMatchDApp({
-      id: props.dappId,
-      dapp: {
-        _id: props.dappId,
-        name: props.title,
-        logoURL: props.logoURI,
-        url: props.url,
-        subtitle: props.description || '',
-        networkIds: props.networkIds || [],
-      },
-      isNewWindow: true,
-    });
+    openUrlByWebview(props.url, props.title)
+    // openMatchDApp({
+    //   id: props.dappId,
+    //   dapp: {
+    //     _id: props.dappId,
+    //     name: props.title,
+    //     logoURL: props.logoURI,
+    //     url: props.url,
+    //     subtitle: props.description || '',
+    //     networkIds: props.networkIds || [],
+    //   },
+    //   isNewWindow: true,
+    // });
   } else {
-    openMatchDApp({
-      id: props.url,
-      webSite: {
-        url: props.url,
-        favicon: props.logoURI,
-        title: props.title,
-      },
-      isNewWindow: true,
-    });
+    openUrlByWebview(props.url, props.title)
+    // openMatchDApp({
+    //   id: props.url,
+    //   webSite: {
+    //     url: props.url,
+    //     favicon: props.logoURI,
+    //     title: props.title,
+    //   },
+    //   isNewWindow: true,
+    // });
   }
 };
 
