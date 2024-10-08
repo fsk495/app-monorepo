@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Найкорисніший децентралізований соціальний гаманець",
   "upload_header_success":"Завантаження успішне, очікується оновлення",
   "upload_header_failed":"Помилка завантаження",
-  "title_redEnvelope_getChain":"Отримати жетон"
+  "title_redEnvelope_getChain":"Отримати жетон",
+  "title_redEnvelope_message": "Будь ласка, введіть повідомлення в червоному конверті"
 }

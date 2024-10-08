@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Ang pinakakapaki-pakinabang na desentralisadong social wallet",
   "upload_header_success":"Matagumpay ang pag-upload, naghihintay ng pag-refresh",
   "upload_header_failed":"Nabigo ang pag-upload",
-  "title_redEnvelope_getChain":"Kumuha ng token"
+  "title_redEnvelope_getChain":"Kumuha ng token",
+  "title_redEnvelope_message": "Pakilagay ang pulang sobre na mensahe"
 }

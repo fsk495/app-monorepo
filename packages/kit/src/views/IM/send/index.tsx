@@ -13,7 +13,7 @@ import {
   useTheme,
 } from '@onekeyhq/components';
 import { useActiveWalletAccount, useAppSelector, useManageNetworks, useNavigation } from '../../../hooks';
-import { TextInput, View, StyleSheet } from 'react-native';
+import { TextInput, View, StyleSheet, SafeAreaView } from 'react-native';
 import backgroundApiProxy from '../../../background/instance/backgroundApiProxy';
 import { AccountCredentialType } from '@onekeyhq/engine/src/types/account';
 import { createRedEnvelope, generateUnique8DigitNumber, getRedEnvelope, ExpiredRedEnvelope } from '../../../utils/RedEnvelope';
@@ -56,13 +56,37 @@ export const getBalanceKey = (token?: Partial<Token> | null) => {
 };
 // 发红包界面
 const SendRedEnvelopesScreen = () => {
-  const inset = useSafeAreaInsets();
   const intl = useIntl();
   const navigation = useNavigation();
   const { walletId, networkId, accountId } = useActiveWalletAccount();
   const route = useRoute<RouteProps>(); // 使用 useRoute 获取路由参数
   const { imserver_id, peerID, peerType } = route.params || {}; // 获取 imserver_id 参数
   const { themeVariant } = useTheme(); // 获取当前主题
+
+
+  // 根据主题设置颜色
+  const themeColors = {
+    light: {
+      backgroundView: "white",
+      backgroundBox: 'rgba(1, 136, 138, 0.05)',
+      text: 'rgba(0,0,0,0.5)',
+      inputText: 'black',
+      button: 'rgba(57, 209, 81, 1)',
+      buttonDisabled: '#42818A',
+    },
+    dark: {
+      backgroundView: "rgba(19,19,26,1)",
+      backgroundBox: 'rgba(255, 255, 255, 0.05)',
+      text: 'rgba(255,255,255,0.5)',
+      inputText: 'white',
+      button: 'rgba(100, 200, 100, 1)',
+      buttonDisabled: '#818A81',
+    },
+  };
+
+  const colors = themeColors[themeVariant];
+
+  console.log("themeVariant   ", themeVariant);
 
   //获取支持的全部网络
   const data = useManageNetworks({ allowSelectAllNetworks: true }).enabledNetworks;
@@ -104,10 +128,10 @@ const SendRedEnvelopesScreen = () => {
       },
     });
   };
-  
+
   const sendRedEnvelope = async () => {
     const passwordNum = generateUnique8DigitNumber();
-  
+
     const network = evmNetworks.find(net => net.id === selectedNetwork);
     const selectedCurrency = token;
     const address = selectedCurrency ? selectedCurrency.address : undefined;
@@ -126,7 +150,7 @@ const SendRedEnvelopesScreen = () => {
         if (isNaN(personsInt)) {
           personsInt = 1;
         }
-        const result = await createRedEnvelope(passwordNum + "", amount, personsInt, network.rpcURL, privateKey, gas,network.id);
+        const result = await createRedEnvelope(passwordNum + "", amount, personsInt, network.rpcURL, privateKey, gas, network.id);
         console.log("result   ", result)
         if (result.success) {
           let redEnvelopeInfo = {
@@ -137,9 +161,9 @@ const SendRedEnvelopesScreen = () => {
             chainLogo: network.logoURI,
             tokenLogo: selectedCurrency?.logoURI,
             networkId: network.id,
-            chainName:network.name,
+            chainName: network.name,
           };
-  
+
           const recordResult = await sendRedPackageRecord(
             message != '' ? message : network.name,
             token?.symbol as string,
@@ -223,34 +247,13 @@ const SendRedEnvelopesScreen = () => {
     fetchPrivateKey();
     fetchTokens();
   }, [selectedNetwork, accountId, engine]);
-
-  // 根据主题设置颜色
-  const themeColors = {
-    light: {
-      backgroundBox: 'rgba(1, 136, 138, 0.05)',
-      text: 'rgba(0,0,0,0.5)',
-      inputText: 'black',
-      button: 'rgba(57, 209, 81, 1)',
-      buttonDisabled: '#42818A',
-    },
-    dark: {
-      backgroundBox: 'rgba(255, 255, 255, 0.05)',
-      text: 'rgba(255,255,255,0.5)',
-      inputText: 'white',
-      button: 'rgba(100, 200, 100, 1)',
-      buttonDisabled: '#818A81',
-    },
-  };
-
-  const colors = themeColors[themeVariant];
-
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.backgroundView }]}>
       <View style={styles.header}>
         <IconButton
           position="absolute"
           onPress={() => navigation.goBack()}
-          top={{ base: `${inset.top + 16}px`, sm: 8 }}
+          top={{ base: `16px`, sm: 8 }}
           left={{ base: 4, sm: 8 }}
           type="plain"
           size="lg"
@@ -281,7 +284,7 @@ const SendRedEnvelopesScreen = () => {
                   logoURI: t.logoURI,
                   address: t.address,
                 }))}
-                colors={colors} // 传递 colors 对象
+                colors={colors} // 确保传递了 colors 对象
               />
             </Box>
             <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2} style={styles.optionBoxBottom}>
@@ -289,7 +292,7 @@ const SendRedEnvelopesScreen = () => {
                 amount={amount}
                 setAmount={setAmount}
                 disabled={disabled}
-                colors={colors} // 传递 colors 对象
+                colors={colors} // 确保传递了 colors 对象
               />
             </Box>
             <Text style={{ marginTop: 5, marginBottom: 5, textAlign: 'right', color: 'rgba(66, 129, 138, 1)' }}>
@@ -301,7 +304,7 @@ const SendRedEnvelopesScreen = () => {
                 onNetworkChange={handleNetworkChange}
                 networks={evmNetworks}
                 disabled={disabled}
-                colors={colors} // 传递 colors 对象
+                colors={colors} // 确保传递了 colors 对象
               />
             </Box>
             <Box bg={colors.backgroundBox} borderRadius="lg" p={1} mb={2} style={styles.optionBoxBottom}>
@@ -309,7 +312,7 @@ const SendRedEnvelopesScreen = () => {
                 message={message}
                 setMessage={setMessage}
                 disabled={disabled}
-                colors={colors} // 传递 colors 对象
+                colors={colors} // 确保传递了 colors 对象
               />
             </Box>
           </View>
@@ -328,7 +331,7 @@ const SendRedEnvelopesScreen = () => {
           </View>
         </Box>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -366,7 +369,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   backgroundBox: {
-    backgroundColor: 'transparent',
     borderRadius: 10,
     paddingHorizontal: 16,
     paddingTop: 16
@@ -525,7 +527,7 @@ const AmountWithCurrencySelector = ({ amount, setAmount, disabled, colors }: { a
 const InputMessage = ({ message, setMessage, disabled, colors }: { message: string, setMessage: (message: string) => void, disabled: boolean, colors: { backgroundBox: string, text: string, inputText: string, button: string, buttonDisabled: string } }) => {
   const intl = useIntl();
 
-  const handleAmountChange = (value: string) => {  
+  const handleAmountChange = (value: string) => {
     setMessage(value);
   };
   return (
@@ -539,17 +541,17 @@ const InputMessage = ({ message, setMessage, disabled, colors }: { message: stri
       style={{ marginHorizontal: 15, marginVertical: 8 }}
     >
       <TextInput
-          placeholder={'请输入红包留言'}
-          placeholderTextColor={colors.text}
-          value={message}
-          onChangeText={handleAmountChange}
-          style={[{
-            color: colors.inputText,
-            fontWeight: message ? 'bold' : 'normal',
-            fontSize: 16, width: "100%", textAlign: 'center', padding: 4
-          }]}
-          editable={!disabled}
-        />
+        placeholder={intl.formatMessage({ id: 'title_redEnvelope_message' })}
+        placeholderTextColor={colors.text}
+        value={message}
+        onChangeText={handleAmountChange}
+        style={[{
+          color: colors.inputText,
+          fontWeight: message ? 'bold' : 'normal',
+          fontSize: 16, width: "100%", textAlign: 'center', padding: 4
+        }]}
+        editable={!disabled}
+      />
     </Box>
   );
 };

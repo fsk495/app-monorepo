@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"La billetera social descentralizada más útil",
   "upload_header_success":"Carga exitosa, esperando actualización",
   "upload_header_failed":"Carga fallida",
-  "title_redEnvelope_getChain":"Obtener token"
+  "title_redEnvelope_getChain":"Obtener token",
+  "title_redEnvelope_message": "Por favor ingrese el mensaje del sobre rojo"
 }

@@ -3021,5 +3021,6 @@
   "onboarding__landing_welcome_desc_new":"最好用的去中心社交钱包",
   "upload_header_success":"上传成功,等待刷新",
   "upload_header_failed":"上传失败",
-  "title_redEnvelope_getChain":"获得代币"
+  "title_redEnvelope_getChain":"获得代币",
+  "title_redEnvelope_message": "请输入红包留言"
 }

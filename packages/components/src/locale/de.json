@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Das nützlichste dezentrale Social Wallet",
   "upload_header_success":"Upload erfolgreich, warte auf Aktualisierung",
   "upload_header_failed":"Upload fehlgeschlagen",
-  "title_redEnvelope_getChain":"Token abrufen"
+  "title_redEnvelope_getChain":"Token abrufen",
+  "title_redEnvelope_message": "Bitte geben Sie die Nachricht im roten Umschlag ein"
 }

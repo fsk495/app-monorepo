@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Dompet sosial terdesentralisasi yang paling berguna",
   "upload_header_success":"Pengunggahan berhasil, menunggu penyegaran",
   "upload_header_failed":"Pengunggahan gagal",
-  "title_redEnvelope_getChain":"Dapatkan token"
+  "title_redEnvelope_getChain":"Dapatkan token",
+  "title_redEnvelope_message": "Silakan masukkan pesan amplop merah"
 }

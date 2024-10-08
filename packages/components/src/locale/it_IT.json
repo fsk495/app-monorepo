@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Il portafoglio sociale decentralizzato più utile",
   "upload_header_success":"Caricamento riuscito, in attesa di aggiornamento",
   "upload_header_failed":"Caricamento non riuscito",
-  "title_redEnvelope_getChain":"Ottieni token"
+  "title_redEnvelope_getChain":"Ottieni token",
+  "title_redEnvelope_message": "Inserisci il messaggio nella busta rossa"
 }

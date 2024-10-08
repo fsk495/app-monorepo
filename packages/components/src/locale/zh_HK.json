@@ -3021,5 +3021,6 @@
   "onboarding__landing_welcome_desc_new":"最實用的去中心化社交錢包",
   "upload_header_success":"上傳成功，等待刷新",
   "upload_header_failed":"上傳失敗",
-  "title_redEnvelope_getChain":"獲取代幣"
+  "title_redEnvelope_getChain":"獲取代幣",
+  "title_redEnvelope_message": "請輸入紅包留言"
 }

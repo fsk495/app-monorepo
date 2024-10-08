@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"가장 유용한 분산형 소셜 지갑",
   "upload_header_success":"업로드 성공, 새로 고침 대기 중",
   "upload_header_failed":"업로드 실패",
-  "title_redEnvelope_getChain":"토큰 받기"
+  "title_redEnvelope_getChain":"토큰 받기",
+  "title_redEnvelope_message": "빨간 봉투 메시지를 입력하세요."
 }

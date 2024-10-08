@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"सबसे उपयोगी विकेन्द्रीकृत सोशल वॉलेट",
   "upload_header_success":"अपलोड सफल, रिफ्रेश की प्रतीक्षा में",
   "upload_header_failed":"अपलोड विफल",
-  "title_redEnvelope_getChain":"टोकन प्राप्त करें"
+  "title_redEnvelope_getChain":"टोकन प्राप्त करें",
+  "title_redEnvelope_message": "कृपया लाल लिफाफा संदेश दर्ज करें"
 }

@@ -27,8 +27,6 @@ prepare_react_native_project!
 # 添加权限设置
 setup_permissions([
   'AppTrackingTransparency',
-  'Bluetooth',
-  'CalendarsWriteOnly',
   'Notifications',
   'SpeechRecognition',
   'Camera',

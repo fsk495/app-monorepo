@@ -3024,5 +3024,6 @@
   "onboarding__landing_welcome_desc_new":"المحفظة الاجتماعية اللامركزية الأكثر فائدة",
   "upload_header_success":"تم التحميل بنجاح، في انتظار التحديث",
   "upload_header_failed":"فشل التحميل",
-  "title_redEnvelope_getChain":"احصل على الرمز"
+  "title_redEnvelope_getChain":"احصل على الرمز",
+  "title_redEnvelope_message": "الرجاء إدخال الرسالة ذات الظرف الأحمر"
 }

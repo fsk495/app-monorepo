@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Ví xã hội phi tập trung hữu ích nhất",
   "upload_header_success":"Tải lên thành công, đang chờ làm mới",
   "upload_header_failed":"Tải lên không thành công",
-  "title_redEnvelope_getChain":"Nhận mã thông báo"
+  "title_redEnvelope_getChain":"Nhận mã thông báo",
+  "title_redEnvelope_message": "Vui lòng nhập tin nhắn phong bì đỏ"
 }

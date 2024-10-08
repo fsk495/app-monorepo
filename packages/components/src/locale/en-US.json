@@ -3024,5 +3024,6 @@
   "onboarding__landing_welcome_desc_new":"The most useful decentralized social wallet",
   "upload_header_success":"Upload successful, waiting for refresh",
   "upload_header_failed":"Upload failed",
-  "title_redEnvelope_getChain":"Get token"
+  "title_redEnvelope_getChain":"Get token",
+  "title_redEnvelope_message": "Please enter the red envelope message"
 }

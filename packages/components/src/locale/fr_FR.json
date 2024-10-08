@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Le portefeuille social décentralisé le plus utile",
   "upload_header_success":"Téléchargement réussi, en attente d'actualisation",
   "upload_header_failed":"Téléchargement échoué",
-  "title_redEnvelope_getChain":"Obtenir un jeton"
+  "title_redEnvelope_getChain":"Obtenir un jeton",
+  "title_redEnvelope_message": "Veuillez saisir le message de l'enveloppe rouge"
 }

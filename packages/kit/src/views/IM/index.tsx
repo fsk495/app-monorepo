@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, ActivityIndicator, StyleSheet, Platform, Alert, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, Platform, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
 import WebView from 'react-native-webview';
 import { saveIMData } from '../../utils/IMDataUtil';
 import { useActiveWalletAccount, useNavigation } from '../../hooks';
@@ -31,6 +31,7 @@ const ImScreen: React.FC = () => {
   const [im_id, SetIm_id] = useState<string>('');
   const [im_header, SetImHeader] = useState<string>('NIM');
   const [walletName, SetWalletName] = useState<string>('');
+  const [lang,SetLang] = useState<string>('zh')
   // 获取 Redux 状态中的权限信息
   const permissionsState = useSelector((state: IAppState) => state.IMPermissions[`${walletId}_${accountId}`]);
   const allowed = permissionsState?.allowed ?? false;
@@ -83,6 +84,16 @@ const ImScreen: React.FC = () => {
     webViewRef.current?.postMessage(JSON.stringify(params));
   };
 
+  useEffect(()=>{
+    console.log("intl.locale  ", intl.locale)
+    if (intl.locale === 'zh-CN' || intl.locale === 'zh-HK') {
+      SetLang('zh');
+    }
+    else {
+      SetLang('en')
+    }
+  }, [intl])
+
   useEffect(() => {
     const saveIM = async () => {
       let tempWallet: Wallet | undefined;
@@ -115,10 +126,9 @@ const ImScreen: React.FC = () => {
 
     saveIM();
   }, [walletId, accountAddress, networkId, sectionData]);
-
   useEffect(() => {
     if (imserver_id && imserver_token) {
-      const newUrl = `https://test.5wtalk.com/5wtalk/?ThirdLogin&tgid=${imserver_id}&token=${imserver_token}`;
+      const newUrl = `https://test.5wtalk.com/5wtalk/?ThirdLogin&tgid=${imserver_id}&token=${imserver_token}&lang=${lang}`;
       console.log("imserver_url   1   ", newUrl);
       SetImserver_url(newUrl);
       console.log("imserver_url   2   ", newUrl);
@@ -223,7 +233,7 @@ const ImScreen: React.FC = () => {
   }, [imserver_url, allowed]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {(allowed && imserver_url) ? (
         <WebView
           ref={webViewRef}
@@ -250,7 +260,7 @@ const ImScreen: React.FC = () => {
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

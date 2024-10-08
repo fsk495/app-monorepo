@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"সবচেয়ে দরকারী বিকেন্দ্রীভূত সামাজিক ওয়ালেট",
   "upload_header_success":"আপলোড সফল, রিফ্রেশের জন্য অপেক্ষা করছে৷",
   "upload_header_failed":"আপলোড ব্যর্থ হয়েছে",
-  "title_redEnvelope_getChain":"টোকেন পান"
+  "title_redEnvelope_getChain":"টোকেন পান",
+  "title_redEnvelope_message": "লাল খামের বার্তা লিখুন"
 }

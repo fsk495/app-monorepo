@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"最も便利な分散型ソーシャルウォレット",
   "upload_header_success":"アップロード成功、更新待ち",
   "upload_header_failed":"アップロード失敗",
-  "title_redEnvelope_getChain":"トークンを取得"
+  "title_redEnvelope_getChain":"トークンを取得",
+  "title_redEnvelope_message": "赤い封筒のメッセージを入力してください"
 }

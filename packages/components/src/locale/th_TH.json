@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"กระเป๋าเงินโซเชียลแบบกระจายอำนาจที่มีประโยชน์ที่สุด",
   "upload_header_success":"อัปโหลดสำเร็จแล้ว กำลังรอการรีเฟรช",
   "upload_header_failed":"อัปโหลดล้มเหลว",
-  "title_redEnvelope_getChain":"รับโทเค็น"
+  "title_redEnvelope_getChain":"รับโทเค็น",
+  "title_redEnvelope_message": "กรุณากรอกข้อความซองแดง"
 }

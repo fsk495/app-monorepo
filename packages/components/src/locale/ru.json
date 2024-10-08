@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Самый полезный децентрализованный социальный кошелек",
   "upload_header_success":"Загрузка прошла успешно, ожидание обновления",
   "upload_header_failed":"Загрузка не удалась",
-  "title_redEnvelope_getChain":"Получить токен"
+  "title_redEnvelope_getChain":"Получить токен",
+  "title_redEnvelope_message": "Пожалуйста, введите сообщение в красном конверте"
 }

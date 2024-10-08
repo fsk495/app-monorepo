@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"Хамгийн ашигтай, төвлөрсөн бус нийгмийн хэтэвч",
   "upload_header_success":"Амжилттай байршуулж, сэргээхийг хүлээж байна",
   "upload_header_failed":"Байршуулж чадсангүй",
-  "title_redEnvelope_getChain":"Токен авах"
+  "title_redEnvelope_getChain":"Токен авах",
+  "title_redEnvelope_message": "Улаан дугтуйтай мессежийг оруулна уу"
 }

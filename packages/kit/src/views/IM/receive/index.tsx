@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, ScrollView, Modal, Dimensions, LayoutChangeEvent } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, ScrollView, Modal, Dimensions, LayoutChangeEvent, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { IOnboardingRoutesParams } from '../../Onboarding/routes/types';
@@ -87,16 +87,23 @@ const ReceiveRedEnvelopesScreen = () => {
 
   const { themeVariant } = useTheme();
 
+  // 根据主题设置颜色
   const themeColors = {
     light: {
+      backgroundView:"white",
+      backgroundBox: 'rgba(1, 136, 138, 0.05)',
       text: 'rgba(0,0,0,0.5)',
       inputText: 'black',
-      backgroundBox: 'rgba(1, 136, 138, 0.05)',
+      button: 'rgba(57, 209, 81, 1)',
+      buttonDisabled: '#42818A',
     },
     dark: {
+      backgroundView:"rgba(19,19,26,1)",
+      backgroundBox: 'rgba(255, 255, 255, 0.05)',
       text: 'rgba(255,255,255,0.5)',
       inputText: 'white',
-      backgroundBox: 'rgba(255, 255, 255, 0.05)',
+      button: 'rgba(100, 200, 100, 1)',
+      buttonDisabled: '#818A81',
     },
   };
 
@@ -289,19 +296,19 @@ const ReceiveRedEnvelopesScreen = () => {
 
   if (!redEnvelopeInfo) {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={[styles.container,{backgroundColor:colors.backgroundView}]}>
         <Typography.Body1 color={colors.text}>{"暂无红包"}</Typography.Body1>
-      </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <View style={[styles.container]}>
-      <View style={[styles.header, { backgroundColor: colors.backgroundBox, paddingTop: inset.top }]}>
+    <SafeAreaView style={[styles.container,{backgroundColor:colors.backgroundView}]}>
+      <View style={[styles.header, { backgroundColor: colors.backgroundBox }]}>
         <IconButton
           position="absolute"
           onPress={() => navigation.goBack()}
-          top={{ base: `${inset.top + 16}px`, sm: 8 }}
+          top={{ base: `16px`, sm: 8 }}
           left={{ base: 4, sm: 8 }}
           type="plain"
           size="lg"
@@ -422,7 +429,7 @@ const ReceiveRedEnvelopesScreen = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 

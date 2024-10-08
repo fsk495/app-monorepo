@@ -3022,5 +3022,6 @@
   "onboarding__landing_welcome_desc_new":"A carteira social descentralizada mais útil",
   "upload_header_success":"Upload bem-sucedido, a aguardar atualização",
   "upload_header_failed":"Falha no upload",
-  "title_redEnvelope_getChain":"Obter token"
+  "title_redEnvelope_getChain":"Obter token",
+  "title_redEnvelope_message": "Por favor insira a mensagem do envelope vermelho"
 }
